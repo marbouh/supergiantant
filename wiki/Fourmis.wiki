@@ -1,4 +1,4 @@
-= *Algorithme des fourmis* =
+_Informations sur les algorithmes génétiques_
 
 
 = Liste des paramètres =
