@@ -1,1 +1,22 @@
 _Informations sur les algorithmes génétiques_
+
+
+
+= Liste des paramètres =
+
+    *  Le nombre  d’individus  est le nombre de le voyageur qui "recherchent" le plus court chemin.
+    * Le taux de reproduction est le nombre de nouveaux individus pour 100 dans l’ancienne génération créés par croisement des meilleurs individus.
+    * La probabilité de mutation d’un individu : nombre compris entre 0 et 1. Il reflète la probabilité d’un individu au sein de la population de pouvoir muter (0 = pas de mutation d’individu).
+    * La probabilité de mutation d’un gène :nombre compris entre 0 et 1. Il reflète la probabilité d’un gène au sein d’un individu de pouvoir muter (0 = pas de mutation de gène).
+
+
+
+= Liens Internet =
+  * http://interstices.info/jcms/c_37686/le-probleme-du-voyageur-de-commerce
+  * http://labo.algo.free.fr/pvc/algorithme_genetique.html
+  * http://sis.univ-tln.fr/~tollari/TER/AlgoGen1/node5.html
+  * http://magnin.plil.net/anciensite/coursag/voyageur/voyageur.html
+  * http://www.cppfrance.com/codes/PROBLEME-VOYAGEUR-COMMERCE-RESOLUTION-ALGORITHME-GENETIQUE-DEVCPP_27243.aspx
+  * http://files.codes-sources.com/fichier.aspx?ID=50777
+  * http://magnin.plil.net/spip.php?article33
+  * http://magnin.plil.net/spip.php?rubrique8&debut_articles=5#pagination_articles
