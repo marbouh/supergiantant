@@ -10,7 +10,6 @@ _Informations sur les algorithmes génétiques_
     * La probabilité de mutation d’un gène :nombre compris entre 0 et 1. Il reflète la probabilité d’un gène au sein d’un individu de pouvoir muter (0 = pas de mutation de gène).
 
 
-
 = Liens Internet =
   * http://interstices.info/jcms/c_37686/le-probleme-du-voyageur-de-commerce
   * http://labo.algo.free.fr/pvc/algorithme_genetique.html
