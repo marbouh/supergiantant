@@ -1,6 +1,6 @@
 _Informations sur les algorithmes génétiques_
 
-
+_Graphe non orienté ?_
 
 = Liste des paramètres =
 
@@ -12,8 +12,11 @@ _Informations sur les algorithmes génétiques_
 = Étapes de l'algorithme _tirer de interstices_ =
 Initialisation d'une population
 
- * Tout d’abord, chaque individu est évalué. Pour cela, on calcule la valeur de la fonction objectif, c’est-à-dire la longueur du cycle parcouru par le voyageur de commerce.
- * 
+ * Évaluation : Tout d’abord, chaque individu est évalué. Pour cela, on calcule la valeur de la fonction objectif, c’est-à-dire la longueur du cycle parcouru par le voyageur de commerce.
+ * Sélection : hasard ou les n meilleurs
+ * Croisement : plusieurs techniques dont le crossover. Recopier la première partie du parent 1 puis la seconde partie du parent 2 mais ne pas recopier les villes déjà utilisés. Mettre les villes non utilisés à la fin.
+ * Mutation : modification aléatoire d'une petite partie de certains individus (faible probabilité et souvent inversion de deux villes consécutives)
+
 
 = Liens Internet =
   * http://interstices.info/jcms/c_37686/le-probleme-du-voyageur-de-commerce
