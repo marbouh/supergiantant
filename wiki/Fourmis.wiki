@@ -1,0 +1,15 @@
+= *Algorithme des fourmis* =
+
+
+
+
+= Liste des paramètres =
+  * le nombre de fourmis
+  * la vitesse d'évaporation des phéromones
+  * _(le nombre de fourmis dans la ville i à l'instant t)_
+  * le nombre de nœuds du graphe
+  * la quantité de phéromones déposé par la fourmis
+
+= Questions =
+  * comment gérer le parcours simultané des fourmis ? (utilisation de thread ?)
+  *
