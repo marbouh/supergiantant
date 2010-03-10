@@ -1,0 +1,11 @@
+= Représentation des graphes =
+
+Les graphes seront représentés par des listes. 
+
+Chaque nœud sera composé :
+ * Un identifiant (nom de ville)
+ * Une liste d'arrêtes (route vers une autre ville)
+
+Chaque arrête sera composé :
+ * Un nœud de destinataire
+ * Un poids
