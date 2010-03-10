@@ -20,3 +20,5 @@ _Informations sur les algorithmes génétiques_
   * http://files.codes-sources.com/fichier.aspx?ID=50777
   * http://magnin.plil.net/spip.php?article33
   * http://magnin.plil.net/spip.php?rubrique8&debut_articles=5#pagination_articles
+  * http://www.cppfrance.com/codes/INTELLIGENCE-ARTIFICIELLE-ALGO-GENETIQUE-VOYAGEUR-COMMERCE-AVEC-QT_17731.aspx
+  * http://www.javafr.com/codes/APPLET-VOYAGEUR-COMMERCE-ALGORITHMES-GENETIQUES_41117.aspx
