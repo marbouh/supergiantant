@@ -1,8 +1,6 @@
 = *Algorithme des fourmis* =
 
 
-
-
 = Liste des paramètres =
   * le nombre de fourmis
   * la vitesse d'évaporation des phéromones
@@ -10,6 +8,14 @@
   * le nombre de nœuds du graphe
   * la quantité de phéromones déposé par la fourmis
 
+
+= Liste des liens =
+  * http://khayyam.developpez.com/articles/algo/voyageur-de-commerce/colonies-de-fourmis/
+  * http://fr.wikipedia.org/wiki/Algorithme_de_colonies_de_fourmis
+  * http://www.hant.li.univ-tours.fr/webhant/pub/Mon00a.phd.pdf
+  * http://www.kimonte.com/algorithme_de_colonies_de_fourmis.php
+  * http://www.setit.rnu.tn/last_edition/setit2007/TI/114.pdf
+  * http://www.ensta.fr/~diam/ro/index.php?id=main#meth_GA
+
 = Questions =
   * comment gérer le parcours simultané des fourmis ? (utilisation de thread ?)
-  *
