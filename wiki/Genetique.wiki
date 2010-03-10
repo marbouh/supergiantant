@@ -4,11 +4,16 @@ _Informations sur les algorithmes génétiques_
 
 = Liste des paramètres =
 
-    *  Le nombre  d’individus  est le nombre de le voyageur qui "recherchent" le plus court chemin.
-    * Le taux de reproduction est le nombre de nouveaux individus pour 100 dans l’ancienne génération créés par croisement des meilleurs individus.
-    * La probabilité de mutation d’un individu : nombre compris entre 0 et 1. Il reflète la probabilité d’un individu au sein de la population de pouvoir muter (0 = pas de mutation d’individu).
-    * La probabilité de mutation d’un gène :nombre compris entre 0 et 1. Il reflète la probabilité d’un gène au sein d’un individu de pouvoir muter (0 = pas de mutation de gène).
+ *  Le nombre  d’individus  est le nombre de le voyageur qui "recherchent" le plus court chemin.
+ * Le taux de reproduction est le nombre de nouveaux individus pour 100 dans l’ancienne génération créés par croisement des meilleurs individus.
+ * La probabilité de mutation d’un individu : nombre compris entre 0 et 1. Il reflète la probabilité d’un individu au sein de la population de pouvoir muter (0 = pas de mutation d’individu).
+ * La probabilité de mutation d’un gène :nombre compris entre 0 et 1. Il reflète la probabilité d’un gène au sein d’un individu de pouvoir muter (0 = pas de mutation de gène).
 
+= Étapes de l'algorithme _tirer de interstices_ =
+Initialisation d'une population
+
+ * Tout d’abord, chaque individu est évalué. Pour cela, on calcule la valeur de la fonction objectif, c’est-à-dire la longueur du cycle parcouru par le voyageur de commerce.
+ * 
 
 = Liens Internet =
   * http://interstices.info/jcms/c_37686/le-probleme-du-voyageur-de-commerce
