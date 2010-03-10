@@ -1,3 +1,0 @@
-= Format utilisé =
-Diagramme : *dia*
-Programmation : *java*
