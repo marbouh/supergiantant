@@ -1,3 +1,4 @@
 = Logiciel utilisé =
-Diagramme : *dia*
-Langage :   *java*
+
+ * Diagramme : *dia*
+ * Langage :   *java*
