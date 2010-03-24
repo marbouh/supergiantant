@@ -14,7 +14,7 @@ Paramètres pour les fourmis
 Paramètres du système "algo des fourmis"
   * le nombre de fourmis
   * _(le nombre de fourmis dans la ville i à l'instant t)_
-  * le nombre de nœuds du graphe
+  * le graphe qui doit être étudié
   * le nombre d'itérations
 
 
