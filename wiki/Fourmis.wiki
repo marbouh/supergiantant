@@ -19,7 +19,7 @@ Paramètres du système "algo des fourmis"
 
 
 
-= Liste des liens =
+Liste des liens
   * http://khayyam.developpez.com/articles/algo/voyageur-de-commerce/colonies-de-fourmis/
   * http://fr.wikipedia.org/wiki/Algorithme_de_colonies_de_fourmis
   * http://www.hant.li.univ-tours.fr/webhant/pub/Mon00a.phd.pdf
@@ -27,5 +27,5 @@ Paramètres du système "algo des fourmis"
   * http://www.setit.rnu.tn/last_edition/setit2007/TI/114.pdf
   * http://www.ensta.fr/~diam/ro/index.php?id=main#meth_GA
 
-= Questions =
+Questions
   * comment gérer le parcours simultané des fourmis ? (utilisation de thread ?)
