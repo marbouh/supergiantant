@@ -11,6 +11,10 @@ Chaque arrête sera composé :
  * Un poids
 
 
+
+
+
+
 Autre alternative
 
 Le graphe est constitué d'un tableau à deux dimensions de n sommets.
