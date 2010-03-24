@@ -1,12 +1,22 @@
 _Informations sur les algorithmes génétiques_
 
 
-= Liste des paramètres =
-  * le nombre de fourmis
+
+
+Paramètres pour les fourmis
   * la vitesse d'évaporation des phéromones
+  * la quantité de phéromones déposé par la fourmis
+  * état de la fourmis( cherche le premier nœud, parcours le graphe, revient et dépose du phéromone)
+  * liste des nœuds visités
+
+
+
+Paramètres du système "algo des fourmis"
+  * le nombre de fourmis
   * _(le nombre de fourmis dans la ville i à l'instant t)_
   * le nombre de nœuds du graphe
-  * la quantité de phéromones déposé par la fourmis
+  * le nombre d'itérations
+
 
 
 = Liste des liens =
