@@ -1,5 +1,9 @@
 package Algorithme.Graphe;
 
+
+/**
+ *  Class Graphe
+ */
 public class Graphe {
 
 	private int[][] poids;
@@ -11,9 +15,6 @@ public class Graphe {
 
 	}
 
-	
-	
-	
 	public int[][] getPoids() {
 		return poids;
 	}
