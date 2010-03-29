@@ -1,0 +1,13 @@
+* Algorithme
+** Graphe
+*** Supprimer la classe Arrête si inutile
+*** Peaufiner l'interface Graphe
+*** Revoir la classe GrapheMatrice
+*** Faire la classe GrapheList
+
+** Algorithme des fourmis
+** Algorithme génétique
+
+* Interface
+
+* Tests
