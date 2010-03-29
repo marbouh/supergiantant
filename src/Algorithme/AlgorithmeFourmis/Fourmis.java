@@ -1,4 +1,4 @@
-package AlgorithmeFourmis;
+package Algorithme.AlgorithmeFourmis;
 
 import java.util.ArrayList;
 
