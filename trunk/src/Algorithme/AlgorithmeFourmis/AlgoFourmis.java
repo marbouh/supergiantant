@@ -1,4 +1,4 @@
-package AlgorithmeFourmis;
+package Algorithme.AlgorithmeFourmis;
 
 import Graphe.Graphe;
 
