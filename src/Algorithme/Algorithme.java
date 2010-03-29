@@ -15,18 +15,18 @@ public abstract class Algorithme {
 	}
 
 	public void start() {
-		if (isRunning) {
+		if (isRunning)
 			throw new IllegalStateException("L'algorithme est déjà en fonctionement");
-		}
+
 		timeStop = 0;
 		isRunning = true;
 		timeStart = System.currentTimeMillis();
 	}
 
 	public void stop() {
-		if (!isRunning) {
+		if (!isRunning)
 			throw new IllegalStateException("L'algorightme n'est pas en court de fonctionement");
-		}
+
 		timeStop = System.currentTimeMillis();
 		isRunning = false;
 	}
