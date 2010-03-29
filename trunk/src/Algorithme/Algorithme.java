@@ -1,11 +1,13 @@
 package Algorithme;
 
+import Algorithme.Graphe.Graphe;
+
 /**
  *  Abstract class Algorithme : 
  */
 public abstract class Algorithme {
-	private long timeStart;
-	private long timeStop;
+	private double timeStart;
+	private double timeStop;
 	private boolean isRunning;
 
 	public Algorithme() {
