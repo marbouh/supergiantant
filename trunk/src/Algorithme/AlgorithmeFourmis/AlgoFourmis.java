@@ -1,6 +1,6 @@
 package Algorithme.AlgorithmeFourmis;
 
-import Graphe.Graphe;
+import Algorithme.Graphe.Graphe;
 
 
 public class AlgoFourmis{
@@ -9,6 +9,7 @@ public class AlgoFourmis{
 	private int nbreIterations;
 	private int[][] pheromone;	
 	private Graphe probleme;
+	private Graphe resultant;
 	
 	public AlgoFourmis(int nbreFourmis, int nbreIterations, Graphe probleme)
 	{

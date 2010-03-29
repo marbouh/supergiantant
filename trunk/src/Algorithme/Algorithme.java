@@ -1,13 +1,16 @@
 package Algorithme;
 
+/**
+ *  Abstract class Algorithme : 
+ */
 public abstract class Algorithme {
 	private long timeStart;
 	private long timeStop;
 	private boolean isRunning;
 
 	public Algorithme() {
-		timeStart = 0.0;
-		timeStop = 0.0;
+		timeStart = 0;
+		timeStop = 0;
 		isRunning = false;
 	}
 
@@ -15,7 +18,7 @@ public abstract class Algorithme {
 		if (isRunning) {
 			throw new IllegalStateException("L'algorithme est déjà en fonctionement");
 		}
-		timeStop = 0.0;
+		timeStop = 0;
 		isRunning = true;
 		timeStart = System.currentTimeMillis();
 	}
@@ -39,4 +42,6 @@ public abstract class Algorithme {
 			time = timeStop - timeStart;
 		return time;
 	}
+
+	public abstract Graphe getResultant();
 }

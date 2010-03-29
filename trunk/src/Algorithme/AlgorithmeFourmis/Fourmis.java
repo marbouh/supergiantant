@@ -2,6 +2,9 @@ package Algorithme.AlgorithmeFourmis;
 
 import java.util.ArrayList;
 
+/**
+ *  Class Fourmis : Représente une entitée fourmis dans l'algorithme des fourmis
+ */
 public class Fourmis
 {
 	
