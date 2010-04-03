@@ -5,7 +5,8 @@ import Algorithme.Graphe.Graphe;
 /**
  *  Abstract class Algorithme : 
  */
-public abstract class Algorithme {
+public abstract class Algorithme
+{
 	private double timeStart;
 	private double timeStop;
 	private boolean isRunning;
