@@ -6,7 +6,8 @@ import java.util.Iterator;
 /**
  * Class GraphList
  */
-public class GrapheList implements Graphe {
+public class GrapheList implements Graphe 
+{
 	private String nom;
 	private ArrayList<Noeud> noeuds;
 	
@@ -35,9 +36,9 @@ public class GrapheList implements Graphe {
 	}
 
 	public boolean checkTrajet(Noeud noeudDepart, Noeud noeudArrivee) {
-		Noeud n;
+		Noeud n = null;
 
-		for (Iterator it = noeudDepart.getArretes(); it.hasNext(); n = (Noeud) it.next())
+		for (Iterator it = noeudDepart.getArretes().iterator(); it.hasNext(); n = (Noeud) it.next())
 			if (n.compareTo(noeudArrivee))
 				return true;
 		return false;
@@ -46,7 +47,7 @@ public class GrapheList implements Graphe {
 	public double getPoids(Noeud noeudDepart, Noeud noeudArrivee) {
 		Noeud n;
 
-		for (Iterator it = noeud.getArretes(); it.hasNext(); n = (Noeud) it.next())
+		for (Iterator it = noeudDepart.getArretes().iterator(); it.hasNext(); n = (Noeud) it.next())
 			if (n.compareTo(noeudArrivee))
 				return /* valeur du poids ^^ */;
 	}
