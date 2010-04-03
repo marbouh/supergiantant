@@ -11,4 +11,9 @@ public class Noeud {
 	public int getId() { // le mettre en droit de package
 		return id;
 	}
+
+	public boolean compareTo(Noeud noeudArrivee) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
