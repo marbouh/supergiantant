@@ -6,7 +6,7 @@
 *** Faire la classe GrapheList
 
 ** Algorithme des fourmis
-** Algorithme gÃ©nÃ©tique
+** Algorithme génétique
 
 * Interface
 
