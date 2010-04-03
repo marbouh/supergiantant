@@ -28,7 +28,7 @@ public class Fourmis
 		this.setAlgo(algo);
 	}
 	
-	
+	// Non fonctionnel
 	public void trouverChemin()
 	{
 		int poidsMinimum = 9999999;
@@ -39,7 +39,7 @@ public class Fourmis
 		{
 			for(int i = 0; i < algo.getNbreNoeuds();i++)
 			{//On regarde s'il y a un chemin entre la ville où est la fourmis et une autre ville
-				int poids = algo.recupererPoids(noeudCourant, i);
+				/*int poids = algo.recupererPoids(noeudCourant, i);
 				if(poids != 0)
 				{
 					if(!aDejaEteVisite(i) && poidsMinimum > poids)
@@ -47,7 +47,7 @@ public class Fourmis
 						poidsMinimum = poids;
 						noeudSuivant = i;
 					}
-				}
+				}*/
 			}
 			if(noeudSuivant != -1)
 			{

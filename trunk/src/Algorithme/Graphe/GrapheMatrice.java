@@ -22,7 +22,7 @@ public class GrapheMatrice implements Graphe {
 	/**
 	 *  Constructeur de copie
 	 */
-	public Graphe(String nom, Graphe graphe) {
+	public GrapheMatrice(String nom, Graphe graphe) {
 		setNbreNoeuds(graphe.getNbreNoeuds());
 		this.nom = nom;
 	}
@@ -47,8 +47,8 @@ public class GrapheMatrice implements Graphe {
 
 		int i = noeud.getId();
 		for (int j = 0; j < nbreNoeuds; j++) {
-			if (poids[i][j] != 0)
-				noeuds.add(this.noeud.get(j));
+			//if (poids[i][j] != 0)
+				//noeuds.add(this.noeud.get(j));
 		}
 
 		return noeuds;
@@ -93,11 +93,4 @@ public class GrapheMatrice implements Graphe {
 		return false;
 	}
 
-	@Override
-	public void creerGraphe() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
 }
