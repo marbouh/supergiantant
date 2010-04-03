@@ -46,12 +46,7 @@ public class AlgoFourmis{
 		pheromone[noeud1][noeud2] = nbrePheromones;
 	}
 	
-	public int recupererPoids(int noeud, int noeud2)
-	{
-		return probleme.recupererPoids(noeud, noeud2);
-	}
-
-	
+		
 	public void misAJourPheromone()
 	{
 		
@@ -99,10 +94,7 @@ public class AlgoFourmis{
 	{
 		return probleme.getNbreNoeuds();
 	}
-	public int[][] getPoids()
-	{
-		return probleme.getPoids();
-	}
+
 
 	public void setResultant(Graphe resultant) {
 		this.resultant = resultant;

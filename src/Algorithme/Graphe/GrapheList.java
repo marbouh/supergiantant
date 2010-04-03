@@ -26,10 +26,10 @@ public class GrapheList implements Graphe
 
 	public ArrayList<Noeud> getSuivants(Noeud noeud) {
 		ArrayList<Noeud> ns = new ArrayList<Noeud>();
-		Noeud n;
+		Noeud n = null;
 		ArrayList<Arrete> a = noeud.getArretes();
 
-		for (Iterator it = a.iterator(); it.hasNext(); n = it.next())
+		for (Iterator it = a.iterator(); it.hasNext(); n = (Noeud) it.next())
 			ns.add(n);
 		
 		return ns;
@@ -44,12 +44,14 @@ public class GrapheList implements Graphe
 		return false;
 	}
 
+	// Non fonctionnel
 	public double getPoids(Noeud noeudDepart, Noeud noeudArrivee) {
-		Noeud n;
+		Noeud n=null;
 
 		for (Iterator it = noeudDepart.getArretes().iterator(); it.hasNext(); n = (Noeud) it.next())
 			if (n.compareTo(noeudArrivee))
-				return /* valeur du poids ^^ */;
+				return -1/* valeur du poids ^^ */;
+		return -1;// à modifier
 	}
 
 
@@ -61,13 +63,6 @@ public class GrapheList implements Graphe
 
 	@Override
 	public void setNbreNoeuds(int nbreNoeuds) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
-	@Override
-	public void creerGraphe() {
 		// TODO Auto-generated method stub
 		
 	}
