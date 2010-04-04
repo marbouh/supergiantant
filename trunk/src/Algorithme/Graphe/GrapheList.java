@@ -27,49 +27,51 @@ public class GrapheList implements Graphe
 	public ArrayList<Noeud> getSuivants(Noeud noeud) {
 		ArrayList<Noeud> ns = new ArrayList<Noeud>();
 		Noeud n = null;
-		ArrayList<Arrete> a = noeud.getArretes();
+		ArrayList<ArreteList> a = noeud.getDestinations();
 
 		for (Iterator it = a.iterator(); it.hasNext(); n = (Noeud) it.next())
-			ns.add(n);
+			ns.add(n.getArrivee());
 		
 		return ns;
 	}
 
 	public boolean checkTrajet(Noeud noeudDepart, Noeud noeudArrivee) {
-		Noeud n = null;
+		ArreteList trajet;
 
-		for (Iterator it = noeudDepart.getArretes().iterator(); it.hasNext(); n = (Noeud) it.next())
-			if (n.compareTo(noeudArrivee))
+		for (Iterator it = noeudDepart.getDestinations().iterator(); it.hasNext(); trajet = (ArreteList) it.next())
+			if (trajet.checkTrajet(noeudDepart, noeudArrivee))
 				return true;
 		return false;
 	}
 
 	// Non fonctionnel
 	public double getPoids(Noeud noeudDepart, Noeud noeudArrivee) {
-		Noeud n=null;
+		ArreteList trajet;
 
-		for (Iterator it = noeudDepart.getArretes().iterator(); it.hasNext(); n = (Noeud) it.next())
-			if (n.compareTo(noeudArrivee))
-				return -1/* valeur du poids ^^ */;
-		return -1;// à modifier
+		for (Iterator it = noeudDepart.getDestinations().iterator(); it.hasNext(); trajet = (ArreteList) it.next())
+			if (trajet.checkTrajet(noeudDepart, noeudArrivee))
+				return trajet.getPoids();
+		return -1;
 	}
 
-
-	@Override
 	public int getNbreNoeuds() {
-		// TODO Auto-generated method stub
-		return 0;
+		return noeuds.size();
 	}
 
-	@Override
 	public void setNbreNoeuds(int nbreNoeuds) {
-		// TODO Auto-generated method stub
-		
 	}
 
-	@Override
 	public void setPoids(Noeud noeudDepart, Noeud noeudArrivee, double poids) {
-		// TODO Auto-generated method stub
-		
+		ArreteList trajet;
+		boolean estPresent = false;
+
+		for (Iterator it = noeudDepart.getDestinations().iterator(); it.hasNext(); trajet = (ArreteList) it.next()) {
+			if (trajet.checkTrajet(noeudDepart, noeudArrivee)) {
+				trajet.setPoids(poids);
+				estPresent = true;
+			}
+		}
+		if (!estPresent) 
+			noeudDepart.addDestination(NoeudArrivee, poids);
 	}
 }
