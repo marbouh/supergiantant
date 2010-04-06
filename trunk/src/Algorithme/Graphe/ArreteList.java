@@ -34,7 +34,7 @@ public class ArreteList
 		this.arrivee = arrivee;
 	}
 
-	public Noeu getArrivee() {
+	public Noeud getArrivee() {
 		return arrivee;
 	}
 
