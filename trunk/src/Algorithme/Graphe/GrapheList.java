@@ -72,6 +72,12 @@ public class GrapheList implements Graphe
 			}
 		}
 		if (!estPresent) 
-			noeudDepart.addDestination(NoeudArrivee, poids);
+			noeudDepart.addDestination(noeudArrivee, poids);
+	}
+
+	@Override
+	public void vider() {
+		
+		
 	}
 }

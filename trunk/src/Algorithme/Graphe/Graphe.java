@@ -14,4 +14,5 @@ public interface Graphe {
 	public void setPoids(Noeud noeudDepart, Noeud noeudArrivee, double poids);
 	public int getNbreNoeuds();
 	public void setNbreNoeuds(int nbreNoeuds);
+	public void vider();
 }

@@ -35,20 +35,23 @@ public class Fourmis
 	{
 		double poidsMinimum = 9999999;
 		Noeud noeudSuivant = null;
+		Noeud noeudPossible = null;
 		/* Le noeud où se situe la fourmis est le dernier noeud qui a été visité */
 		Noeud noeudCourant = listeNoeudsVisites.get(listeNoeudsVisites.size()-1);
 		if(etat == Etat.ParcoursGraphe)
 		{
-			for(int i = 0; i < algo.getNbreNoeuds();i++)
-			{//On regarde s'il y a un chemin entre la ville où est la fourmis et une autre ville
-				double poids = algo.getProbleme().getPoids(noeudCourant, new Noeud(i));
+			for(int i = 0; i < algo.getProbleme().getSuivants(noeudCourant).size();i++)
+			{//On parcours la liste des chemins possibles depuis le noeud courant où est la fourmis
+				noeudPossible = algo.getProbleme().getSuivants(noeudCourant).get(i);
+				double poids = algo.getProbleme().getPoids(noeudCourant, noeudSuivant);
+				
 				if(poids != 0)
 				{
-					/*if(!aDejaEteVisite(i) && poidsMinimum > poids)
+					if(!aDejaEteVisite(noeudPossible) && poidsMinimum > poids)
 					{
 						poidsMinimum = poids;
-						noeudSuivant = i;
-					}*/
+						noeudSuivant = noeudPossible;
+					}
 				}
 			}
 			if(noeudSuivant != null)

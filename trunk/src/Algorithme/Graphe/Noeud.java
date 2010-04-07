@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Noeud {
 	private int id;
 	private String nom; // Ã  voir
-	private ArrayList<Arrete> arretes;//à ajouter ou mettre le type NoeudList ?
+	private NoeudList listeArrete;//à ajouter ou mettre le type NoeudList ?
 	
 	public Noeud(int id) {
 		this.id = id;
@@ -22,10 +22,10 @@ public class Noeud {
 		return false;
 	}
 
-	public ArrayList<Arrete> getArretes() {
+	/*public ArrayList<Arrete> getArretes() {
 		// TODO Auto-generated method stub
 		return null;
-	}
+	}*/
 
 	public void setNom(String nom) {
 		this.nom = nom;
@@ -34,4 +34,5 @@ public class Noeud {
 	public String getNom() {
 		return nom;
 	}
+
 }
