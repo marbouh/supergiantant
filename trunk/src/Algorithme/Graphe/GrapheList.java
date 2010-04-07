@@ -75,9 +75,7 @@ public class GrapheList implements Graphe
 			noeudDepart.addDestination(noeudArrivee, poids);
 	}
 
-	@Override
 	public void vider() {
-		
-		
+		noeuds.clear();
 	}
 }
