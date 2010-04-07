@@ -1,6 +1,7 @@
 package Algorithme.AlgorithmeFourmis;
 
 import Algorithme.Graphe.Graphe;
+import Algorithme.Graphe.Noeud;
 
 /**
  *  Class AlgoFourmis : 
@@ -11,7 +12,7 @@ public class AlgoFourmis{
 	private int nbreIterations;
 	private int[][] pheromone;    // Utilisation du type graphe ?
 	private Graphe probleme;
-	private Graphe resultant;
+	private Graphe resultant;//c'est ici que l'on met la pheromone ?
 	
 	public AlgoFourmis(int nbreFourmis, int nbreIterations, Graphe probleme)
 	{
@@ -41,9 +42,11 @@ public class AlgoFourmis{
 	 */
 	
 	
-	public void deposerPheromone(int noeud1, int noeud2, int nbrePheromones)
+	public void deposerPheromone(Noeud noeud1, Noeud noeud2, int nbrePheromones)
 	{
-		pheromone[noeud1][noeud2] = nbrePheromones;
+	
+		
+		
 	}
 	
 		
@@ -94,12 +97,9 @@ public class AlgoFourmis{
 	{
 		return probleme.getNbreNoeuds();
 	}
-
-
 	public void setResultant(Graphe resultant) {
 		this.resultant = resultant;
 	}
-
 	public Graphe getResultant() {
 		return resultant;
 	}
