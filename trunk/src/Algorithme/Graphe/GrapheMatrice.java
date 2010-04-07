@@ -27,6 +27,9 @@ public class GrapheMatrice implements Graphe {
 		this.nom = nom;
 	}
 
+	/*
+	 * 
+	 */
 	public void vider() {
 		for (int i = 0; i < nbreNoeuds; i++)
 			for (int j = 0; j < nbreNoeuds; j++)
@@ -41,7 +44,7 @@ public class GrapheMatrice implements Graphe {
 		return nom;
 	}
 
-	// Non fonctionnel : this.noeuds, non dÃ©clarer
+	// Non fonctionnel : this.noeuds, non déclaré
 	public ArrayList<Noeud> getSuivants(Noeud noeud) {
 		ArrayList<Noeud> noeuds = new ArrayList<Noeud>();
 

@@ -2,6 +2,8 @@ package Algorithme.AlgorithmeFourmis;
 
 import java.util.ArrayList;
 
+import Algorithme.Graphe.Noeud;
+
 /**
  *  Class Fourmis : ReprÃ©sente une entitÃ©e fourmis dans l'algorithme des fourmis
  */
@@ -14,7 +16,7 @@ public class Fourmis
 	};
 	private int vitesseEvapPheromone;
 	private int nbrePheromonesADeposer;
-	private ArrayList<Integer> listeNoeudsVisites;
+	private ArrayList<Noeud> listeNoeudsVisites;
 	private Etat etat;
 	private AlgoFourmis algo;
 	
@@ -24,32 +26,32 @@ public class Fourmis
 		this.nbrePheromonesADeposer = nbrePheromoneDeposes;
 		//this.setEtat(Etat.CherchePremierNoeud);
 		this.setEtat(Etat.ParcoursGraphe);
-		this.listeNoeudsVisites = new ArrayList<Integer>();
+		this.listeNoeudsVisites = new ArrayList<Noeud>();
 		this.setAlgo(algo);
 	}
 	
 	// Non fonctionnel
 	public void trouverChemin()
 	{
-		int poidsMinimum = 9999999;
-		int noeudSuivant =-1;
+		double poidsMinimum = 9999999;
+		Noeud noeudSuivant = null;
 		/* Le noeud où se situe la fourmis est le dernier noeud qui a été visité */
-		int noeudCourant = listeNoeudsVisites.get(listeNoeudsVisites.size()-1);
+		Noeud noeudCourant = listeNoeudsVisites.get(listeNoeudsVisites.size()-1);
 		if(etat == Etat.ParcoursGraphe)
 		{
 			for(int i = 0; i < algo.getNbreNoeuds();i++)
 			{//On regarde s'il y a un chemin entre la ville où est la fourmis et une autre ville
-				/*int poids = algo.recupererPoids(noeudCourant, i);
+				double poids = algo.getProbleme().getPoids(noeudCourant, new Noeud(i));
 				if(poids != 0)
 				{
-					if(!aDejaEteVisite(i) && poidsMinimum > poids)
+					/*if(!aDejaEteVisite(i) && poidsMinimum > poids)
 					{
 						poidsMinimum = poids;
 						noeudSuivant = i;
-					}
-				}*/
+					}*/
+				}
 			}
-			if(noeudSuivant != -1)
+			if(noeudSuivant != null)
 			{
 				listeNoeudsVisites.add(noeudSuivant);
 			}
@@ -69,11 +71,11 @@ public class Fourmis
 		}
 	}
 	
-	public boolean aDejaEteVisite(int noeud)
+	public boolean aDejaEteVisite(Noeud noeud)
 	{
 		for(int i = 0;i < listeNoeudsVisites.size();i++)
 		{
-			if(listeNoeudsVisites.get(i) == noeud)
+			if(listeNoeudsVisites.get(i).compareTo(noeud))
 				return true;			
 		}
 		return false;
@@ -91,10 +93,10 @@ public class Fourmis
 	public void setNbrePheromonesADeposer(int nbrePheromonesADeposer) {
 		this.nbrePheromonesADeposer = nbrePheromonesADeposer;
 	}
-	public void setListeNoeudsVisites(ArrayList<Integer> listeNoeudsVisites) {
+	public void setListeNoeudsVisites(ArrayList<Noeud> listeNoeudsVisites) {
 		this.listeNoeudsVisites = listeNoeudsVisites;
 	}
-	public ArrayList<Integer> getListeNoeudsVisites() {
+	public ArrayList<Noeud> getListeNoeudsVisites() {
 		return listeNoeudsVisites;
 	}
 	public void setAlgo(AlgoFourmis algo) {
