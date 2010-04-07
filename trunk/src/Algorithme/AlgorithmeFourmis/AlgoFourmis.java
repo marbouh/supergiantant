@@ -2,8 +2,9 @@ package Algorithme.AlgorithmeFourmis;
 
 import java.util.ArrayList;
 
+import Algorithme.Graphe.ArreteList;
 import Algorithme.Graphe.Graphe;
-import Algorithme.Graphe.Noeud;
+import Algorithme.Graphe.NoeudList;
 
 /**
  *  Class AlgoFourmis : 
@@ -12,12 +13,13 @@ public class AlgoFourmis{
 
 	private int nbreFourmis;
 	private int nbreIterations;
-	//private int[][] pheromone;    // Utilisation du type graphe ?
+	private ArrayList<Fourmis> listeFourmis;
 	private Graphe probleme;
 	private Graphe resultant;//c'est dans ce graphe que l'on dépose le phéromone
 	
 	public AlgoFourmis(int nbreFourmis, int nbreIterations, Graphe probleme)
 	{
+		listeFourmis = new ArrayList<Fourmis>();
 		this.nbreFourmis = nbreFourmis;
 		this.nbreIterations = nbreIterations;
 		this.setProbleme(probleme);
@@ -36,19 +38,42 @@ public class AlgoFourmis{
 	 * 
 	 */
 	
-	public void traiterProbleme()
+	/*
+	 * Fonction permettant de créer l'ensemble des fourmis qui seront utilisées pour l'algorithme
+	 */
+	public void creerFourmis(NoeudList noeudDepart, int vitesseEvaporation,int nbrePheromoneADeposer)
 	{
-		ArrayList<Fourmis> listeFourmis = new ArrayList<Fourmis>();
-		Noeud noeudDepart = null;
-		//Création des fourmis
 		for(int j=0; j < nbreFourmis;j++)
 		{
-			Fourmis f = new Fourmis(10,5,this);
-
+			Fourmis f = new Fourmis(nbrePheromoneADeposer,vitesseEvaporation,this);
 			f.ajouterNoeudVisite(noeudDepart);
 			listeFourmis.add(f);
 		}
+	
+	}
+	
+	/*
+	 * Fonction affectant les fourmis aléatoirement sur les différents noeuds suivants le départ
+	 */
+	public void affecterPremierNoeud()
+	{
+		NoeudList noeudDepart = listeFourmis.get(0).getListeNoeudsVisites().get(0);
+		ArrayList<ArreteList> listeDestinations = noeudDepart.getDestinations();
+		int random = -1;//permet de définir aléatoirement le chemin qui doit être pris
 		
+		for(int j=0; j < listeFourmis.size();j++)
+		{
+			random = (int)(Math.random() * (listeDestinations.size()));
+			ArreteList chemin = listeDestinations.get(random);
+			listeFourmis.get(j).ajouterNoeudVisite((NoeudList) chemin.getArrivee());
+		}
+			
+	}
+	
+	
+	public void traiterProbleme()
+	{
+				
 		for(int i=0; i < nbreIterations;i++)
 		{
 			
@@ -64,7 +89,7 @@ public class AlgoFourmis{
 	
 	
 	
-	public void deposerPheromone(Noeud noeudDepart, Noeud noeudArrivee, int nbrePheromones)
+	public void deposerPheromone(NoeudList noeudDepart, NoeudList noeudArrivee, int nbrePheromones)
 	{
 		resultant.setPoids(noeudDepart, noeudArrivee, nbrePheromones);
 	}
@@ -103,6 +128,14 @@ public class AlgoFourmis{
 	}
 	public Graphe getResultant() {
 		return resultant;
+	}
+
+	public void setListeFourmis(ArrayList<Fourmis> listeFourmis) {
+		this.listeFourmis = listeFourmis;
+	}
+
+	public ArrayList<Fourmis> getListeFourmis() {
+		return listeFourmis;
 	}
 	
 }

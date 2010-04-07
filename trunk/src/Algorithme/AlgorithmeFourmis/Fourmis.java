@@ -2,7 +2,7 @@ package Algorithme.AlgorithmeFourmis;
 
 import java.util.ArrayList;
 
-import Algorithme.Graphe.Noeud;
+import Algorithme.Graphe.NoeudList;
 
 /**
  *  Class Fourmis : ReprÃ©sente une entitÃ©e fourmis dans l'algorithme des fourmis
@@ -16,7 +16,7 @@ public class Fourmis
 	};
 	private int vitesseEvapPheromone;
 	private int nbrePheromonesADeposer;
-	private ArrayList<Noeud> listeNoeudsVisites;
+	private ArrayList<NoeudList> listeNoeudsVisites;
 	private Etat etat;
 	private AlgoFourmis algo;
 	
@@ -26,7 +26,7 @@ public class Fourmis
 		this.nbrePheromonesADeposer = nbrePheromoneDeposes;
 		this.setEtat(Etat.CherchePremierNoeud);
 		//this.setEtat(Etat.ParcoursGraphe);
-		this.listeNoeudsVisites = new ArrayList<Noeud>();
+		this.listeNoeudsVisites = new ArrayList<NoeudList>();
 		this.setAlgo(algo);
 	}
 	
@@ -34,15 +34,15 @@ public class Fourmis
 	public void trouverChemin()
 	{
 		double poidsMinimum = 9999999;
-		Noeud noeudSuivant = null;
-		Noeud noeudPossible = null;
+		NoeudList noeudSuivant = null;
+		NoeudList noeudPossible = null;
 		/* Le noeud où se situe la fourmis est le dernier noeud qui a été visité */
-		Noeud noeudCourant = listeNoeudsVisites.get(listeNoeudsVisites.size()-1);
+		NoeudList noeudCourant = listeNoeudsVisites.get(listeNoeudsVisites.size()-1);
 		if(etat == Etat.ParcoursGraphe)
 		{
 			for(int i = 0; i < algo.getProbleme().getSuivants(noeudCourant).size();i++)
 			{//On parcours la liste des chemins possibles depuis le noeud courant où est la fourmis
-				noeudPossible = algo.getProbleme().getSuivants(noeudCourant).get(i);
+				noeudPossible = (NoeudList) algo.getProbleme().getSuivants(noeudCourant).get(i);
 				double poids = algo.getProbleme().getPoids(noeudCourant, noeudSuivant);
 				
 				if(poids != 0)
@@ -74,12 +74,12 @@ public class Fourmis
 		}
 	}
 	
-	public void ajouterNoeudVisite(Noeud noeud)
+	public void ajouterNoeudVisite(NoeudList noeud)
 	{
 		listeNoeudsVisites.add(noeud);
 	}
 	
-	public boolean aDejaEteVisite(Noeud noeud)
+	public boolean aDejaEteVisite(NoeudList noeud)
 	{
 		for(int i = 0;i < listeNoeudsVisites.size();i++)
 		{
@@ -101,10 +101,10 @@ public class Fourmis
 	public void setNbrePheromonesADeposer(int nbrePheromonesADeposer) {
 		this.nbrePheromonesADeposer = nbrePheromonesADeposer;
 	}
-	public void setListeNoeudsVisites(ArrayList<Noeud> listeNoeudsVisites) {
+	public void setListeNoeudsVisites(ArrayList<NoeudList> listeNoeudsVisites) {
 		this.listeNoeudsVisites = listeNoeudsVisites;
 	}
-	public ArrayList<Noeud> getListeNoeudsVisites() {
+	public ArrayList<NoeudList> getListeNoeudsVisites() {
 		return listeNoeudsVisites;
 	}
 	public void setAlgo(AlgoFourmis algo) {
