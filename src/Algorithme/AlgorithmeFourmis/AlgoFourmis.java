@@ -10,9 +10,9 @@ public class AlgoFourmis{
 
 	private int nbreFourmis;
 	private int nbreIterations;
-	private int[][] pheromone;    // Utilisation du type graphe ?
+	//private int[][] pheromone;    // Utilisation du type graphe ?
 	private Graphe probleme;
-	private Graphe resultant;//c'est ici que l'on met la pheromone ?
+	private Graphe resultant;//c'est dans ce graphe que l'on dépose le phéromone
 	
 	public AlgoFourmis(int nbreFourmis, int nbreIterations, Graphe probleme)
 	{
@@ -21,14 +21,10 @@ public class AlgoFourmis{
 		this.setProbleme(probleme);
 		
 		int nbreNoeuds = probleme.getNbreNoeuds();
-		pheromone = new int[nbreNoeuds][nbreNoeuds];
 		
-		// Utiliser la fonction vider du graphe
-		for(int i = 0;i < nbreNoeuds;i++)
-		{
-			for(int j = 0; j < nbreNoeuds;j++)
-				pheromone[i][j]= 0;
-		}
+		resultant = probleme;
+		//On efface tous les poids des arrêtes afin de déposer le phéromone
+		resultant.vider();
 	}
 	
 	/*Fonctions à coder
@@ -42,11 +38,9 @@ public class AlgoFourmis{
 	 */
 	
 	
-	public void deposerPheromone(Noeud noeud1, Noeud noeud2, int nbrePheromones)
+	public void deposerPheromone(Noeud noeudDepart, Noeud noeudArrivee, int nbrePheromones)
 	{
-	
-		
-		
+		resultant.setPoids(noeudDepart, noeudArrivee, nbrePheromones);
 	}
 	
 		
@@ -56,25 +50,6 @@ public class AlgoFourmis{
 		
 	}
 	
-	public void afficherPheromone()
-	{
-		for(int i=0; i < pheromone.length ;i++)
-		{
-			System.out.println("-------------------------------");
-			for(int j=0; j< pheromone.length;j++)
-			{
-				System.out.print(" | "+pheromone[i][j]);
-			}
-			System.out.println(" |");
-		}
-	}
-	
-   	public int[][] getPheromone() {                /// Devrait Ãªtre en privÃ©e 
-		return pheromone;                          //| (Fonctionnement interne de la classe)
-	}                                              //| L'utilisateur de la classe devrait seulement
-	public void setPheromone(int[][] pheromone) {  //| choisir le taux de phÃ©romone dÃ©posÃ© par une fourmis
-		this.pheromone = pheromone;                //| et le taux de dissipation.
-	}                                              //\
 	public int getNbreFourmis() {
 		return nbreFourmis;
 	}
