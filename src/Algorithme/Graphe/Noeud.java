@@ -1,12 +1,9 @@
 package Algorithme.Graphe;
 
-import java.util.ArrayList;
-
 public class Noeud {
 	private int id;
 	private String nom; // Ã  voir
-	private NoeudList listeArrete;//à ajouter ou mettre le type NoeudList ?
-	
+		
 	public Noeud(int id) {
 		this.id = id;
 	}
