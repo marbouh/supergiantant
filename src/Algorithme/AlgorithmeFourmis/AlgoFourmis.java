@@ -1,5 +1,7 @@
 package Algorithme.AlgorithmeFourmis;
 
+import java.util.ArrayList;
+
 import Algorithme.Graphe.Graphe;
 import Algorithme.Graphe.Noeud;
 
@@ -34,8 +36,32 @@ public class AlgoFourmis{
 	 * Relancer les fourmis (une fois qu'elles sont arrivées)
 	 * Mettre à jour les pheromones (système d'évaporation)
 	 * 
-	 * 
 	 */
+	
+	public void traiterProbleme()
+	{
+		ArrayList<Fourmis> listeFourmis = new ArrayList<Fourmis>();
+		
+		//Création des fourmis
+		for(int j=0; j < nbreFourmis;j++)
+		{
+			Fourmis f = new Fourmis(10,5,this);
+			listeFourmis.add(f);
+		}
+		
+		for(int i=0; i < nbreIterations;i++)
+		{
+			
+			
+			
+			/*if(i == vitesseEvaporationPheromone)
+				this.misAJourPheromone();
+			*/
+		}
+		
+	}
+	
+	
 	
 	
 	public void deposerPheromone(Noeud noeudDepart, Noeud noeudArrivee, int nbrePheromones)
