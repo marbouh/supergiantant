@@ -22,8 +22,6 @@ public class AlgoFourmis{
 		this.nbreIterations = nbreIterations;
 		this.setProbleme(probleme);
 		
-		int nbreNoeuds = probleme.getNbreNoeuds();
-		
 		resultant = probleme;
 		//On efface tous les poids des arrêtes afin de déposer le phéromone
 		resultant.vider();
@@ -41,11 +39,13 @@ public class AlgoFourmis{
 	public void traiterProbleme()
 	{
 		ArrayList<Fourmis> listeFourmis = new ArrayList<Fourmis>();
-		
+		Noeud noeudDepart = null;
 		//Création des fourmis
 		for(int j=0; j < nbreFourmis;j++)
 		{
 			Fourmis f = new Fourmis(10,5,this);
+
+			f.ajouterNoeudVisite(noeudDepart);
 			listeFourmis.add(f);
 		}
 		

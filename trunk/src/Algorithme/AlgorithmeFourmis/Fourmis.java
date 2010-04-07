@@ -24,8 +24,8 @@ public class Fourmis
 	{
 		this.vitesseEvapPheromone = vitesseEvapPheromone;
 		this.nbrePheromonesADeposer = nbrePheromoneDeposes;
-		//this.setEtat(Etat.CherchePremierNoeud);
-		this.setEtat(Etat.ParcoursGraphe);
+		this.setEtat(Etat.CherchePremierNoeud);
+		//this.setEtat(Etat.ParcoursGraphe);
 		this.listeNoeudsVisites = new ArrayList<Noeud>();
 		this.setAlgo(algo);
 	}
@@ -56,7 +56,7 @@ public class Fourmis
 			}
 			if(noeudSuivant != null)
 			{
-				listeNoeudsVisites.add(noeudSuivant);
+				ajouterNoeudVisite(noeudSuivant);
 			}
 			else//on n'a pas trouvé d'autre noeud donc la fourmis doit rentrer
 				setEtat(Etat.Rentre);
@@ -72,6 +72,11 @@ public class Fourmis
 				algo.deposerPheromone(listeNoeudsVisites.get(j),listeNoeudsVisites.get(j-1), this.nbrePheromonesADeposer);
 			}
 		}
+	}
+	
+	public void ajouterNoeudVisite(Noeud noeud)
+	{
+		listeNoeudsVisites.add(noeud);
 	}
 	
 	public boolean aDejaEteVisite(Noeud noeud)
