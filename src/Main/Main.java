@@ -34,10 +34,14 @@ public class Main {
 		probleme.ajouterNoeud(n3);
 		probleme.ajouterNoeud(n4);
 		probleme.ajouterNoeud(n5);
+		System.out.println("Affichage du problème");
+		probleme.afficherGraphe();
 		
 		AlgoFourmis algo = new AlgoFourmis(1,20,10,probleme);
 		algo.traiterProbleme(n1, 2);
 		
+		System.out.println("\n\n Affichage du résultat");
+		algo.getResultant().afficherGraphe();
 		
 		System.out.println("Algo terminé !");
 	}

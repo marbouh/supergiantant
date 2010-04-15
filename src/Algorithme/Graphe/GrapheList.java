@@ -1,12 +1,11 @@
 package Algorithme.Graphe;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * Class GraphList
  */
-public class GrapheList implements Graphe 
+public class GrapheList implements Graphe, Cloneable
 {
 	private String nom;
 	private ArrayList<NoeudList> noeuds;
@@ -21,12 +20,26 @@ public class GrapheList implements Graphe
 	}
 
 	/*
+	 * Fonction permettant de renvoyer une copie de l'objet ou null si la copie échoue 
+	 */
+	public GrapheList copierGraphe()
+	{
+		GrapheList copie = null;
+		try {
+			copie = (GrapheList) this.clone();
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return copie;
+	}
+	
+	/*
 	 * Fonction retournant la liste des noeuds suivants d'un noeud donné
 	 */
 	public ArrayList<NoeudList> getSuivants(NoeudList noeud)
 	{
 		ArrayList<NoeudList> ns = new ArrayList<NoeudList>();
-		ArreteList a = null;
 		ArrayList<ArreteList> listeArretes = noeud.getDestinations();
 		
 		for(int i=0; i < listeArretes.size();i++)
@@ -95,7 +108,8 @@ public class GrapheList implements Graphe
 	/*
 	 * Fonction renvoyant le nombre de noeuds du graphe
 	 */
-	public int getNbreNoeuds() {
+	public int getNbreNoeuds() 
+	{
 		return noeuds.size();
 	}
 	
@@ -114,14 +128,41 @@ public class GrapheList implements Graphe
 		}
 	}
 
-	/*Getter et Setter des attributs de la classe */
-	public void setNom(String nom) {
+	/*
+	 * Procédure affichant le graphe 
+	 */
+	public void afficherGraphe()
+	{
+		System.out.println("Noeud de départ \t Noeud d'arrivée \t Poids");
+		for(int i = 0; i < noeuds.size();i++)
+		{
+			ArrayList<ArreteList> listeArretes = noeuds.get(i).getDestinations();
+			for(int j = 0; j < listeArretes.size() ;j++)
+			{
+				System.out.println(listeArretes.get(j).getDepart().getId()+"\t\t" + listeArretes.get(j).getArrivee().getId()+"\t\t"+listeArretes.get(j).getPoids());
+			}
+		}		
+	}
+	
+	/*Getters et Setters des attributs de la classe */
+	public void setNom(String nom)
+	{
 		this.nom = nom;
 	}
 
-	public String getNom() {
+	public String getNom() 
+	{
 		return nom;
 	}
 
-	
+	public ArrayList<NoeudList> getNoeuds() 
+	{
+		return noeuds;
+	}
+
+	public void setNoeuds(ArrayList<NoeudList> noeuds) 
+	{
+		this.noeuds = noeuds;
+	}
+
 }
