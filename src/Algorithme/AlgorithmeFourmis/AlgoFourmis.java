@@ -2,6 +2,7 @@ package Algorithme.AlgorithmeFourmis;
 
 import java.util.ArrayList;
 
+import Algorithme.AlgorithmeFourmis.Fourmis.Etat;
 import Algorithme.Graphe.ArreteList;
 import Algorithme.Graphe.Graphe;
 import Algorithme.Graphe.NoeudList;
@@ -13,20 +14,21 @@ public class AlgoFourmis{
 
 	private int nbreFourmis;
 	private int nbreIterations;
+	private int vitesseEvapPheromone;
 	private ArrayList<Fourmis> listeFourmis;
 	private Graphe probleme;
 	private Graphe resultant;//c'est dans ce graphe que l'on dépose le phéromone
 	
-	public AlgoFourmis(int nbreFourmis, int nbreIterations, Graphe probleme)
+	public AlgoFourmis(int nbreFourmis, int nbreIterations, int vitesseEvaporationPheromone, Graphe probleme)
 	{
 		listeFourmis = new ArrayList<Fourmis>();
 		this.nbreFourmis = nbreFourmis;
 		this.nbreIterations = nbreIterations;
 		this.setProbleme(probleme);
-		
+		this.vitesseEvapPheromone = vitesseEvaporationPheromone;
 		resultant = probleme;
 		//On efface tous les poids des arrêtes afin de déposer le phéromone
-		resultant.vider();
+		//resultant.vider();
 	}
 	
 	/*Fonctions à coder
@@ -41,11 +43,11 @@ public class AlgoFourmis{
 	/*
 	 * Fonction permettant de créer l'ensemble des fourmis qui seront utilisées pour l'algorithme
 	 */
-	public void creerFourmis(NoeudList noeudDepart, int vitesseEvaporation,int nbrePheromoneADeposer)
+	public void creerFourmis(NoeudList noeudDepart, int nbrePheromoneADeposer)
 	{
 		for(int j=0; j < nbreFourmis;j++)
 		{
-			Fourmis f = new Fourmis(nbrePheromoneADeposer,vitesseEvaporation,this);
+			Fourmis f = new Fourmis(nbrePheromoneADeposer,this);
 			f.ajouterNoeudVisite(noeudDepart);
 			listeFourmis.add(f);
 		}
@@ -65,29 +67,30 @@ public class AlgoFourmis{
 		{
 			random = (int)(Math.random() * (listeDestinations.size()));
 			ArreteList chemin = listeDestinations.get(random);
-			listeFourmis.get(j).ajouterNoeudVisite((NoeudList) chemin.getArrivee());
+			listeFourmis.get(j).ajouterNoeudVisite(chemin.getArrivee());
+			listeFourmis.get(j).setEtat(Etat.ParcoursGraphe);
 		}
 			
 	}
 	
-	
-	public void traiterProbleme()
+	public void traiterProbleme(NoeudList noeudDepart, int nbrePheromoneADeposer)
 	{
-				
+		this.creerFourmis(noeudDepart, nbrePheromoneADeposer);
+		this.affecterPremierNoeud();
+		
 		for(int i=0; i < nbreIterations;i++)
 		{
-			
-			
-			
-			/*if(i == vitesseEvaporationPheromone)
+			for(int j=0; j < listeFourmis.size();j++)
+			{
+				if(listeFourmis.get(j).getEtat()== Etat.ParcoursGraphe)
+					listeFourmis.get(j).trouverChemin();
+				else if(listeFourmis.get(j).getEtat()== Etat.Rentre)
+					listeFourmis.get(j).rentrer();
+			}
+			if((i % vitesseEvapPheromone) == 0 && i != 0)
 				this.misAJourPheromone();
-			*/
 		}
-		
 	}
-	
-	
-	
 	
 	public void deposerPheromone(NoeudList noeudDepart, NoeudList noeudArrivee, int nbrePheromones)
 	{
@@ -97,7 +100,7 @@ public class AlgoFourmis{
 		
 	public void misAJourPheromone()
 	{
-		
+		System.out.println("Mis à jour des pheromones");
 		
 	}
 	
@@ -137,5 +140,13 @@ public class AlgoFourmis{
 	public ArrayList<Fourmis> getListeFourmis() {
 		return listeFourmis;
 	}
-	
+
+	public int getVitesseEvapPheromone() {
+		return vitesseEvapPheromone;
+	}
+
+	public void setVitesseEvapPheromone(int vitesseEvapPheromone) {
+		this.vitesseEvapPheromone = vitesseEvapPheromone;
+	}
+
 }

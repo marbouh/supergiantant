@@ -1,10 +1,10 @@
-package Algorithme.Graphe;
+/*package Algorithme.Graphe;
 
 import java.util.ArrayList;
 
-/**
+*//**
  *  Class GrapheMatrice
- */
+ *//*
 public class GrapheMatrice implements Graphe {
 	private String nom;
 	private double[][] poids;
@@ -19,17 +19,17 @@ public class GrapheMatrice implements Graphe {
 		this.nom = nom;
 	}
 
-	/**
+	*//**
 	 *  Constructeur de copie
-	 */
+	 *//*
 	public GrapheMatrice(String nom, Graphe graphe) {
 		setNbreNoeuds(graphe.getNbreNoeuds());
 		this.nom = nom;
 	}
 
-	/*
+	
 	 * 
-	 */
+	 
 	public void vider() {
 		for (int i = 0; i < nbreNoeuds; i++)
 			for (int j = 0; j < nbreNoeuds; j++)
@@ -97,3 +97,4 @@ public class GrapheMatrice implements Graphe {
 	}
 
 }
+*/

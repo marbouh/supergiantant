@@ -5,10 +5,10 @@ package Algorithme.Graphe;
  */
 public class ArreteList
 {
-	private Noeud depart, arrivee;
+	private NoeudList depart, arrivee;
 	private double poids;
 
-	public ArreteList(Noeud depart, Noeud arrivee, double poids) {
+	public ArreteList(NoeudList depart, NoeudList arrivee, double poids) {
 		this.depart = depart;
 		this.arrivee = arrivee;
 		this.poids = poids;
@@ -22,23 +22,23 @@ public class ArreteList
 		return poids;
 	}
 
-	public void setDepart(Noeud depart) {
+	public void setDepart(NoeudList depart) {
 		this.depart = depart;
 	}
 
-	public Noeud getDepart() {
+	public NoeudList getDepart() {
 		return depart;
 	}
 
-	public void setArrivee(Noeud arrivee) {
+	public void setArrivee(NoeudList arrivee) {
 		this.arrivee = arrivee;
 	}
 
-	public Noeud getArrivee() {
+	public NoeudList getArrivee() {
 		return arrivee;
 	}
 
-	public boolean checkTrajet(Noeud depart, Noeud arrivee) {
+	public boolean checkTrajet(NoeudList depart, NoeudList arrivee) {
 		if (this.depart == depart && this.arrivee == arrivee)
 			return true;
 		return false;
