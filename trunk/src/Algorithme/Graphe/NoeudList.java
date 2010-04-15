@@ -15,7 +15,7 @@ public class NoeudList extends Noeud
 		
 	}
 
-	public void addDestination(Noeud arrivee, double poids) {
+	public void addDestination(NoeudList arrivee, double poids) {
 		ArreteList destination = new ArreteList(this, arrivee, poids);
 
 		destinations.add(destination);

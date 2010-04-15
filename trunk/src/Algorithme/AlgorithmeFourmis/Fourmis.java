@@ -14,18 +14,15 @@ public class Fourmis
 		ParcoursGraphe, 
 		Rentre
 	};
-	private int vitesseEvapPheromone;
 	private int nbrePheromonesADeposer;
 	private ArrayList<NoeudList> listeNoeudsVisites;
 	private Etat etat;
 	private AlgoFourmis algo;
 	
-	public Fourmis(int vitesseEvapPheromone,int nbrePheromoneDeposes, AlgoFourmis algo)
+	public Fourmis(int nbrePheromoneDeposes, AlgoFourmis algo)
 	{
-		this.vitesseEvapPheromone = vitesseEvapPheromone;
 		this.nbrePheromonesADeposer = nbrePheromoneDeposes;
 		this.setEtat(Etat.CherchePremierNoeud);
-		//this.setEtat(Etat.ParcoursGraphe);
 		this.listeNoeudsVisites = new ArrayList<NoeudList>();
 		this.setAlgo(algo);
 	}
@@ -34,33 +31,35 @@ public class Fourmis
 	public void trouverChemin()
 	{
 		double poidsMinimum = 9999999;
+		double pheromoneMaximum = 0;
 		NoeudList noeudSuivant = null;
 		NoeudList noeudPossible = null;
 		/* Le noeud où se situe la fourmis est le dernier noeud qui a été visité */
 		NoeudList noeudCourant = listeNoeudsVisites.get(listeNoeudsVisites.size()-1);
-		if(etat == Etat.ParcoursGraphe)
-		{
-			for(int i = 0; i < algo.getProbleme().getSuivants(noeudCourant).size();i++)
-			{//On parcours la liste des chemins possibles depuis le noeud courant où est la fourmis
-				noeudPossible = (NoeudList) algo.getProbleme().getSuivants(noeudCourant).get(i);
-				double poids = algo.getProbleme().getPoids(noeudCourant, noeudSuivant);
-				
-				if(poids != 0)
+		ArrayList<NoeudList> listeNoeudSuivant = algo.getProbleme().getSuivants(noeudCourant);
+		for(int i = 0; i < listeNoeudSuivant.size();i++)
+		{//On parcours la liste des chemins possibles depuis le noeud courant où est la fourmi
+			noeudPossible = listeNoeudSuivant.get(i);
+			double poids = algo.getProbleme().getPoids(noeudCourant, noeudPossible);
+			double pheromone = algo.getResultant().getPoids(noeudCourant, noeudPossible);
+			
+			if(poids > 0)//s'il y a un chemin correct entre les deux noeuds
+			{
+				if(!aDejaEteVisite(noeudPossible) && (poidsMinimum > poids || pheromone > pheromoneMaximum))
 				{
-					if(!aDejaEteVisite(noeudPossible) && poidsMinimum > poids)
-					{
-						poidsMinimum = poids;
-						noeudSuivant = noeudPossible;
-					}
+					poidsMinimum = poids;
+					pheromoneMaximum = pheromone;
+					noeudSuivant = noeudPossible;
 				}
 			}
-			if(noeudSuivant != null)
-			{
-				ajouterNoeudVisite(noeudSuivant);
-			}
-			else//on n'a pas trouvé d'autre noeud donc la fourmis doit rentrer
-				setEtat(Etat.Rentre);
 		}
+		if(noeudSuivant != null)
+		{
+			ajouterNoeudVisite(noeudSuivant);
+		}
+		else//on n'a pas trouvé d'autre noeud donc la fourmis doit rentrer
+			setEtat(Etat.Rentre);
+
 	}
 	
 	public void rentrer()
@@ -71,7 +70,16 @@ public class Fourmis
 			{
 				algo.deposerPheromone(listeNoeudsVisites.get(j),listeNoeudsVisites.get(j-1), this.nbrePheromonesADeposer);
 			}
+			this.reinitialiserFourmis();
 		}
+	}
+	
+	public void reinitialiserFourmis()
+	{
+		this.etat = Etat.ParcoursGraphe;
+		NoeudList noeudDepart = this.listeNoeudsVisites.get(0);
+		this.listeNoeudsVisites.clear();
+		this.listeNoeudsVisites.add(noeudDepart);
 	}
 	
 	public void ajouterNoeudVisite(NoeudList noeud)
@@ -89,12 +97,6 @@ public class Fourmis
 		return false;
 	}
 	
-	public int getVitesseEvapPheromone() {
-		return vitesseEvapPheromone;
-	}
-	public void setVitesseEvapPheromone(int vitesseEvapPheromone) {
-		this.vitesseEvapPheromone = vitesseEvapPheromone;
-	}
 	public int getNbrePheromonesADeposer() {
 		return nbrePheromonesADeposer;
 	}

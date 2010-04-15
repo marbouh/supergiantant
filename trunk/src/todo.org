@@ -14,7 +14,3 @@
 
 
 QUESTIONS
-
-* A quoi servent exactement les classes NoeudList et ArreteList ?
-Je ne vois pas trop pourquoi on a besoin de cette classe car la liste de noeuds peut très bien être faite dans GrapheList. 
-Qu'est ce que ça nous rajoute en plus ?
