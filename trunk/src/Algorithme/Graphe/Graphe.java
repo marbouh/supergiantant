@@ -14,6 +14,8 @@ public interface Graphe {
 	public void setPoids(NoeudList noeudDepart, NoeudList noeudArrivee, double poids);
 	public int getNbreNoeuds();
 	public void viderInformations();
+	public void afficherGraphe();
+	public Graphe copierGraphe();
 }
 /*
 public interface Graphe {

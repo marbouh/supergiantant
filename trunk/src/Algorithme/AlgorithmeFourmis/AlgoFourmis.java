@@ -29,19 +29,12 @@ public class AlgoFourmis{
 		this.nbreIterations = nbreIterations;
 		this.setProbleme(probleme);
 		this.vitesseEvapPheromone = vitesseEvaporationPheromone;
-		resultant = probleme;
-		//On efface tous les poids des arrêtes afin de déposer le phéromone
-		resultant.viderInformations();
+		
+		resultant = (Graphe) probleme.copierGraphe();//problème les deux éléments sont modifiés en même temps
+		
+		resultant.viderInformations();//On efface tous les poids des arrêtes afin de déposer le phéromone
+
 	}
-	
-	/*Fonctions à coder
-	 * 
-	 * Créer toutes les fourmis et les affecter à un noeud départ
-	 * Répartir les fourmis sur l'ensemble des chemins possibles depuis le noeud de départ
-	 * Relancer les fourmis (une fois qu'elles sont arrivées)
-	 * Mettre à jour les pheromones (système d'évaporation)
-	 * 
-	 */
 	
 	/*
 	 * Fonction permettant de créer l'ensemble des fourmis qui seront utilisées pour l'algorithme
@@ -54,7 +47,6 @@ public class AlgoFourmis{
 			f.ajouterNoeudVisite(noeudDepart);
 			listeFourmis.add(f);
 		}
-	
 	}
 	
 	/*
@@ -73,7 +65,6 @@ public class AlgoFourmis{
 			listeFourmis.get(j).ajouterNoeudVisite(chemin.getArrivee());
 			listeFourmis.get(j).setEtat(Etat.ParcoursGraphe);
 		}
-			
 	}
 	
 	/*
@@ -106,15 +97,15 @@ public class AlgoFourmis{
 		resultant.setPoids(noeudDepart, noeudArrivee, nbrePheromones);
 	}
 	
-		
+	/*
+	 * 
+	 */
 	public void misAJourPheromone()
 	{
 		System.out.println("Mis à jour des pheromones");
-		
 	}
-		
-	/* Getters et setters des attributs de la classe */
 	
+	/* Getters et setters des attributs de la classe */
 	public int getNbreFourmis() {
 		return nbreFourmis;
 	}
