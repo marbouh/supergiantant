@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import Algorithme.Graphe.NoeudList;
 
 /**
- *  Class Fourmis : ReprÃ©sente une entitÃ©e fourmis dans l'algorithme des fourmis
+ *  Class Fourmis : Représente une entitée fourmis dans l'algorithme des fourmis
  */
 public class Fourmis
 {

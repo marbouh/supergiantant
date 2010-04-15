@@ -19,6 +19,9 @@ public class AlgoFourmis{
 	private Graphe probleme;
 	private Graphe resultant;//c'est dans ce graphe que l'on dépose le phéromone
 	
+	/*
+	 * Constructeur de la classe fourmis
+	 */
 	public AlgoFourmis(int nbreFourmis, int nbreIterations, int vitesseEvaporationPheromone, Graphe probleme)
 	{
 		listeFourmis = new ArrayList<Fourmis>();
@@ -28,7 +31,7 @@ public class AlgoFourmis{
 		this.vitesseEvapPheromone = vitesseEvaporationPheromone;
 		resultant = probleme;
 		//On efface tous les poids des arrêtes afin de déposer le phéromone
-		//resultant.vider();
+		resultant.viderInformations();
 	}
 	
 	/*Fonctions à coder
@@ -73,6 +76,9 @@ public class AlgoFourmis{
 			
 	}
 	
+	/*
+	 * Procédure permettant de créer l'ensemble des fourmis et d'exécuter l'algorithme des fourmis
+	 */
 	public void traiterProbleme(NoeudList noeudDepart, int nbrePheromoneADeposer)
 	{
 		this.creerFourmis(noeudDepart, nbrePheromoneADeposer);
@@ -92,6 +98,9 @@ public class AlgoFourmis{
 		}
 	}
 	
+	/*
+	 * Procédure permettant de déposer du phéromone sur une arrête dont les noeuds sont passés en paramètre
+	 */
 	public void deposerPheromone(NoeudList noeudDepart, NoeudList noeudArrivee, int nbrePheromones)
 	{
 		resultant.setPoids(noeudDepart, noeudArrivee, nbrePheromones);
@@ -103,6 +112,8 @@ public class AlgoFourmis{
 		System.out.println("Mis à jour des pheromones");
 		
 	}
+		
+	/* Getters et setters des attributs de la classe */
 	
 	public int getNbreFourmis() {
 		return nbreFourmis;
