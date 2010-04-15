@@ -19,6 +19,9 @@ public class Fourmis
 	private Etat etat;
 	private AlgoFourmis algo;
 	
+	/*
+	 * Constructeur de la classe fourmis
+	 */
 	public Fourmis(int nbrePheromoneDeposes, AlgoFourmis algo)
 	{
 		this.nbrePheromonesADeposer = nbrePheromoneDeposes;
@@ -27,7 +30,9 @@ public class Fourmis
 		this.setAlgo(algo);
 	}
 	
-	// Non fonctionnel
+	/*
+	 * Procédure permettant à une fourmis de choisir le chemin qu'elle doit emprunter (soit le prochain noeud à prendre)
+	 */
 	public void trouverChemin()
 	{
 		double poidsMinimum = 9999999;
@@ -59,9 +64,11 @@ public class Fourmis
 		}
 		else//on n'a pas trouvé d'autre noeud donc la fourmis doit rentrer
 			setEtat(Etat.Rentre);
-
 	}
 	
+	/*
+	 * Procédure faisant rentrer une fourmis à la colonie en déposant des phéromones
+	 */
 	public void rentrer()
 	{
 		if(etat == Etat.Rentre)
@@ -74,6 +81,9 @@ public class Fourmis
 		}
 	}
 	
+	/*
+	 * Procédure pour réinitialiser une fourmis qui vient de rentrer à la colonie afin qu'elle puisse repartir
+	 */
 	public void reinitialiserFourmis()
 	{
 		this.etat = Etat.ParcoursGraphe;
@@ -82,11 +92,18 @@ public class Fourmis
 		this.listeNoeudsVisites.add(noeudDepart);
 	}
 	
+	/*
+	 * Procédure ajoutant un noeud à la liste des noeuds visités par la fourmis
+	 */
 	public void ajouterNoeudVisite(NoeudList noeud)
 	{
 		listeNoeudsVisites.add(noeud);
 	}
 	
+	/*
+	 * Fonction permettant de déterminer si une fourmis a déjà visité le noeud passé en paramètre
+	 * La fonction retourne vrai si la fourmis a déja visité ce noeud et faux sinon 
+	 */
 	public boolean aDejaEteVisite(NoeudList noeud)
 	{
 		for(int i = 0;i < listeNoeudsVisites.size();i++)
@@ -96,6 +113,8 @@ public class Fourmis
 		}
 		return false;
 	}
+	
+	/* Getters et setters des attributs de la classe */
 	
 	public int getNbrePheromonesADeposer() {
 		return nbrePheromonesADeposer;
