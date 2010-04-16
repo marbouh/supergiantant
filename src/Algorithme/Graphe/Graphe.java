@@ -15,7 +15,7 @@ public interface Graphe {
 	public int getNbreNoeuds();
 	public void viderInformations();
 	public void afficherGraphe();
-	public Graphe copierGraphe();
+	public Graphe clone();
 }
 /*
 public interface Graphe {

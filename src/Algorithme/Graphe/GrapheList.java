@@ -22,17 +22,25 @@ public class GrapheList implements Graphe, Cloneable
 	/*
 	 * Fonction permettant de renvoyer une copie de l'objet ou null si la copie échoue 
 	 */
-	public GrapheList copierGraphe()
-	{
+	public Graphe clone()
+	{    
 		GrapheList copie = null;
 		try {
-			copie = (GrapheList) this.clone();
+			copie = (GrapheList) super.clone();
+			for(int i = 0;i < this.getNbreNoeuds();i++)
+			{
+				copie.ajouterNoeud((NoeudList) this.getNoeuds().get(i).clone());
+			}
+
 		} catch (CloneNotSupportedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return copie;
-	}
+				
+	    // on renvoie le clone
+	    return copie;
+  	}
+	
 	
 	/*
 	 * Fonction retournant la liste des noeuds suivants d'un noeud donné
@@ -118,7 +126,7 @@ public class GrapheList implements Graphe, Cloneable
 	 */
 	public void viderInformations() 
 	{
-		for(int i=0; i < noeuds.size() ;i++)
+		for(int i=0; i < this.getNbreNoeuds() ;i++)
 		{
 			ArrayList<ArreteList> listeArretes = noeuds.get(i).getDestinations();
 			for(int j=0; j < listeArretes.size() ;j++)
@@ -134,7 +142,7 @@ public class GrapheList implements Graphe, Cloneable
 	public void afficherGraphe()
 	{
 		System.out.println("Noeud de départ \t Noeud d'arrivée \t Poids");
-		for(int i = 0; i < noeuds.size();i++)
+		for(int i = 0; i < this.getNbreNoeuds();i++)
 		{
 			ArrayList<ArreteList> listeArretes = noeuds.get(i).getDestinations();
 			for(int j = 0; j < listeArretes.size() ;j++)
@@ -164,5 +172,4 @@ public class GrapheList implements Graphe, Cloneable
 	{
 		this.noeuds = noeuds;
 	}
-
 }
