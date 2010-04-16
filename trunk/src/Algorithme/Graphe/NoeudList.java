@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Class NoeudList
  */
-public class NoeudList extends Noeud
+public class NoeudList extends Noeud implements Cloneable
 {
 	private ArrayList<ArreteList> destinations;
 
@@ -14,7 +14,26 @@ public class NoeudList extends Noeud
 		destinations = new ArrayList<ArreteList>();
 		
 	}
-
+	
+	public NoeudList clone()
+	{    
+		NoeudList copieNoeud = null;
+		try {
+			copieNoeud = (NoeudList) super.clone();
+			for(int i=0; i < this.getDestinations().size() ;i++)
+			{
+				copieNoeud.getDestinations().add(this.getDestinations().get(i).clone());
+			}
+			
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+				
+	    // on renvoie le clone
+	    return copieNoeud;
+  	}
+	
 	public void addDestination(NoeudList arrivee, double poids) {
 		ArreteList destination = new ArreteList(this, arrivee, poids);
 

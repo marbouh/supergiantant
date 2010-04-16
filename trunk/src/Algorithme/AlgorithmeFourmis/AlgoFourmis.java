@@ -30,10 +30,9 @@ public class AlgoFourmis{
 		this.setProbleme(probleme);
 		this.vitesseEvapPheromone = vitesseEvaporationPheromone;
 		
-		resultant = (Graphe) probleme.copierGraphe();//problème les deux éléments sont modifiés en même temps
+		resultant = (Graphe) probleme.clone();//problème les deux éléments sont modifiés en même temps
 		
 		resultant.viderInformations();//On efface tous les poids des arrêtes afin de déposer le phéromone
-
 	}
 	
 	/*
