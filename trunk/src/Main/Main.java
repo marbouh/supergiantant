@@ -39,15 +39,10 @@ public class Main {
 		
 		AlgoFourmis algo = new AlgoFourmis(1,20,10,probleme);
 		algo.traiterProbleme(n1, 2);
-		System.out.println("Affichage du problème");
-		probleme.afficherGraphe();
 		System.out.println("Algo terminé !");
-		
-		
+		algo.getProbleme().afficherGraphe();
 		System.out.println("\n\n Affichage du résultat");
 		algo.getResultant().afficherGraphe();
-		
-		
 	}
 
 }

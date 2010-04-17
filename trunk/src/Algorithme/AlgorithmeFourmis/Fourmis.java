@@ -71,11 +71,27 @@ public class Fourmis
 	 */
 	public void rentrer()
 	{
+		NoeudList noeudDepart = null;
+		NoeudList noeudArrivee = null;
 		if(etat == Etat.Rentre)
 		{
-			for(int j = listeNoeudsVisites.size()-1;j > 0;j--)
+			for(int i = listeNoeudsVisites.size()-1;i > 0;i--)
 			{
-				algo.deposerPheromone(listeNoeudsVisites.get(j),listeNoeudsVisites.get(j-1), this.nbrePheromonesADeposer);
+				for(int j = 0;j < algo.getResultant().getNbreNoeuds() ;j++)
+				{
+					if(algo.getResultant().getNoeuds().get(j).compareTo(listeNoeudsVisites.get(i)))
+					{
+						noeudDepart = algo.getResultant().getNoeuds().get(j);
+					}
+					if(algo.getResultant().getNoeuds().get(j).compareTo(listeNoeudsVisites.get(i-1)))
+					{
+						noeudArrivee = algo.getResultant().getNoeuds().get(j);
+					}
+				}
+				if(noeudDepart != null && noeudArrivee != null)
+				{
+					algo.deposerPheromone(noeudDepart,noeudArrivee, this.nbrePheromonesADeposer);
+				}
 			}
 			this.reinitialiserFourmis();
 		}
