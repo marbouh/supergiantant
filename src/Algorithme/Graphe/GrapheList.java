@@ -19,28 +19,23 @@ public class GrapheList implements Graphe, Cloneable
 		noeuds = new ArrayList<NoeudList>(nbreNoeuds);
 	}
 
-	/*
-	 * Fonction permettant de renvoyer une copie de l'objet ou null si la copie échoue 
-	 */
-	public Graphe clone()
-	{    
-		GrapheList copie = null;
-		try {
-			copie = (GrapheList) super.clone();
-			for(int i = 0;i < this.getNbreNoeuds();i++)
-			{
-				copie.ajouterNoeud((NoeudList) this.getNoeuds().get(i).clone());
-			}
-
-		} catch (CloneNotSupportedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	public GrapheList copierGraphe()
+	{
+		GrapheList copie = new GrapheList(this.getNom(),this.getNbreNoeuds());
+		ArrayList<NoeudList> listeNoeuds = new ArrayList<NoeudList>();
+		//On créer la liste des noeuds (sans les arrêtes)
+		for(int i = 0; i < this.getNbreNoeuds(); i++)
+		{
+			NoeudList copieNoeud = new NoeudList(this.getNoeuds().get(i).getId());
+			listeNoeuds.add(copieNoeud);
 		}
-				
-	    // on renvoie le clone
-	    return copie;
-  	}
-	
+		
+		for(int i = 0; i < this.getNbreNoeuds(); i++)
+		{
+			copie.getNoeuds().add(this.getNoeuds().get(i).copierNoeud(listeNoeuds));
+		}
+		return copie;
+	}
 	
 	/*
 	 * Fonction retournant la liste des noeuds suivants d'un noeud donné
@@ -76,7 +71,8 @@ public class GrapheList implements Graphe, Cloneable
 	 * Fonction retournant le poids de l'arrête correspondant au deux noeuds passés en paramètre
 	 * (la fonction retourne -1, s'il n'y a pas d'arrête entre ces deux points)
 	 */
-	public double getPoids(NoeudList noeudDepart, NoeudList noeudArrivee) {
+	public double getPoids(NoeudList noeudDepart, NoeudList noeudArrivee)
+	{
 		ArrayList<ArreteList> listeArretes = noeudDepart.getDestinations();
 		
 		for(int i = 0; i< listeArretes.size(); i++)
@@ -90,7 +86,8 @@ public class GrapheList implements Graphe, Cloneable
 	/*
 	 * Procédure permettant de fixer le poids d'une arrête dont les deux noeuds sont passés en paramètre
 	 */
-	public void setPoids(NoeudList noeudDepart, NoeudList noeudArrivee, double poids) {
+	public void setPoids(NoeudList noeudDepart, NoeudList noeudArrivee, double poids) 
+	{
 		ArrayList<ArreteList> listeArretes = noeudDepart.getDestinations();
 		boolean estPresent = false;
 
@@ -147,7 +144,7 @@ public class GrapheList implements Graphe, Cloneable
 			ArrayList<ArreteList> listeArretes = noeuds.get(i).getDestinations();
 			for(int j = 0; j < listeArretes.size() ;j++)
 			{
-				System.out.println(listeArretes.get(j).getDepart().getId()+"\t\t" + listeArretes.get(j).getArrivee().getId()+"\t\t"+listeArretes.get(j).getPoids());
+				System.out.println("\t"+listeArretes.get(j).getDepart().getId()+"\t\t\t" + listeArretes.get(j).getArrivee().getId()+"\t\t  "+listeArretes.get(j).getPoids());
 			}
 		}		
 	}

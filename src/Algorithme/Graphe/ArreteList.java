@@ -8,26 +8,22 @@ public class ArreteList implements Cloneable
 	private NoeudList depart, arrivee;
 	private double poids;
 
+	/*
+	 * Constructeur de la classe
+	 */
 	public ArreteList(NoeudList depart, NoeudList arrivee, double poids) {
 		this.depart = depart;
 		this.arrivee = arrivee;
 		this.poids = poids;
 	}
 	
-	public ArreteList clone()
-	{    
-		ArreteList copieArrete = null;
-		try {
-			copieArrete = (ArreteList) super.clone();
-		} catch (CloneNotSupportedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-				
-	    // on renvoie le clone
-	    return copieArrete;
-  	}
-
+	public boolean checkTrajet(NoeudList depart, NoeudList arrivee) {
+		if (this.depart == depart && this.arrivee == arrivee)
+			return true;
+		return false;
+	}
+	
+	/*Getters et Setters des attributs de la classe */
 	public void setPoids(double poids) {
 		this.poids = poids;
 	}
@@ -50,11 +46,5 @@ public class ArreteList implements Cloneable
 
 	public NoeudList getArrivee() {
 		return arrivee;
-	}
-
-	public boolean checkTrajet(NoeudList depart, NoeudList arrivee) {
-		if (this.depart == depart && this.arrivee == arrivee)
-			return true;
-		return false;
 	}
 }
