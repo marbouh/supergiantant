@@ -15,8 +15,8 @@
 
 QUESTIONS / PROPLEMES
 
-* Comment peut-on faire une vrai copie par constructeur ?
-  Dans la classe AlgoFourmis, lorsque l'on initialise "resultant" et que l'on modifie "resultant" par la suite alors "probleme" est lui aussi modifié de la même façon !
+* A chaque itération les fourmis parcours le graphe (se déplace d'un noeud) et il faut une itération pour faire rentrer les fourmis
+  Est ce que cela est un problème ?
 
 * Problème au niveau des arrêtes, il y a quasiment deux fois les mêmes arrêtes et il faudrait donc mettre à jour les pheromones pour les deux arrêtes correspondant à deux noeuds sinon il risque d'y avoir des soucis quand les fourmis repartent du noeud de Départ.
 * Est ce que l'on implémente le problème du voyageur de commerce ? car cela modifie un peu le code étant donné que pour le moment les fourmis ne sont pas obligées de parcourir tous les noeuds du graphe avant de rentrer.
