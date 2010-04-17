@@ -17,7 +17,9 @@ public class NoeudList extends Noeud implements Cloneable
 		destinations = new ArrayList<ArreteList>();
 	}
 
-	
+	/*
+	 * Fonction copiant un noeud (avec toutes ses arrêtes) et retournant la copie de ce noeud
+	 */
 	public NoeudList copierNoeud(ArrayList<NoeudList> noeuds)
 	{
 		NoeudList copieNoeud = new NoeudList(this.getId());
