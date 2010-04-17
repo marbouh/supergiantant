@@ -80,10 +80,15 @@ public class AlgoFourmis{
 				if(listeFourmis.get(j).getEtat()== Etat.ParcoursGraphe)
 					listeFourmis.get(j).trouverChemin();
 				else if(listeFourmis.get(j).getEtat()== Etat.Rentre)
+				{
+					System.out.println("La fourmis rentre !");
 					listeFourmis.get(j).rentrer();
+				}
 			}
 			if((i % vitesseEvapPheromone) == 0 && i != 0)
 				this.misAJourPheromone();
+			System.out.println("Affichage des pheromones :"+i);
+			resultant.afficherGraphe();
 		}
 	}
 	
@@ -92,7 +97,7 @@ public class AlgoFourmis{
 	 */
 	public void deposerPheromone(NoeudList noeudDepart, NoeudList noeudArrivee, int nbrePheromones)
 	{
-		resultant.setPoids(noeudDepart, noeudArrivee, nbrePheromones);
+		resultant.setPoids(noeudDepart, noeudArrivee, resultant.getPoids(noeudDepart, noeudArrivee)+ nbrePheromones);
 	}
 	
 	/*

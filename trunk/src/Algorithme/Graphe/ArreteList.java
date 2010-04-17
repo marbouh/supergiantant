@@ -18,7 +18,9 @@ public class ArreteList implements Cloneable
 	}
 	
 	public boolean checkTrajet(NoeudList depart, NoeudList arrivee) {
-		if (this.depart == depart && this.arrivee == arrivee)
+		if (this.depart.compareTo(depart) && this.arrivee.compareTo(arrivee))
+			return true;
+		else if(this.depart.compareTo(arrivee) && this.arrivee.compareTo(depart))
 			return true;
 		return false;
 	}

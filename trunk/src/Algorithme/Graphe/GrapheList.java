@@ -19,6 +19,9 @@ public class GrapheList implements Graphe, Cloneable
 		noeuds = new ArrayList<NoeudList>(nbreNoeuds);
 	}
 
+	/*
+	 * Fonction retournant la copie conforme du graphe qui appelle la méthode
+	 */
 	public GrapheList copierGraphe()
 	{
 		GrapheList copie = new GrapheList(this.getNom(),this.getNbreNoeuds());
