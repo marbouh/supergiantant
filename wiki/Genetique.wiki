@@ -4,10 +4,16 @@ _Graphe non orienté ?_
 
 = Liste des paramètres =
 
- *  Le nombre  d’individus  est le nombre de le voyageur qui "recherchent" le plus court chemin.
- * Le taux de reproduction est le nombre de nouveaux individus pour 100 dans l’ancienne génération créés par croisement des meilleurs individus.
+ *  Le nombre  d’individus : est le nombre de le voyageur qui "recherchent" le plus court chemin.
+ * Le taux de reproduction : est le nombre de nouveaux individus pour 100 dans l’ancienne génération créés par croisement des meilleurs individus.
  * La probabilité de mutation d’un individu : nombre compris entre 0 et 1. Il reflète la probabilité d’un individu au sein de la population de pouvoir muter (0 = pas de mutation d’individu).
- * La probabilité de mutation d’un gène :nombre compris entre 0 et 1. Il reflète la probabilité d’un gène au sein d’un individu de pouvoir muter (0 = pas de mutation de gène).
+ * La probabilité de mutation d’un gène : nombre compris entre 0 et 1. Il reflète la probabilité d’un gène au sein d’un individu de pouvoir muter (0 = pas de mutation de gène).
+ * Nombre de stagnation avant arret
+ * Nombre de genes du probleme
+ * Valeur d'adaptation maximum
+ * Distance correspondante
+ * Numéro de génération
+ * Nombre d'individus testé
 
 = Étapes de l'algorithme _tirer de interstices_ =
 Initialisation d'une population
