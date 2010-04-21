@@ -18,13 +18,15 @@ public class Fourmis
 	private ArrayList<NoeudList> listeNoeudsVisites;
 	private Etat etat;
 	private AlgoFourmis algo;
+	private NoeudList noeudArrivee;//noeud où doit arriver la fourmis
 	
 	/*
 	 * Constructeur de la classe fourmis
 	 */
-	public Fourmis(int nbrePheromoneDeposes, AlgoFourmis algo)
+	public Fourmis(int nbrePheromoneDeposes,int noeudArrivee, AlgoFourmis algo)
 	{
 		this.nbrePheromonesADeposer = nbrePheromoneDeposes;
+		this.noeudArrivee = new NoeudList(noeudArrivee);
 		this.setEtat(Etat.CherchePremierNoeud);
 		this.listeNoeudsVisites = new ArrayList<NoeudList>();
 		this.setAlgo(algo);
@@ -61,6 +63,8 @@ public class Fourmis
 		if(noeudSuivant != null)
 		{
 			ajouterNoeudVisite(noeudSuivant);
+			if(noeudSuivant.compareTo(getNoeudArrivee()))
+				setEtat(Etat.Rentre);
 		}
 		else//on n'a pas trouvé d'autre noeud donc la fourmis doit rentrer
 			setEtat(Etat.Rentre);
@@ -75,7 +79,31 @@ public class Fourmis
 		NoeudList noeudArrivee = null;
 		if(etat == Etat.Rentre)
 		{
-			for(int i = listeNoeudsVisites.size()-1;i > 0;i--)
+			int dernierElement = listeNoeudsVisites.size()-1;
+			if(dernierElement > 0)
+			{	
+				for(int j = 0;j < algo.getResultant().getNbreNoeuds() ;j++)
+				{
+					if(algo.getResultant().getNoeuds().get(j).compareTo(listeNoeudsVisites.get(dernierElement)))
+					{
+						noeudDepart = algo.getResultant().getNoeuds().get(j);
+					}
+					if(algo.getResultant().getNoeuds().get(j).compareTo(listeNoeudsVisites.get(dernierElement-1)))
+					{
+						noeudArrivee = algo.getResultant().getNoeuds().get(j);
+					}
+				}
+				if(noeudDepart != null && noeudArrivee != null)
+				{
+					algo.deposerPheromone(noeudDepart,noeudArrivee, this.nbrePheromonesADeposer);
+					listeNoeudsVisites.remove(dernierElement);
+				}
+			}
+			else if(dernierElement == 0)
+			{
+				this.reinitialiserFourmis();
+			}
+			/*for(int i = listeNoeudsVisites.size()-1;i > 0;i--)
 			{
 				for(int j = 0;j < algo.getResultant().getNbreNoeuds() ;j++)
 				{
@@ -93,7 +121,7 @@ public class Fourmis
 					algo.deposerPheromone(noeudDepart,noeudArrivee, this.nbrePheromonesADeposer);
 				}
 			}
-			this.reinitialiserFourmis();
+			this.reinitialiserFourmis();*/
 		}
 	}
 	
@@ -155,6 +183,14 @@ public class Fourmis
 	}
 	public Etat getEtat() {
 		return etat;
+	}
+
+	public void setNoeudArrivee(NoeudList noeudArrivee) {
+		this.noeudArrivee = noeudArrivee;
+	}
+
+	public NoeudList getNoeudArrivee() {
+		return noeudArrivee;
 	}
 
 }

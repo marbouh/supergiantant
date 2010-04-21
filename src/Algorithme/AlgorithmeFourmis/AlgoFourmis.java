@@ -39,11 +39,11 @@ public class AlgoFourmis{
 	/*
 	 * Fonction permettant de créer l'ensemble des fourmis qui seront utilisées pour l'algorithme
 	 */
-	public void creerFourmis(NoeudList noeudDepart, int nbrePheromoneADeposer)
+	public void creerFourmis(NoeudList noeudDepart, int nbrePheromoneADeposer, int noeudArrivee)
 	{
 		for(int j=0; j < nbreFourmis;j++)
 		{
-			Fourmis f = new Fourmis(nbrePheromoneADeposer,this);
+			Fourmis f = new Fourmis(nbrePheromoneADeposer,noeudArrivee,this);
 			f.ajouterNoeudVisite(noeudDepart);
 			listeFourmis.add(f);
 		}
@@ -57,22 +57,40 @@ public class AlgoFourmis{
 		NoeudList noeudDepart = listeFourmis.get(0).getListeNoeudsVisites().get(0);
 		ArrayList<ArreteList> listeDestinations = noeudDepart.getDestinations();
 		int random = -1;//permet de définir aléatoirement le chemin qui doit être pris
+		ArrayList<Integer> cheminDejaPris = new ArrayList<Integer>();
+		boolean cheminTrouve = false;
 		
 		for(int j=0; j < listeFourmis.size();j++)
 		{
-			random = (int)(Math.random() * (listeDestinations.size()));
-			ArreteList chemin = listeDestinations.get(random);
-			listeFourmis.get(j).ajouterNoeudVisite(chemin.getArrivee());
-			listeFourmis.get(j).setEtat(Etat.ParcoursGraphe);
+			while(cheminTrouve == false)//boucle permettant d'affecter au moins une fourmis sur chaque destination possible
+			{
+				random = (int)(Math.random() * (listeDestinations.size()));
+			
+				if(!cheminDejaPris.contains(random) && cheminDejaPris.size() <= listeDestinations.size())
+				{
+					ArreteList chemin = listeDestinations.get(random);
+					listeFourmis.get(j).ajouterNoeudVisite(chemin.getArrivee());
+					listeFourmis.get(j).setEtat(Etat.ParcoursGraphe);
+					cheminTrouve = true;
+					cheminDejaPris.add(random);
+				}else if(cheminDejaPris.size() > listeDestinations.size())
+				{
+					ArreteList chemin = listeDestinations.get(random);
+					listeFourmis.get(j).ajouterNoeudVisite(chemin.getArrivee());
+					listeFourmis.get(j).setEtat(Etat.ParcoursGraphe);
+					cheminTrouve = true;
+				}			
+			}
+			cheminTrouve = false;
 		}
 	}
 	
 	/*
 	 * Procédure permettant de créer l'ensemble des fourmis et d'exécuter l'algorithme des fourmis
 	 */
-	public void traiterProbleme(NoeudList noeudDepart, int nbrePheromoneADeposer)
+	public void traiterProbleme(NoeudList noeudDepart, int nbrePheromoneADeposer, int noeudArrivee)
 	{
-		this.creerFourmis(noeudDepart, nbrePheromoneADeposer);
+		this.creerFourmis(noeudDepart,noeudArrivee, nbrePheromoneADeposer);
 		this.affecterPremierNoeud();
 		
 		for(int i=0; i < nbreIterations;i++)
