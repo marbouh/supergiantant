@@ -18,7 +18,7 @@ public class Fourmis
 	private ArrayList<NoeudList> listeNoeudsVisites;
 	private Etat etat;
 	private AlgoFourmis algo;
-	private NoeudList noeudArrivee;//noeud où doit arriver la fourmis
+	private NoeudList noeudArrivee;//noeud où doit arriver la fourmi
 	
 	/*
 	 * Constructeur de la classe fourmis

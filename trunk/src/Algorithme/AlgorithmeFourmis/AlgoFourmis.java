@@ -73,7 +73,7 @@ public class AlgoFourmis{
 					listeFourmis.get(j).setEtat(Etat.ParcoursGraphe);
 					cheminTrouve = true;
 					cheminDejaPris.add(random);
-				}else if(cheminDejaPris.size() > listeDestinations.size())
+				}else if(cheminDejaPris.size() >= listeDestinations.size())
 				{
 					ArreteList chemin = listeDestinations.get(random);
 					listeFourmis.get(j).ajouterNoeudVisite(chemin.getArrivee());
@@ -118,6 +118,7 @@ public class AlgoFourmis{
 	public void deposerPheromone(NoeudList noeudDepart, NoeudList noeudArrivee, int nbrePheromones)
 	{
 		resultant.setPoids(noeudDepart, noeudArrivee, resultant.getPoids(noeudDepart, noeudArrivee)+ nbrePheromones);
+		resultant.setPoids(noeudArrivee, noeudDepart, resultant.getPoids(noeudDepart, noeudArrivee));//mis à jour de l'arrête dont les noeuds sont inversés par rapport à la première arrête
 	}
 	
 	/*
