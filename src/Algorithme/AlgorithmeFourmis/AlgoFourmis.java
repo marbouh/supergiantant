@@ -15,6 +15,7 @@ public class AlgoFourmis{
 	private int nbreFourmis;
 	private int nbreIterations;
 	private int vitesseEvapPheromone;
+	private double nbrePheromoneAEvap;
 	private ArrayList<Fourmis> listeFourmis;
 	private Graphe probleme;
 	private Graphe resultant;//c'est dans ce graphe que l'on dépose le phéromone
@@ -22,13 +23,14 @@ public class AlgoFourmis{
 	/*
 	 * Constructeur de la classe fourmis
 	 */
-	public AlgoFourmis(int nbreFourmis, int nbreIterations, int vitesseEvaporationPheromone, Graphe probleme)
+	public AlgoFourmis(int nbreFourmis, int nbreIterations, int vitesseEvaporationPheromone, double nbrePheromoneAEvap,Graphe probleme)
 	{
 		listeFourmis = new ArrayList<Fourmis>();
 		this.nbreFourmis = nbreFourmis;
 		this.nbreIterations = nbreIterations;
 		this.setProbleme(probleme);
 		this.vitesseEvapPheromone = vitesseEvaporationPheromone;
+		this.nbrePheromoneAEvap = nbrePheromoneAEvap;
 		
 		resultant = probleme.copierGraphe() ;
 		resultant.viderInformations();//On efface tous les poids des arrêtes afin de déposer le phéromone
@@ -81,7 +83,7 @@ public class AlgoFourmis{
 					listeFourmis.get(j).trouverChemin();
 				else if(listeFourmis.get(j).getEtat()== Etat.Rentre)
 				{
-					System.out.println("La fourmis rentre !");
+					//System.out.println("La fourmis rentre !");
 					listeFourmis.get(j).rentrer();
 				}
 			}
@@ -113,7 +115,7 @@ public class AlgoFourmis{
 			for(int j =0; j < listeArretes.size() ;j++)
 			{
 				pheromoneEnCours = listeArretes.get(j).getPoids();
-				nouveauPheromone = pheromoneEnCours - this.getVitesseEvapPheromone(); 
+				nouveauPheromone = pheromoneEnCours - this.nbrePheromoneAEvap; 
 				if(nouveauPheromone < 0)
 					listeArretes.get(j).setPoids(0);
 				else
@@ -167,6 +169,14 @@ public class AlgoFourmis{
 
 	public void setVitesseEvapPheromone(int vitesseEvapPheromone) {
 		this.vitesseEvapPheromone = vitesseEvapPheromone;
+	}
+
+	public void setNbrePheromoneAEvap(double nbrePheromoneAEvap) {
+		this.nbrePheromoneAEvap = nbrePheromoneAEvap;
+	}
+
+	public double getNbrePheromoneAEvap() {
+		return nbrePheromoneAEvap;
 	}
 
 }

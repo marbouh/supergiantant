@@ -37,7 +37,7 @@ public class Main {
 		//System.out.println("Affichage du problème");
 		//probleme.afficherGraphe();
 		
-		AlgoFourmis algo = new AlgoFourmis(5,20,10,probleme);
+		AlgoFourmis algo = new AlgoFourmis(5,20,10,4,probleme);
 		algo.traiterProbleme(n1, 1);
 		System.out.println("Algo terminé !");
 		//algo.getProbleme().afficherGraphe();
