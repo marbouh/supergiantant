@@ -87,8 +87,8 @@ public class AlgoFourmis{
 			}
 			if((i % vitesseEvapPheromone) == 0 && i != 0)
 				this.misAJourPheromone();
-			System.out.println("Affichage des pheromones :"+i);
-			resultant.afficherGraphe();
+			//System.out.println("Affichage des pheromones :"+i);
+			//resultant.afficherGraphe();
 		}
 	}
 	
@@ -101,10 +101,25 @@ public class AlgoFourmis{
 	}
 	
 	/*
-	 * 
+	 * Procédure mettant à jour les pheromones déposés sur les chemins
 	 */
 	public void misAJourPheromone()
 	{
+		double nouveauPheromone = 0.0;
+		double pheromoneEnCours =0.0;
+		for(int i =0; i < resultant.getNoeuds().size();i++)
+		{
+			ArrayList<ArreteList> listeArretes = resultant.getNoeuds().get(i).getDestinations();
+			for(int j =0; j < listeArretes.size() ;j++)
+			{
+				pheromoneEnCours = listeArretes.get(j).getPoids();
+				nouveauPheromone = pheromoneEnCours - this.getVitesseEvapPheromone(); 
+				if(nouveauPheromone < 0)
+					listeArretes.get(j).setPoids(0);
+				else
+					listeArretes.get(j).setPoids(nouveauPheromone);
+			}
+		}
 		System.out.println("Mis à jour des pheromones");
 	}
 	

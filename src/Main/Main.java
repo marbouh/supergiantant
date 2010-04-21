@@ -21,7 +21,7 @@ public class Main {
 		n2.addDestination(n5, 3);
 		n3.addDestination(n5, 1);
 		n4.addDestination(n5, 2);
-		
+				
 		n2.addDestination(n1, 4);
 		n3.addDestination(n1, 5);
 		n4.addDestination(n2, 6);
@@ -37,8 +37,8 @@ public class Main {
 		//System.out.println("Affichage du problème");
 		//probleme.afficherGraphe();
 		
-		AlgoFourmis algo = new AlgoFourmis(1,50,10,probleme);
-		algo.traiterProbleme(n1, 2);
+		AlgoFourmis algo = new AlgoFourmis(5,20,10,probleme);
+		algo.traiterProbleme(n1, 1);
 		System.out.println("Algo terminé !");
 		//algo.getProbleme().afficherGraphe();
 		System.out.println("\n\n Affichage du résultat");
