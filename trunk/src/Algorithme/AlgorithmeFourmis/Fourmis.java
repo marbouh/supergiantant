@@ -52,11 +52,19 @@ public class Fourmis
 			
 			if(poids > 0)//s'il y a un chemin correct entre les deux noeuds
 			{
-				if(!aDejaEteVisite(noeudPossible) && (poidsMinimum > poids || pheromone > pheromoneMaximum))
+				// A MODIFIER !
+				if(!aDejaEteVisite(noeudPossible) && (poidsMinimum > poids || pheromone >= pheromoneMaximum))
 				{
-					poidsMinimum = poids;
-					pheromoneMaximum = pheromone;
-					noeudSuivant = noeudPossible;
+					//if(poidsMinimum > poids)
+					//{
+						poidsMinimum = poids;
+						noeudSuivant = noeudPossible;
+					//}
+					//if(pheromone > pheromoneMaximum)
+					//{
+						pheromoneMaximum = pheromone;
+						
+					//}
 				}
 			}
 		}

@@ -21,7 +21,8 @@ QUESTIONS / PROPLEMES
 
 
 *Algo Fourmis
+** Qu'est ce qui vaut le mieux suivre, la piste possédant le moins de pheromone ou celle possédant le poids le plus petit ?
 ** Est ce qu'il faut attendre que toutes les fourmis soient rentrée pour pouvoir les faire repartir ?
-(afin de régler le problème de mauvais chemin (le plus court) trouvé) 
+   (afin de régler le problème de mauvais chemin (le plus court) trouvé) 
 ** Problème au niveau des arrêtes, il y a quasiment deux fois les mêmes arrêtes et il faudrait donc mettre à jour les pheromones pour les deux arrêtes correspondant à deux noeuds sinon il risque d'y avoir des soucis quand les fourmis repartent du noeud de Départ.
 ** Est ce que l'on implémente le problème du voyageur de commerce ? car cela modifie un peu le code étant donné que pour le moment les fourmis ne sont pas obligées de parcourir tous les noeuds du graphe avant de rentrer.
