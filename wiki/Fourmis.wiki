@@ -28,6 +28,3 @@ Liste des liens
   * http://www.ensta.fr/~diam/ro/index.php?id=main#meth_GA
   * Information détaillées sur la règle de transition : 
 http://www.memoireonline.com/05/08/1081/optimisation-production-structure-energie-electrique-colonies-fourmis.html
-
-Questions
-  * comment gérer le parcours simultané des fourmis ? (utilisation de thread ?)
