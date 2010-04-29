@@ -37,7 +37,7 @@ public class NoeudList extends Noeud implements Cloneable
 		}		
 		return copieNoeud;		
 	}
-		
+	
 	/*
 	 * Procédure ajoutant une arrete entre deux noeuds (celui passé en paramètre et le noeud courant)
 	 */
@@ -47,8 +47,23 @@ public class NoeudList extends Noeud implements Cloneable
 		destinations.add(destination);
 	}
 
+	/*
+	 * Fonction retournant le noeud dont l'identifiant est passé en paramètre et qui est trouvé dans listeNoeuds
+	 * (si aucun noeud est trouvé la fonction retourne null)
+	 */
+	public static NoeudList trouverNoeud(ArrayList<NoeudList> listeNoeuds, int id)
+	{
+		for(int i = 0; i < listeNoeuds.size() ;i++)
+		{
+			if(listeNoeuds.get(i).getId() == id)
+				return listeNoeuds.get(i);
+		}
+		return null;
+	}
+	
 	/* Getter de l'attribut de la classe*/
 	public ArrayList<ArreteList> getDestinations() {
 		return destinations;
 	}
+
 }

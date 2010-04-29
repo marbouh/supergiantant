@@ -2,6 +2,7 @@ package Algorithme.AlgorithmeFourmis;
 
 import java.util.ArrayList;
 
+import Algorithme.Algorithme;
 import Algorithme.AlgorithmeFourmis.Fourmis.Etat;
 import Algorithme.Graphe.ArreteList;
 import Algorithme.Graphe.Graphe;
@@ -10,7 +11,7 @@ import Algorithme.Graphe.NoeudList;
 /**
  *  Class AlgoFourmis : 
  */
-public class AlgoFourmis{
+public class AlgoFourmis extends Algorithme{
 
 	private int nbreFourmis;
 	private int nbreIterations;
@@ -39,11 +40,11 @@ public class AlgoFourmis{
 	/*
 	 * Fonction permettant de créer l'ensemble des fourmis qui seront utilisées pour l'algorithme
 	 */
-	public void creerFourmis(NoeudList noeudDepart, int nbrePheromoneADeposer, int noeudArrivee)
+	public void creerFourmis(NoeudList noeudDepart)
 	{
 		for(int j=0; j < nbreFourmis;j++)
 		{
-			Fourmis f = new Fourmis(nbrePheromoneADeposer,noeudArrivee,this);
+			Fourmis f = new Fourmis(this);
 			f.ajouterNoeudVisite(noeudDepart);
 			listeFourmis.add(f);
 		}
@@ -88,9 +89,10 @@ public class AlgoFourmis{
 	/*
 	 * Procédure permettant de créer l'ensemble des fourmis et d'exécuter l'algorithme des fourmis
 	 */
-	public void traiterProbleme(NoeudList noeudDepart, int nbrePheromoneADeposer, int noeudArrivee)
+	public void traiterProbleme(NoeudList noeudDepart)
 	{
-		this.creerFourmis(noeudDepart,noeudArrivee, nbrePheromoneADeposer);
+		this.start();
+		this.creerFourmis(noeudDepart);
 		this.affecterPremierNoeud();
 		
 		for(int i=0; i < nbreIterations;i++)
@@ -110,12 +112,14 @@ public class AlgoFourmis{
 			//System.out.println("Affichage des pheromones :"+i);
 			//resultant.afficherGraphe();
 		}
+		this.stop();
+		System.out.println("Temps mis : "+this.getTime()+" millisecondes !");
 	}
 	
 	/*
 	 * Procédure permettant de déposer du phéromone sur une arrête dont les noeuds sont passés en paramètre
 	 */
-	public void deposerPheromone(NoeudList noeudDepart, NoeudList noeudArrivee, int nbrePheromones)
+	public void deposerPheromone(NoeudList noeudDepart, NoeudList noeudArrivee, double nbrePheromones)
 	{
 		resultant.setPoids(noeudDepart, noeudArrivee, resultant.getPoids(noeudDepart, noeudArrivee)+ nbrePheromones);
 		resultant.setPoids(noeudArrivee, noeudDepart, resultant.getPoids(noeudDepart, noeudArrivee));//mis à jour de l'arrête dont les noeuds sont inversés par rapport à la première arrête
@@ -134,7 +138,7 @@ public class AlgoFourmis{
 			for(int j =0; j < listeArretes.size() ;j++)
 			{
 				pheromoneEnCours = listeArretes.get(j).getPoids();
-				nouveauPheromone = pheromoneEnCours - this.nbrePheromoneAEvap; 
+				nouveauPheromone = pheromoneEnCours - pheromoneEnCours*this.nbrePheromoneAEvap; 
 				if(nouveauPheromone < 0)
 					listeArretes.get(j).setPoids(0);
 				else
