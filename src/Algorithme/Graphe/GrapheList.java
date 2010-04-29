@@ -60,11 +60,19 @@ public class GrapheList implements Graphe, Cloneable
 	 */
 	public boolean checkTrajet(NoeudList noeudDepart, NoeudList noeudArrivee)
 	{
-		ArrayList<ArreteList> listeArretes = noeudDepart.getDestinations();
-
+		ArrayList<ArreteList> listeArretes = null;
+		NoeudList nDepart = null;
+		for(int j = 0; j < this.getNbreNoeuds(); j++)
+		{
+			if(this.getNoeuds().get(j).compareTo(noeudDepart))
+			{
+				nDepart = this.getNoeuds().get(j);
+				listeArretes = nDepart.getDestinations();
+			}
+		}
 		for(int i = 0; i< listeArretes.size(); i++)
 		{
-			if (listeArretes.get(i).checkTrajet(noeudDepart, noeudArrivee))
+			if (listeArretes.get(i).checkTrajet(nDepart, noeudArrivee))
 				return true;
 		}
 		return false;
@@ -76,8 +84,16 @@ public class GrapheList implements Graphe, Cloneable
 	 */
 	public double getPoids(NoeudList noeudDepart, NoeudList noeudArrivee)
 	{
-		ArrayList<ArreteList> listeArretes = noeudDepart.getDestinations();
-		
+		ArrayList<ArreteList> listeArretes = null;
+		NoeudList nDepart = null;
+		for(int j = 0; j < this.getNbreNoeuds(); j++)
+		{
+			if(this.getNoeuds().get(j).compareTo(noeudDepart))
+			{
+				nDepart = this.getNoeuds().get(j);
+				listeArretes = nDepart.getDestinations();
+			}
+		}
 		for(int i = 0; i< listeArretes.size(); i++)
 		{
 			if (listeArretes.get(i).checkTrajet(noeudDepart, noeudArrivee))

@@ -9,24 +9,27 @@ import Algorithme.Graphe.NoeudList;
  */
 public class Fourmis
 {
+	private static int CONSTANTE = 10;
+	//Paramètre de la règle aléatoire de transition proportionnelle
+	private static double ALPHA = 1;//paramètre pour l'intensité de la piste de phéromone
+	private static double BETA = 2;//paramètre pour la visibilité des noeuds (1/distance)
+	
 	enum Etat{ 
 		CherchePremierNoeud,
 		ParcoursGraphe, 
-		Rentre
+		Rentre//,Bloquee
 	};
-	private int nbrePheromonesADeposer;
+	private double distanceParcourue;
 	private ArrayList<NoeudList> listeNoeudsVisites;
 	private Etat etat;
 	private AlgoFourmis algo;
-	private NoeudList noeudArrivee;//noeud où doit arriver la fourmi
 	
 	/*
 	 * Constructeur de la classe fourmis
 	 */
-	public Fourmis(int nbrePheromoneDeposes,int noeudArrivee, AlgoFourmis algo)
+	public Fourmis(AlgoFourmis algo)
 	{
-		this.nbrePheromonesADeposer = nbrePheromoneDeposes;
-		this.noeudArrivee = new NoeudList(noeudArrivee);
+		this.distanceParcourue = 0.0;
 		this.setEtat(Etat.CherchePremierNoeud);
 		this.listeNoeudsVisites = new ArrayList<NoeudList>();
 		this.setAlgo(algo);
@@ -41,38 +44,54 @@ public class Fourmis
 		double pheromoneMaximum = 0;
 		NoeudList noeudSuivant = null;
 		NoeudList noeudPossible = null;
+				
+		double somme = 0;
+		double proba = 0;
+		double ancienneProba =0;
+
+		
 		/* Le noeud où se situe la fourmis est le dernier noeud qui a été visité */
 		NoeudList noeudCourant = listeNoeudsVisites.get(listeNoeudsVisites.size()-1);
 		ArrayList<NoeudList> listeNoeudSuivant = algo.getProbleme().getSuivants(noeudCourant);
+		
 		for(int i = 0; i < listeNoeudSuivant.size();i++)
 		{//On parcours la liste des chemins possibles depuis le noeud courant où est la fourmi
 			noeudPossible = listeNoeudSuivant.get(i);
-			double poids = algo.getProbleme().getPoids(noeudCourant, noeudPossible);
-			double pheromone = algo.getResultant().getPoids(noeudCourant, noeudPossible);
-			
-			if(poids > 0)//s'il y a un chemin correct entre les deux noeuds
-			{
-				// A MODIFIER !
-				if(!aDejaEteVisite(noeudPossible) && (poidsMinimum > poids || pheromone >= pheromoneMaximum))
-				{
-					//if(poidsMinimum > poids)
-					//{
-						poidsMinimum = poids;
-						noeudSuivant = noeudPossible;
-					//}
-					//if(pheromone > pheromoneMaximum)
-					//{
-						pheromoneMaximum = pheromone;
 						
-					//}
+			if(!aDejaEteVisite(noeudPossible))
+			{
+				double poids = algo.getProbleme().getPoids(noeudCourant, noeudPossible);
+				double pheromone = algo.getResultant().getPoids(noeudCourant, noeudPossible);
+				
+				for(int j =0;j < listeNoeudSuivant.size() ;j++)
+				{
+					if(!noeudPossible.compareTo(listeNoeudSuivant.get(j)))
+					{
+						double pheroCoeff = Math.pow(algo.getResultant().getPoids(noeudCourant, listeNoeudSuivant.get(j)),ALPHA);
+						double poidsCoeff = Math.pow(algo.getProbleme().getPoids(noeudCourant, listeNoeudSuivant.get(j)),BETA);
+						//if(pheroCoeff != 0)
+							somme += (pheroCoeff/poidsCoeff);
+						//else
+					//		somme += 1 / poidsCoeff;
+					}
 				}
+								
+				proba = (Math.pow(pheromone,ALPHA)/(Math.pow(poids,BETA)))/somme;
+				if(proba >= ancienneProba)
+					noeudSuivant = noeudPossible;
+				ancienneProba = proba;
+				/*double resultat = Math.pow(pheromone,2/3)*Math.pow(poids, 1/3);
+				if(resultat <= resultatPrecedent)
+				{
+					noeudSuivant = noeudPossible;
+				}
+				resultatPrecedent = resultat;*/
 			}
 		}
 		if(noeudSuivant != null)
 		{
 			ajouterNoeudVisite(noeudSuivant);
-			if(noeudSuivant.compareTo(getNoeudArrivee()))
-				setEtat(Etat.Rentre);
+			distanceParcourue += algo.getProbleme().getPoids(noeudCourant, noeudSuivant);
 		}
 		else//on n'a pas trouvé d'autre noeud donc la fourmis doit rentrer
 			setEtat(Etat.Rentre);
@@ -85,6 +104,7 @@ public class Fourmis
 	{
 		NoeudList noeudDepart = null;
 		NoeudList noeudArrivee = null;
+		double nbrePheromoneADeposer = 0.0;
 		if(etat == Etat.Rentre)
 		{
 			int dernierElement = listeNoeudsVisites.size()-1;
@@ -103,7 +123,10 @@ public class Fourmis
 				}
 				if(noeudDepart != null && noeudArrivee != null)
 				{
-					algo.deposerPheromone(noeudDepart,noeudArrivee, this.nbrePheromonesADeposer);
+					nbrePheromoneADeposer = CONSTANTE-this.distanceParcourue;
+					if(nbrePheromoneADeposer <= 0)
+						nbrePheromoneADeposer = 1;
+					algo.deposerPheromone(noeudDepart,noeudArrivee, nbrePheromoneADeposer);
 					listeNoeudsVisites.remove(dernierElement);
 				}
 			}
@@ -139,6 +162,7 @@ public class Fourmis
 	public void reinitialiserFourmis()
 	{
 		this.etat = Etat.ParcoursGraphe;
+		this.distanceParcourue = 0;
 		NoeudList noeudDepart = this.listeNoeudsVisites.get(0);
 		this.listeNoeudsVisites.clear();
 		this.listeNoeudsVisites.add(noeudDepart);
@@ -167,16 +191,18 @@ public class Fourmis
 	}
 	
 	/* Getters et setters des attributs de la classe */
+	public double getDistanceParcourue() {
+		return distanceParcourue;
+	}
+
+	public void setDistanceParcourue(double distanceParcourue) {
+		this.distanceParcourue = distanceParcourue;
+	}
 	
-	public int getNbrePheromonesADeposer() {
-		return nbrePheromonesADeposer;
-	}
-	public void setNbrePheromonesADeposer(int nbrePheromonesADeposer) {
-		this.nbrePheromonesADeposer = nbrePheromonesADeposer;
-	}
 	public void setListeNoeudsVisites(ArrayList<NoeudList> listeNoeudsVisites) {
 		this.listeNoeudsVisites = listeNoeudsVisites;
 	}
+	
 	public ArrayList<NoeudList> getListeNoeudsVisites() {
 		return listeNoeudsVisites;
 	}
@@ -191,14 +217,6 @@ public class Fourmis
 	}
 	public Etat getEtat() {
 		return etat;
-	}
-
-	public void setNoeudArrivee(NoeudList noeudArrivee) {
-		this.noeudArrivee = noeudArrivee;
-	}
-
-	public NoeudList getNoeudArrivee() {
-		return noeudArrivee;
 	}
 
 }
