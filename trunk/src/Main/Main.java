@@ -2,8 +2,8 @@ package Main;
 
 import Algorithme.AlgorithmeFourmis.AlgoFourmis;
 import Algorithme.Graphe.*;
-import InterfaceGraphique.Interface;
-import InterfaceGraphique.ParserGraphe;
+//import InterfaceGraphique.Interface;
+//import InterfaceGraphique.ParserGraphe;
 
 
 public class Main {
@@ -12,8 +12,9 @@ public class Main {
 	{
 		//Interface fenetre = new Interface();
 		//testerSansInterface();
-		Graphe graphe = ParserGraphe.chargerFichier("graphe.txt");
-		graphe.afficherGraphe();
+		//		Graphe graphe = ParserGraphe.chargerFichier("graphe.txt");
+		//		graphe.afficherGraphe();
+		testerSansInterface();
 	}
 
 	public static void testerSansInterface()

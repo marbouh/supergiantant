@@ -1,6 +1,7 @@
-package AlgoGenetique;
+package AlgorithmeGenetique;
 
 import java.util.Random;
+import Algorithme.Graphe.*;
 
 public class AlgoGenetique {
 	private int nbIndividus;
@@ -10,7 +11,12 @@ public class AlgoGenetique {
 	private int tauxMutation;
 	private Random rnd;
 
-	public void init(int nbIndividus, int nbIterations, long tauxMutation) {
+	public AlgoGenetique(int nbIndividus, int nbIterations, int tauxMutation, GrapheList probleme) {
+		init(nbIndividus, nbIterations, tauxMutation);
+		setGraphe(probleme);
+	}
+
+	public void init(int nbIndividus, int nbIterations, int tauxMutation) {
 		rnd = new Random();
 		this.nbIndividus = nbIndividus;
 		this.nbIterations = nbIterations;
@@ -40,7 +46,7 @@ public class AlgoGenetique {
 
 	public void creerPopulationInitiale() {
 		Individu individu;
-		population = new Individu[nbIndividus]();
+		population = new Individu[nbIndividus];
 		for (int i = 0; i < nbIndividus; i++) {
 			individu = new Individu(graphe);
 			if (existeIndividu(individu))
@@ -71,23 +77,20 @@ public class AlgoGenetique {
 	 * Implentation : crossover 1 point
 	 * existe aussi : crossover 2 points, OSX
 	 */
-	public Individu croisement(Individu parent1, Individu parent2) {
-		int avancement;
-		int cassure = graphe.getNbreNoeuds() / 2;
+	public Individu croisement(Individu parent1, Individu parent2, int cassure) {
 		Individu fils = new Individu();
 
-		for (avancement = 0; avancement < cassure; avancement++) {
-			fils.set(avancement, parent1.get(avancement));
+		for (int i = 0; i < cassure; i++) {
+			fils.append(parent1.get(i));
 		}
 		for (int i = cassure; i < graphe.getNbreNoeuds(); i++) {
 			if (!fils.has(parent2.get(i))) {
-				fils.set(avancement, parent2.get(i));
+				fils.append(parent2.get(i));
 			}
 		}
 		for (int i = 0; i < cassure; i++) {
 			if (!fils.has(parent2.get(i))) {
-				fils.set(avancement, parent2.get(i));
-				avancement++;
+				fils.append(parent2.get(i));
 			}
 		}
 	}
@@ -127,13 +130,20 @@ public class AlgoGenetique {
 		start();
 		creerPopulationInitiale();
 		for (int it = 0; it < nbIterations; it++) {
+			int cassure = rnd.nextInt(graphe.nbreNoeuds() - 1) + 1;
 			Individu parent1 = selection();
 			Individu parent2 = selection();
-			Individu fils = croisement(parent1, parent2);
-			if (rnd.nextInt(100) <= tauxMutation)
-				mutation(fils);
-			if (evaluation(fils))
-				insertion(fils);
+			for (int i = 0; i < 2; i++) {
+				Individu fils;
+				if (i == 0)
+					fils = croisement(parent1, parent2, cassure);
+				else
+					fils = croisement(parent2, parent1, cassure);
+				if (rnd.nextInt(100) <= tauxMutation)
+					mutation(fils);
+				if (evaluation(fils))
+					insertion(fils);
+			}
 		}
 		stop();
 	}
