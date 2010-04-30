@@ -3,6 +3,9 @@ package AlgorithmeGenetique;
 import java.util.Random;
 import Algorithme.Graphe.*;
 
+/**
+ *
+ */
 public class AlgoGenetique {
 	private int nbIndividus;
 	private int nbIterations;
