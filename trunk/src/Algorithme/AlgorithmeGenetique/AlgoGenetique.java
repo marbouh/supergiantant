@@ -2,11 +2,12 @@ package AlgorithmeGenetique;
 
 import java.util.Random;
 import Algorithme.Graphe.*;
+import Algorithme.Algorithme;
 
 /**
  *
  */
-public class AlgoGenetique {
+public class AlgoGenetique extends Algorithme {
 	private int nbIndividus;
 	private int nbIterations;
 	private GrapheList graphe;
