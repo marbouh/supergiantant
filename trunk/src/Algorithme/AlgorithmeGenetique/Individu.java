@@ -2,6 +2,9 @@ package AlgorithmeGenetique;
 
 import Algorithme.Graphe.*;
 
+/**
+ *
+ */
 public class Individu {
 	Graphe genes;
 
