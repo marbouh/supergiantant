@@ -45,14 +45,14 @@ public class GrapheList implements Graphe, Cloneable
 	 */
 	public ArrayList<NoeudList> getSuivants(NoeudList noeud)
 	{
-		ArrayList<NoeudList> ns = new ArrayList<NoeudList>();
+		ArrayList<NoeudList> listeNoeuds = new ArrayList<NoeudList>();
 		ArrayList<ArreteList> listeArretes = noeud.getDestinations();
 		
 		for(int i=0; i < listeArretes.size();i++)
 		{
-			ns.add(listeArretes.get(i).getArrivee());
+			listeNoeuds.add(listeArretes.get(i).getArrivee());
 		}
-		return ns;
+		return listeNoeuds;
 	}
 
 	/*
