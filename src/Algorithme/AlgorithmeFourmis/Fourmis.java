@@ -9,16 +9,17 @@ import Algorithme.Graphe.NoeudList;
  */
 public class Fourmis
 {
-	private static int CONSTANTE = 10;
+	private static int CONSTANTE = 50;
 	//Paramètre de la règle aléatoire de transition proportionnelle
-	private static double ALPHA = 1;//paramètre pour l'intensité de la piste de phéromone
-	private static double BETA = 2;//paramètre pour la visibilité des noeuds (1/distance)
+	private static double ALPHA = 2/3;//paramètre pour l'intensité de la piste de phéromone
+	private static double BETA = 1/3;//paramètre pour la visibilité des noeuds (1/distance)
 	
 	enum Etat{ 
 		CherchePremierNoeud,
 		ParcoursGraphe, 
 		Rentre//,Bloquee
 	};
+	
 	private double distanceParcourue;
 	private ArrayList<NoeudList> listeNoeudsVisites;
 	private Etat etat;
@@ -41,7 +42,9 @@ public class Fourmis
 	public void trouverChemin()
 	{
 		double poidsMinimum = 9999999;
-		double pheromoneMaximum = 0;
+		double precPheromone = 0;
+		boolean aDejaEteParcouru = true;
+		
 		NoeudList noeudSuivant = null;
 		NoeudList noeudPossible = null;
 				
@@ -58,7 +61,7 @@ public class Fourmis
 		{//On parcours la liste des chemins possibles depuis le noeud courant où est la fourmi
 			noeudPossible = listeNoeudSuivant.get(i);
 						
-			if(!aDejaEteVisite(noeudPossible))
+			if(!aDejaEteVisite(noeudPossible))//si le noeud n'a pas déjà été visité
 			{
 				double poids = algo.getProbleme().getPoids(noeudCourant, noeudPossible);
 				double pheromone = algo.getResultant().getPoids(noeudCourant, noeudPossible);
@@ -67,7 +70,12 @@ public class Fourmis
 				{
 					if(!noeudPossible.compareTo(listeNoeudSuivant.get(j)))
 					{
+						
 						double pheroCoeff = Math.pow(algo.getResultant().getPoids(noeudCourant, listeNoeudSuivant.get(j)),ALPHA);
+						if(pheroCoeff == 0)
+							aDejaEteParcouru = aDejaEteParcouru && true;
+						else
+							aDejaEteParcouru = aDejaEteParcouru && false;
 						double poidsCoeff = Math.pow(algo.getProbleme().getPoids(noeudCourant, listeNoeudSuivant.get(j)),BETA);
 						//if(pheroCoeff != 0)
 							somme += (pheroCoeff/poidsCoeff);
@@ -75,11 +83,18 @@ public class Fourmis
 					//		somme += 1 / poidsCoeff;
 					}
 				}
-								
-				proba = (Math.pow(pheromone,ALPHA)/(Math.pow(poids,BETA)))/somme;
-				if(proba >= ancienneProba)
+				if(pheromone == 0.0 && aDejaEteParcouru == true)//si le noeud n'a jamais été emprunté par aucune fourmis
+				{
 					noeudSuivant = noeudPossible;
-				ancienneProba = proba;
+				}else
+				{
+					proba = (Math.pow(pheromone,ALPHA)/(Math.pow(poids,BETA)))/somme;
+					if(proba >= ancienneProba)
+						noeudSuivant = noeudPossible;
+					ancienneProba = proba;
+				}
+				
+				precPheromone = pheromone;
 				/*double resultat = Math.pow(pheromone,2/3)*Math.pow(poids, 1/3);
 				if(resultat <= resultatPrecedent)
 				{
@@ -123,7 +138,10 @@ public class Fourmis
 				}
 				if(noeudDepart != null && noeudArrivee != null)
 				{
-					nbrePheromoneADeposer = CONSTANTE-this.distanceParcourue;
+					if(this.listeNoeudsVisites.size() == this.getAlgo().getNbreNoeuds())
+						nbrePheromoneADeposer = CONSTANTE - this.distanceParcourue;
+					else
+						nbrePheromoneADeposer = CONSTANTE - (this.distanceParcourue + 0.5 * this.distanceParcourue);
 					if(nbrePheromoneADeposer <= 0)
 						nbrePheromoneADeposer = 1;
 					algo.deposerPheromone(noeudDepart,noeudArrivee, nbrePheromoneADeposer);
