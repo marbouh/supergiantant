@@ -42,9 +42,11 @@ public class NoeudList extends Noeud implements Cloneable
 	 * Procédure ajoutant une arrete entre deux noeuds (celui passé en paramètre et le noeud courant)
 	 */
 	public void addDestination(NoeudList arrivee, double poids) {
-		ArreteList destination = new ArreteList(this, arrivee, poids);
-
-		destinations.add(destination);
+		ArreteList aller = new ArreteList(this, arrivee, poids);
+		destinations.add(aller);
+		/*Ajout automatique de l'arrete de retour pour le noeud arrivee*/
+		ArreteList retour= new ArreteList(arrivee, this, poids);
+		arrivee.getDestinations().add(retour);
 	}
 
 	/*

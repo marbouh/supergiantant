@@ -70,7 +70,6 @@ public class Fourmis
 				{
 					if(!noeudPossible.compareTo(listeNoeudSuivant.get(j)))
 					{
-						
 						double pheroCoeff = Math.pow(algo.getResultant().getPoids(noeudCourant, listeNoeudSuivant.get(j)),ALPHA);
 						if(pheroCoeff == 0)
 							aDejaEteParcouru = aDejaEteParcouru && true;
