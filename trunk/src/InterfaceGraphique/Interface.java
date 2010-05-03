@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.JTabbedPane;
 
 import Algorithme.AlgorithmeFourmis.AlgoFourmis;
 import Algorithme.Graphe.GrapheList;
@@ -43,12 +44,15 @@ public class Interface extends JFrame implements ActionListener
 		this.setTitle("Comparateur d'algorithmes");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
-		
+
+		/************************ Création des différents onglets *********************************************/
+		JTabbedPane tab = new JTabbedPane();
+
 		/************************ Création des différents panneaux de l'interface *****************************/ 
-		JPanel pCreationGraphe = this.creerGraphe();
+		//JPanel pCreationGraphe = this.creerGraphe();
 
 		/************************ Ajout des différents éléments au container principal ************************/
-		this.getContentPane().add(pCreationGraphe,BorderLayout.NORTH);
+		/*this.getContentPane().add(pCreationGraphe,BorderLayout.NORTH);
 		pCreationGraphe.setPreferredSize(new java.awt.Dimension(638, 184));
 		pCreationGraphe.setLayout(null);
 
@@ -104,12 +108,18 @@ public class Interface extends JFrame implements ActionListener
 				lancerAlgo.addActionListener(this);
 				lancerAlgo.setActionCommand("AlgoFourmis");
 				lancerAlgo.setBounds(17, 139, 267, 23);
-			}
+				}*/
+		tab.addTab("Graphe", null, null, "Représentation du graphe initiale");
+		tab.addTab("Algorithme des fourmis", null, null, "Paramètres de l'algorithme des fourmis");
+		tab.addTab("Algorithme Génétique", null, null, "Paramètres de l'algorithme génétique");
+		tab.addTab("Résultats", null, null, "Résultats des tests");
+		add(tab);
+
 		this.setLocationByPlatform(true);
 		this.setVisible(true);
 		pack();
 	}
-	
+
 	/*
 	 * Fonction créant et retournant le pannel de création un graphe en fonction des données que rentre l'utilisateur
 	 */
@@ -120,12 +130,12 @@ public class Interface extends JFrame implements ActionListener
 		
 		
 		pCreationGraphe.add(lcreationGraphe);
-		lcreationGraphe.setBounds(229, 5, 112, 16);
+		lcreationGraphe.setBounds(229, 5, 200, 16);
 		{
 			lNomGraphe = new JLabel();
 			pCreationGraphe.add(lNomGraphe);
 			lNomGraphe.setText("Nom du graphe");
-			lNomGraphe.setBounds(12, 21, 73, 16);
+			lNomGraphe.setBounds(12, 21, 100, 16);
 		}
 		return pCreationGraphe;
 	}
