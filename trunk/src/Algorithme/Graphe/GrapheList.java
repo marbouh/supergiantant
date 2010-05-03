@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Class GraphList
  */
-public class GrapheList implements Graphe, Cloneable
+public class GrapheList implements Graphe
 {
 	private String nom;
 	private ArrayList<NoeudList> noeuds;

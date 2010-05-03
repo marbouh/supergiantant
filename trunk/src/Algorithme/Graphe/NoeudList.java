@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Class NoeudList
  */
-public class NoeudList extends Noeud implements Cloneable
+public class NoeudList extends Noeud
 {
 	private ArrayList<ArreteList> destinations;
 
