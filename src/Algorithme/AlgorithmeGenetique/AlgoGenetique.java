@@ -1,6 +1,10 @@
-package AlgorithmeGenetique;
+package Algorithme.AlgorithmeGenetique;
 
 import java.util.Random;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Arrays;
+
 import Algorithme.Graphe.*;
 import Algorithme.Algorithme;
 
@@ -11,7 +15,7 @@ public class AlgoGenetique extends Algorithme {
 	private int nbIndividus;
 	private int nbIterations;
 	private GrapheList graphe;
-	private Individu population[];
+	private ArrayList<Individu> population;
 	private int tauxMutation;
 	private Random rnd;
 
@@ -25,6 +29,7 @@ public class AlgoGenetique extends Algorithme {
 		this.nbIndividus = nbIndividus;
 		this.nbIterations = nbIterations;
 		this.tauxMutation = tauxMutation;
+		population = null;
 	}
 
 	public void setGraphe(GrapheList graphe) {
@@ -32,32 +37,29 @@ public class AlgoGenetique extends Algorithme {
 	}
 
 	private void triePopulation() {
-		Arrays.sort(population, new Comparator() {
-				int compare(Object o1, Object o2) {
-					Individu i1 = (Individu) o1;
-					Individu i2 = (Individu) o2;
-					return i1.getDistance() - i2.getDistance();
-				}
-			});
+		Collections.sort(population);
 	}
 
 	private boolean existeIndividu(Individu individu) {
-		for (int i = 0; i < nbIndividus; i++)
-			if (individu.same(population[i]))
+		for (int i = 0; i < population.size(); i++)
+			if (individu.estPareil(population.get(i)))
 				return true;
 		return false;
 	}
 
 	public void creerPopulationInitiale() {
 		Individu individu;
-		population = new Individu[nbIndividus];
+		//System.out.println("creerPopulationInitiale()");
+		population = new ArrayList<Individu>();
 		for (int i = 0; i < nbIndividus; i++) {
 			individu = new Individu(graphe);
-			if (existeIndividu(individu))
+			individu.generer();
+			if (existeIndividu(individu)) {
+				i--;
 				continue;
-			else
-				population[i] = individu;
-		}
+			}
+			population.add(individu);
+		}		
 		triePopulation();
 	}
 
@@ -71,9 +73,11 @@ public class AlgoGenetique extends Algorithme {
 		}
 		int alea = rnd.nextInt((nbIndividus * (nbIndividus + 1)) / 2);
 		int choix = nbIndividus - 1;
-		while (roulette[choix] < alea)
-			choix++;
-		return population[choix];
+		while (roulette[choix] < alea) {
+			alea -= roulette[choix];
+			choix--;
+		}
+		return population.get(choix);
 	}
 
 	/**
@@ -82,37 +86,43 @@ public class AlgoGenetique extends Algorithme {
 	 * existe aussi : crossover 2 points, OSX
 	 */
 	public Individu croisement(Individu parent1, Individu parent2, int cassure) {
-		Individu fils = new Individu();
+		Individu fils = new Individu(graphe);
 
 		for (int i = 0; i < cassure; i++) {
 			fils.append(parent1.get(i));
 		}
 		for (int i = cassure; i < graphe.getNbreNoeuds(); i++) {
-			if (!fils.has(parent2.get(i))) {
+			if (!fils.possede(parent2.get(i))) {
 				fils.append(parent2.get(i));
 			}
 		}
 		for (int i = 0; i < cassure; i++) {
-			if (!fils.has(parent2.get(i))) {
+			if (!fils.possede(parent2.get(i))) {
 				fils.append(parent2.get(i));
 			}
 		}
+		return fils;
 	}
 
 	/**
 	 * Applique une mutation à un individu
 	 */
 	public void mutation(Individu individu) {
+		//System.out.println("*** /!\\ Attention au Mutant !!! ***");
+
 		int nbVilles = graphe.getNbreNoeuds();
 		int alea = rnd.nextInt(nbVilles - 1);
+		//individu.afficherIndividu();
 		individu.inverse(alea, alea + 1);
+		//individu.afficherIndividu();
+		//System.out.println("*** Arrrrrgggggghhhhhhhhhhhhhhhhhhhh ***");
 	}
 
 	/**
 	 * Evalue la pertinence d'un individu (fils)
 	 */
 	public boolean evaluation(Individu individu) {
-		if (individu.getDistance() >= population[nbIndividus - 1].getDistance())
+		if (individu.getDistance() >= population.get(nbIndividus - 1).getDistance())
 			return false;
 		return true;
 	}
@@ -121,11 +131,13 @@ public class AlgoGenetique extends Algorithme {
 	 * Réinsert un individu
 	 */ 
 	public void insertion(Individu individu) {
+		population.remove(nbIndividus - 1);
 		for (int i = nbIndividus - 2; i >= 0; i--) {
-			if (individu.getDistance() < population[i].getDistance()) {
-				population[i + 1] = population[i];
-			} else {
-				population[i + 1] = individu;
+			if (individu.compareTo(population.get(i)) >= 0) {
+				population.add(i + 1, individu);
+				break;
+			} else if (i == 0) {
+				population.add(i, individu);
 			}
 		}
 	}
@@ -133,10 +145,18 @@ public class AlgoGenetique extends Algorithme {
 	public void resoudre() {
 		start();
 		creerPopulationInitiale();
+		//afficherPopulation();
+		//System.out.println("--------------------------");
 		for (int it = 0; it < nbIterations; it++) {
-			int cassure = rnd.nextInt(graphe.nbreNoeuds() - 1) + 1;
+			int cassure = rnd.nextInt(graphe.getNbreNoeuds() - 1) + 1;
+			//System.out.println("\nIteration " + it);
+			//System.out.println("Cassure : " + cassure);
 			Individu parent1 = selection();
+			//System.out.println("Parent1 :");
+			//parent1.afficherIndividu();
 			Individu parent2 = selection();
+			//System.out.println("Parent2 :");
+			//parent2.afficherIndividu();
 			for (int i = 0; i < 2; i++) {
 				Individu fils;
 				if (i == 0)
@@ -147,8 +167,21 @@ public class AlgoGenetique extends Algorithme {
 					mutation(fils);
 				if (evaluation(fils))
 					insertion(fils);
+				//System.out.println("Fils" + (i + 1) + " :");
+				//fils.afficherIndividu();
 			}
 		}
+		population.get(0).afficherIndividu();
 		stop();
+		System.out.println("Temps mis : " + getTime() + " ms");
+	}
+
+	public void afficherPopulation() {
+		for (int i = 0; i < nbIndividus; i++) 
+			population.get(i).afficherIndividu();
+	}
+
+	public Graphe getResultant() {
+		return null;
 	}
 }

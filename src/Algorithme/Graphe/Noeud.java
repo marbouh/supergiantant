@@ -8,7 +8,7 @@ public class Noeud {
 		this.id = id;
 	}
 
-	public int getId() { // le mettre en droit de package
+	public int getId() { 
 		return id;
 	}
 
