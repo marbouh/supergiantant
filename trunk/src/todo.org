@@ -1,6 +1,6 @@
 * Algorithme
 ** Graphe
-*** Supprimer la classe ArrÃªte si inutile
+*** Supprimer la classe Arrète si inutile
 *** Peaufiner l'interface Graphe
 *** Revoir la classe GrapheMatrice
 *** Faire la classe GrapheList
@@ -16,6 +16,8 @@
 **** Méthode de croisement -> OSX résouds un problème du à la suppression d'arrête
 
 * Interface
+** Rajouter un padding autour des composants
+** Sauvegarde et lecture des valeurs par défault
 
 * Tests
 
