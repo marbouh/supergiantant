@@ -9,7 +9,7 @@ import Algorithme.Graphe.*;
 import Algorithme.Algorithme;
 
 /**
- *
+ * Classe AlgorithmeGenetique
  */
 public class AlgoGenetique extends Algorithme {
 	private int nbIndividus;
