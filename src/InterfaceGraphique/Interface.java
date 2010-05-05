@@ -16,11 +16,12 @@ import Algorithme.AlgorithmeFourmis.AlgoFourmis;
 import Algorithme.Graphe.GrapheList;
 import Algorithme.Graphe.NoeudList;
 
-public class Interface extends JFrame //implements ActionListener
+public class Interface extends JFrame implements ActionListener
 {
 	ComposantFourmis fourmis;
 	ComposantGenetique genetique;
 	JTextField nbreTests;
+	JLabel resultats;
 
 	public Interface()
 	{
@@ -45,7 +46,11 @@ public class Interface extends JFrame //implements ActionListener
 		nbreTests = new JTextField(4);
 		nbreTests.setText("10");
 		contenuTestLancement.add(nbreTests);
-		contenuTestLancement.add(new JButton("Lancement"));
+		JButton lancement = new JButton("Lancement");
+		contenuTestLancement.add(lancement);
+		lancement.addActionListener(this);
+		resultats = new JLabel("Sortie");
+		contenuTest.add(resultats);
 
 		/* Fenetre principal */
 		JTabbedPane tab = new JTabbedPane();
@@ -62,55 +67,11 @@ public class Interface extends JFrame //implements ActionListener
 		pack();
 	}
 
-		/************************ Création des différents panneaux de l'interface *****************************/ 
-		//JPanel pCreationGraphe = this.creerGraphe();
-
-	/*
-	 * Fonction créant et retournant le pannel de création un graphe en fonction des données que rentre l'utilisateur
-	 */
-	/*
-	public JPanel creerGraphe()
-	{
-		JPanel pCreationGraphe = new JPanel();
-		JLabel lcreationGraphe =  new JLabel("Création d'un graphe");
-		
-		
-		pCreationGraphe.add(lcreationGraphe);
-		lcreationGraphe.setBounds(229, 5, 200, 16);
-		{
-			lNomGraphe = new JLabel();
-			pCreationGraphe.add(lNomGraphe);
-			lNomGraphe.setText("Nom du graphe");
-			lNomGraphe.setBounds(12, 21, 100, 16);
+	public void actionPerformed(ActionEvent evenement) {
+		int nbreTests = Integer.parseInt(this.nbreTests.getText());
+		for (int i = 0; i < nbreTests; i++) {
+			fourmis.lancement(resultats);
+			genetique.lancement(resultats);
 		}
-		return pCreationGraphe;
 	}
-	
-	public JPanel gererAlgoFourmis()
-	{
-		JPanel pAlgoFourmis = new JPanel();
-		
-		/******* Création des différents textfield et labels pour entrer les paramètres ********/
-	/*
-		return pAlgoFourmis;
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e)
-	{
-		
-		if(e.getActionCommand().compareTo("AlgoFourmis")==0)
-		{
-			int nbreIterations = Integer.parseInt(this.nbreIterations.getText());
-			int nbreFourmis = Integer.parseInt(this.nbreFourmis.getText());
-			int vitesseEvapPheromone = Integer.parseInt(this.vitesseEvapPheromone.getText());
-			double nbrePheromoneAEvap = Double.parseDouble(this.nbrePheromoneAEvap.getText());
-			AlgoFourmis algoF = new AlgoFourmis(nbreFourmis, nbreIterations,vitesseEvapPheromone,nbrePheromoneAEvap,graphe);
-			algoF.traiterProbleme(noeudDepart);
-		}else if(e.getActionCommand().compareTo("AlgoGenetique")==0)
-		{
-			
-		}
-		
-		}*/
 }
