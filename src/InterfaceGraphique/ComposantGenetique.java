@@ -19,7 +19,7 @@ public class ComposantGenetique {
 		nbreIndividus.setText("20");
 		tauxMutation = new JTextField(4);
 		tauxMutation.setText("25");
-	}		
+	}
 
 	public JPanel creerPanneauParametre() {
 		JPanel contenuParamGenetique = new JPanel();
@@ -35,5 +35,11 @@ public class ComposantGenetique {
 		contenuParamGenetiqueGrid.add(new JLabel("Taux de mutation"));
 		contenuParamGenetiqueGrid.add(tauxMutation);
 		return contenuParamGenetique;
+	}
+
+	public void lancement(JLabel sortie) {
+		StringBuffer text = new StringBuffer(sortie.getText());
+		text.append("Génétique\n");
+		sortie.setText(text.toString());
 	}
 };

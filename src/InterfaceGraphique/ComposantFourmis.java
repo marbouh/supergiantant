@@ -36,4 +36,10 @@ public class ComposantFourmis {
 		contenuParamFourmisGrid.add(vitesseEvapPheromone);
 		return contenuParamFourmis;
 	}
+
+	public void lancement(JLabel sortie) {
+		StringBuffer text = new StringBuffer(sortie.getText());
+		text.append("Fourmis\n");
+		sortie.setText(text.toString());
+	}
 };
