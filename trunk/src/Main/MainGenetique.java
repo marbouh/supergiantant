@@ -4,9 +4,11 @@ import Algorithme.AlgorithmeGenetique.*;
 import InterfaceGraphique.Interface;
 import Algorithme.Graphe.*;
 
-class MainGenetique {
-	public static void main(String args[]) {
-		/*		GrapheList graphe = new GrapheList("AG", 10);
+class MainGenetique
+{
+	public static void main(String args[]) 
+	{
+		GrapheList graphe = new GrapheList("AG", 10);
 		NoeudList n1 = new NoeudList(1);
 		NoeudList n2 = new NoeudList(2);
 		NoeudList n3 = new NoeudList(3);
@@ -76,8 +78,8 @@ class MainGenetique {
 		graphe.ajouterNoeud(n10);
 
 		//graphe.afficherGraphe();
-		*/
-		GrapheList probleme = new GrapheList("Test",6);
+		
+		/*GrapheList graphe = new GrapheList("Test",6);
 		NoeudList n1 = new NoeudList(1);
 		NoeudList n2 = new NoeudList(2);
 		NoeudList n3 = new NoeudList(3);
@@ -101,16 +103,16 @@ class MainGenetique {
 		n4.addDestination(n6, 1000);
 		n6.addDestination(n5, 1);
 		
-		probleme.ajouterNoeud(n1);
-		probleme.ajouterNoeud(n2);
-		probleme.ajouterNoeud(n3);
-		probleme.ajouterNoeud(n4);
-		probleme.ajouterNoeud(n5);
-		probleme.ajouterNoeud(n6);
+		graphe.ajouterNoeud(n1);
+		graphe.ajouterNoeud(n2);
+		graphe.ajouterNoeud(n3);
+		graphe.ajouterNoeud(n4);
+		graphe.ajouterNoeud(n5);
+		graphe.ajouterNoeud(n6);*/
 
 		Interface fenetre = new Interface();
 
-		AlgoGenetique ag = new AlgoGenetique(20, 100, 25, probleme);
-		//		ag.resoudre();
+		AlgoGenetique ag = new AlgoGenetique(20, 100, 25, graphe);
+		//ag.resoudre();
 	}
 }

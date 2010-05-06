@@ -41,7 +41,6 @@ public class Fourmis
 	 */
 	public void trouverChemin()
 	{
-		double poidsMinimum = 9999999;
 		double precPheromone = 0;
 		boolean aDejaEteParcouru = true;
 		

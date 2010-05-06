@@ -81,7 +81,7 @@ public class AlgoGenetique extends Algorithme {
 	}
 
 	/**
-	 * CrÃ©e un individu Ã  partir de 2 parents
+	 * Crée un individu à partir de 2 parents
 	 * Implentation : crossover 1 point
 	 * existe aussi : crossover 2 points, OSX
 	 */
