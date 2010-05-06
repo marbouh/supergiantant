@@ -145,7 +145,59 @@ public class AlgoFourmis extends Algorithme{
 					listeArretes.get(j).setPoids(nouveauPheromone);
 			}
 		}
-		System.out.println("Mis à jour des pheromones");
+		//System.out.println("Mis à jour des pheromones");
+	}
+	
+	/*
+	 * Procédure affiche résultat 
+	 */
+	public void afficherSolution()
+	{
+		double distanceTotal = 0.0;
+		ArrayList<ArreteList> listeDeToutesLesArretes = new ArrayList<ArreteList>();
+		for(int i=0; i < this.resultant.getNbreNoeuds() ;i++)
+		{
+			NoeudList listeNoeuds = this.resultant.getNoeuds().get(i);
+			ArrayList<ArreteList> listeArretes = listeNoeuds.getDestinations();
+			for(int j=0;j< listeArretes.size() ;j++)
+			{
+				if(!arreteInverseePresente(listeDeToutesLesArretes, listeArretes.get(j)))
+				{
+					if(listeArretes.get(j).getPoids() >= 1)
+					{
+						listeDeToutesLesArretes.add(this.probleme.getNoeuds().get(i).getDestinations().get(j));
+					}
+				}
+			}
+		}
+		
+		for(int i=0; i < listeDeToutesLesArretes.size();i++)
+		{
+			distanceTotal += listeDeToutesLesArretes.get(i).getPoids();
+			System.out.print(listeDeToutesLesArretes.get(i).getDepart().getId()+"-( "+ listeDeToutesLesArretes.get(i).getPoids() +" )-"+listeDeToutesLesArretes.get(i).getArrivee().getId());
+			if(i+1 < listeDeToutesLesArretes.size())
+				System.out.print(" --> ");
+		}
+		System.out.println("\n La distance parcourue est de : " + distanceTotal);
+
+	}
+	
+	/*
+	 * Fonction permettant de savoir si une arrete(dont les noeuds(départ et arrivée) sont inversés) est présente dans une liste
+	 */
+	public boolean arreteInverseePresente(ArrayList<ArreteList> listeArretes, ArreteList a)
+	{
+		for(int i=0; i<listeArretes.size();i++)
+		{
+			if(listeArretes.get(i).getArrivee().compareTo(a.getDepart()))
+			{
+				if(listeArretes.get(i).getDepart().compareTo(a.getArrivee()))
+					return true;
+				else
+					return false;
+			}
+		}
+		return false;
 	}
 	
 	/* Getters et setters des attributs de la classe */
