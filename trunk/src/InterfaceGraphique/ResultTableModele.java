@@ -68,7 +68,7 @@ public class ResultTableModele extends AbstractTableModel {
 		fireTableStructureChanged();
 	}
 
-	public void vide() {
+	public void vider() {
 		if (getRowCount() == 0) return;
 		donnees.clear();
 		fireTableStructureChanged();
