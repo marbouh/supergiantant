@@ -44,7 +44,7 @@ public class Individu implements Comparable {
 		}
 	}
 
-	public int getDistance() {
+	public int obtenirDistance() {
 		ArrayList<NoeudList> noeuds = genes.getNoeuds();
 		int distance = 0;
 		for (int i = 1; i < genes.getNbreNoeuds(); i++) {
@@ -58,8 +58,8 @@ public class Individu implements Comparable {
 	}
 
 	public int compareTo(Object individu) {
-		int distance = getDistance();
-		int idistance = ((Individu)individu).getDistance();
+		int distance = obtenirDistance();
+		int idistance = ((Individu)individu).obtenirDistance();
 		if (distance > idistance)
 			return 1;
 		else if (distance < idistance)
@@ -114,6 +114,20 @@ public class Individu implements Comparable {
 				System.out.print(" -( " + base.getPoids(noeuds.get(i - 1), noeuds.get(i)) + " )--> ");
 			System.out.print("" + noeuds.get(i).getId());
 		}
-		System.out.print("\tDistance : " + getDistance() + "\n");
+		System.out.print("\tDistance : " + obtenirDistance() + "\n");
+	}
+
+	public GrapheList obtenirGraphe() {
+		GrapheList graphe = new GrapheList(base.getNom(), genes.getNbreNoeuds());
+		ArrayList<NoeudList> noeuds = genes.getNoeuds();
+		NoeudList noeud = null;
+		for (int i = 0; i < genes.getNbreNoeuds(); i++) {
+			graphe.ajouterNoeud(noeuds.get(i));
+			if (i != 0) {
+				noeud.addDestination(noeuds.get(i), base.getPoids(noeud, noeuds.get(i)));
+			}
+			noeud = noeuds.get(i);
+		}
+		return graphe;
 	}
 }
