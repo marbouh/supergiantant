@@ -181,7 +181,7 @@ public class AlgoGenetique extends Algorithme {
 			population.get(i).afficherIndividu();
 	}
 
-	public Graphe getResultant() {
+	public Graphe getSolution() {
 		return null;
 	}
 }
