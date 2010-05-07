@@ -33,6 +33,7 @@ public class NoeudList extends Noeud
 				{
 					copieNoeud.addDestination(noeuds.get(j), arrete.getPoids());
 				}
+
 			}			
 		}		
 		return copieNoeud;		
