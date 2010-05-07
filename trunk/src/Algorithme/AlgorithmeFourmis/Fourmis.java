@@ -63,13 +63,13 @@ public class Fourmis
 			if(!aDejaEteVisite(noeudPossible))//si le noeud n'a pas déjà été visité
 			{
 				double poids = algo.getProbleme().getPoids(noeudCourant, noeudPossible);
-				double pheromone = algo.getSolution().getPoids(noeudCourant, noeudPossible);
+				double pheromone = algo.obtenirSolution().getPoids(noeudCourant, noeudPossible);
 				
 				for(int j =0;j < listeNoeudSuivant.size() ;j++)
 				{
 					if(!noeudPossible.compareTo(listeNoeudSuivant.get(j)))
 					{
-						double pheroCoeff = Math.pow(algo.getSolution().getPoids(noeudCourant, listeNoeudSuivant.get(j)),ALPHA);
+						double pheroCoeff = Math.pow(algo.obtenirSolution().getPoids(noeudCourant, listeNoeudSuivant.get(j)),ALPHA);
 						if(pheroCoeff == 0)
 							aDejaEteParcouru = aDejaEteParcouru && true;
 						else
@@ -123,15 +123,15 @@ public class Fourmis
 			int dernierElement = listeNoeudsVisites.size()-1;
 			if(dernierElement > 0)
 			{	
-				for(int j = 0;j < algo.getSolution().getNbreNoeuds() ;j++)
+				for(int j = 0;j < algo.obtenirSolution().getNbreNoeuds() ;j++)
 				{
-					if(algo.getSolution().getNoeuds().get(j).compareTo(listeNoeudsVisites.get(dernierElement)))
+					if(algo.obtenirSolution().getNoeuds().get(j).compareTo(listeNoeudsVisites.get(dernierElement)))
 					{
-						noeudDepart = algo.getSolution().getNoeuds().get(j);
+						noeudDepart = algo.obtenirSolution().getNoeuds().get(j);
 					}
-					if(algo.getSolution().getNoeuds().get(j).compareTo(listeNoeudsVisites.get(dernierElement-1)))
+					if(algo.obtenirSolution().getNoeuds().get(j).compareTo(listeNoeudsVisites.get(dernierElement-1)))
 					{
-						noeudArrivee = algo.getSolution().getNoeuds().get(j);
+						noeudArrivee = algo.obtenirSolution().getNoeuds().get(j);
 					}
 				}
 				if(noeudDepart != null && noeudArrivee != null)
