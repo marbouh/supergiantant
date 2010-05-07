@@ -37,7 +37,7 @@ public abstract class Algorithme
 		return isRunning;
 	}
 
-	public double getTime() {
+	public double obtenirTemps() {
 		double time;
 		if (isRunning)
 			time = System.currentTimeMillis() - timeStart;
@@ -46,5 +46,7 @@ public abstract class Algorithme
 		return time;
 	}
 
-	public abstract Graphe getSolution();
+	public abstract  int obtenirDistance();
+
+	public abstract Graphe obtenirSolution();
 }
