@@ -19,7 +19,7 @@ public class AlgoFourmis extends Algorithme{
 	private double nbrePheromoneAEvap;
 	private ArrayList<Fourmis> listeFourmis;
 	private Graphe probleme;
-	private Graphe resultant;//c'est dans ce graphe que l'on dépose le phéromone
+	private Graphe solution;//c'est dans ce graphe que l'on dépose le phéromone
 	
 	/*
 	 * Constructeur de la classe fourmis
@@ -33,8 +33,8 @@ public class AlgoFourmis extends Algorithme{
 		this.vitesseEvapPheromone = vitesseEvaporationPheromone;
 		this.nbrePheromoneAEvap = nbrePheromoneAEvap;
 		
-		resultant = probleme.copierGraphe() ;
-		resultant.viderInformations();//On efface tous les poids des arrêtes afin de déposer le phéromone
+		solution = probleme.copierGraphe() ;
+		solution.viderInformations();//On efface tous les poids des arrêtes afin de déposer le phéromone
 	}
 	
 	/*
@@ -121,8 +121,8 @@ public class AlgoFourmis extends Algorithme{
 	 */
 	public void deposerPheromone(NoeudList noeudDepart, NoeudList noeudArrivee, double nbrePheromones)
 	{
-		resultant.setPoids(noeudDepart, noeudArrivee, resultant.getPoids(noeudDepart, noeudArrivee)+ nbrePheromones);
-		resultant.setPoids(noeudArrivee, noeudDepart, resultant.getPoids(noeudDepart, noeudArrivee));//mis à jour de l'arrête dont les noeuds sont inversés par rapport à la première arrête
+		solution.setPoids(noeudDepart, noeudArrivee, solution.getPoids(noeudDepart, noeudArrivee)+ nbrePheromones);
+		solution.setPoids(noeudArrivee, noeudDepart, solution.getPoids(noeudDepart, noeudArrivee));//mis à jour de l'arrête dont les noeuds sont inversés par rapport à la première arrête
 	}
 	
 	/*
@@ -132,9 +132,9 @@ public class AlgoFourmis extends Algorithme{
 	{
 		double nouveauPheromone = 0.0;
 		double pheromoneEnCours =0.0;
-		for(int i =0; i < resultant.getNoeuds().size();i++)
+		for(int i =0; i < solution.getNoeuds().size();i++)
 		{
-			ArrayList<ArreteList> listeArretes = resultant.getNoeuds().get(i).getDestinations();
+			ArrayList<ArreteList> listeArretes = solution.getNoeuds().get(i).getDestinations();
 			for(int j =0; j < listeArretes.size() ;j++)
 			{
 				pheromoneEnCours = listeArretes.get(j).getPoids();
@@ -154,10 +154,42 @@ public class AlgoFourmis extends Algorithme{
 	public void afficherSolution()
 	{
 		double distanceTotal = 0.0;
-		ArrayList<ArreteList> listeDeToutesLesArretes = new ArrayList<ArreteList>();
-		for(int i=0; i < this.resultant.getNbreNoeuds() ;i++)
+		/*double precPheromone = 0.0;
+		double poids = 0.0;
+	
+		NoeudList noeudDepS = null;
+		NoeudList noeudDepP = null;
+		NoeudList noeudSuivant = null;
+		
+		if(noeudDepart!=null)
 		{
-			NoeudList listeNoeuds = this.resultant.getNoeuds().get(i);
+			noeudDepS = NoeudList.trouverNoeud(this.solution.getNoeuds(), noeudDepart.getId());
+			noeudDepP = NoeudList.trouverNoeud(this.probleme.getNoeuds(), noeudDepart.getId());
+				
+			if(noeudDepS != null && noeudDepP != null)
+			{
+				for(int i=0; i < noeudDepS.getDestinations().size();i++)
+				{
+			
+					if(precPheromone < noeudDepS.getDestinations().get(i).getPoids())
+					{
+						poids = noeudDepP.getDestinations().get(i).getPoids();
+						noeudSuivant = noeudDepS.getDestinations().get(i).getArrivee();
+						precPheromone = noeudDepS.getDestinations().get(i).getPoids();
+					}
+				}			
+			}
+			if(noeudSuivant != null)
+			{
+				System.out.print(noeudDepS.getId()+"-( "+ poids +" )-"+noeudSuivant.getId());
+				afficherSolution(noeudSuivant,distanceTotal+poids);
+				System.out.print(" --> ");
+			}
+		}*/
+		ArrayList<ArreteList> listeDeToutesLesArretes = new ArrayList<ArreteList>();
+		for(int i=0; i < this.solution.getNbreNoeuds() ;i++)
+		{
+			NoeudList listeNoeuds = this.solution.getNoeuds().get(i);
 			ArrayList<ArreteList> listeArretes = listeNoeuds.getDestinations();
 			for(int j=0;j< listeArretes.size() ;j++)
 			{
@@ -223,11 +255,11 @@ public class AlgoFourmis extends Algorithme{
 	{
 		return probleme.getNbreNoeuds();
 	}
-	public void setResultant(Graphe resultant) {
-		this.resultant = resultant;
+	public void setSolution(Graphe solution) {
+		this.solution = solution;
 	}
-	public Graphe getResultant() {
-		return resultant;
+	public Graphe getSolution() {
+		return solution;
 	}
 
 	public void setListeFourmis(ArrayList<Fourmis> listeFourmis) {
