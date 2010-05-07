@@ -46,5 +46,5 @@ public abstract class Algorithme
 		return time;
 	}
 
-	public abstract Graphe getResultant();
+	public abstract Graphe getSolution();
 }
