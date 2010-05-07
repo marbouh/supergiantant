@@ -6,6 +6,7 @@ import Algorithme.Algorithme;
 import Algorithme.AlgorithmeFourmis.Fourmis.Etat;
 import Algorithme.Graphe.ArreteList;
 import Algorithme.Graphe.Graphe;
+import Algorithme.Graphe.GrapheList;
 import Algorithme.Graphe.NoeudList;
 
 /**
@@ -113,7 +114,7 @@ public class AlgoFourmis extends Algorithme{
 			//resultant.afficherGraphe();
 		}
 		this.stop();
-		System.out.println("Temps mis : "+this.getTime()+" millisecondes !");
+		System.out.println("Temps mis : "+this.obtenirTemps()+" millisecondes !");
 	}
 	
 	/*
@@ -258,8 +259,8 @@ public class AlgoFourmis extends Algorithme{
 	public void setSolution(Graphe solution) {
 		this.solution = solution;
 	}
-	public Graphe getSolution() {
-		return solution;
+	public GrapheList obtenirSolution() {
+		return (GrapheList)solution;
 	}
 
 	public void setListeFourmis(ArrayList<Fourmis> listeFourmis) {
@@ -286,4 +287,7 @@ public class AlgoFourmis extends Algorithme{
 		return nbrePheromoneAEvap;
 	}
 
+	public int obtenirDistance() {
+		return 0;
+	}
 }
