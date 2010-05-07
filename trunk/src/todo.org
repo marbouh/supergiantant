@@ -1,3 +1,7 @@
+* Commun
+** Armoniser, épurations et abstraction des graphes
+** Faire un diagramme UML
+
 * Algorithme
 ** Graphe
 *** Supprimer la classe Arrète si inutile
@@ -18,8 +22,8 @@
 * Interface
 ** Rajouter un padding autour des composants
 ** Sauvegarde et lecture des valeurs par défault
-
-* Tests
+** Problème lors de plusieurs tests (temps des algos qui diminue dramaticalement)
+** Créer une interface ComposantAlgorithme
 
 
 * QUESTIONS / PROPLEMES
@@ -32,5 +36,4 @@
 *** Problème au niveau des arrêtes, il y a quasiment deux fois les mêmes arrêtes et il faudrait donc mettre à jour les pheromones pour les deux arrêtes correspondant à deux noeuds sinon il risque d'y avoir des soucis quand les fourmis repartent du noeud de Départ.
 
 ** Algo Génétique
-*** Tous les algos partent d'un ensemble de ville et d'une ville on peut aller à n'importe quelle autre ville
-Ne tiens pas comptes de route.
+
