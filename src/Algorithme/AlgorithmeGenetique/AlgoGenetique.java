@@ -122,7 +122,7 @@ public class AlgoGenetique extends Algorithme {
 	 * Evalue la pertinence d'un individu (fils)
 	 */
 	public boolean evaluation(Individu individu) {
-		if (individu.getDistance() >= population.get(nbIndividus - 1).getDistance())
+		if (individu.obtenirDistance() >= population.get(nbIndividus - 1).obtenirDistance())
 			return false;
 		return true;
 	}
@@ -173,7 +173,7 @@ public class AlgoGenetique extends Algorithme {
 		}
 		population.get(0).afficherIndividu();
 		stop();
-		System.out.println("Temps mis : " + getTime() + " ms");
+		System.out.println("Temps mis : " + obtenirTemps() + " ms");
 	}
 
 	public void afficherPopulation() {
@@ -181,7 +181,11 @@ public class AlgoGenetique extends Algorithme {
 			population.get(i).afficherIndividu();
 	}
 
-	public Graphe getSolution() {
-		return null;
+	public int obtenirDistance() {
+		return population.get(0).obtenirDistance();
+	}
+
+	public GrapheList obtenirSolution() {
+		return population.get(0).obtenirGraphe();
 	}
 }
