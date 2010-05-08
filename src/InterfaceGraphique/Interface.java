@@ -21,7 +21,7 @@ import org.jgraph.graph.GraphConstants;
 
 import org.jgrapht.ListenableGraph;
 import org.jgrapht.ext.JGraphModelAdapter;
-import org.jgrapht.graph.ListenableDirectedGraph;
+import org.jgrapht.graph.ListenableUndirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 
 import Algorithme.AlgorithmeFourmis.AlgoFourmis;
@@ -43,7 +43,7 @@ public class Interface extends JFrame implements ActionListener
 		/* Onglet du graphe */
 		JPanel contenuGraphe = new JPanel();
 		contenuGraphe.setLayout(new GridLayout(1, 1));
-		ListenableGraph g = new ListenableDirectedGraph(DefaultEdge.class);
+		ListenableGraph g = new ListenableUndirectedGraph(DefaultEdge.class);
 		JGraphModelAdapter adapt = new JGraphModelAdapter(g);
 		JGraph jgraph = new JGraph(adapt);
 		JScrollPane scrollpane = new JScrollPane(jgraph);
