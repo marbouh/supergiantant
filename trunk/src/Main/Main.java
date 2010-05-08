@@ -18,7 +18,7 @@ public class Main {
 
 	public static void resoudreSansInterface1()
 	{
-		GrapheList graphe = new GrapheList("AG", 10);
+		/*GrapheList graphe = new GrapheList("AG", 10);
 		NoeudList n1 = new NoeudList(1);
 		NoeudList n2 = new NoeudList(2);
 		NoeudList n3 = new NoeudList(3);
@@ -85,12 +85,12 @@ public class Main {
 		graphe.ajouterNoeud(n7);
 		graphe.ajouterNoeud(n8);
 		graphe.ajouterNoeud(n9);
-		graphe.ajouterNoeud(n10);
+		graphe.ajouterNoeud(n10);*/
 		
 		
 		
 		
-		/*GrapheList graphe = new GrapheList("Test",6);
+		GrapheList graphe = new GrapheList("Test",6);
 		NoeudList n1 = new NoeudList(1);
 		NoeudList n2 = new NoeudList(2);
 		NoeudList n3 = new NoeudList(3);
@@ -98,7 +98,9 @@ public class Main {
 		NoeudList n5 = new NoeudList(5);
 		NoeudList n6 = new NoeudList(6);
 		
-		n1.addDestination(n2, 4);
+		
+		
+		/*n1.addDestination(n2, 50);
 		n1.addDestination(n3, 5);
 		n2.addDestination(n4, 6);
 		n2.addDestination(n5, 1);
@@ -107,13 +109,39 @@ public class Main {
 		n4.addDestination(n5, 2);
 		n6.addDestination(n5, 4);
 		
+		n1.addDestination(n4, 20);
+		n1.addDestination(n5, 20);
+		n1.addDestination(n6, 20);
+		n2.addDestination(n3, 20);
+		n2.addDestination(n6, 20);
+		n3.addDestination(n4, 20);
+		n4.addDestination(n6, 20);*/
+		
+		
+		n1.addDestination(n2, 4);
+		n1.addDestination(n3, 5);
+		n1.addDestination(n4, 3);
+		n1.addDestination(n5, 1);
+		n1.addDestination(n6, 8);
+		n2.addDestination(n4, 1);
+		n2.addDestination(n5, 1);
+		n2.addDestination(n3, 3);
+		n2.addDestination(n6, 2);
+		n3.addDestination(n5, 1);
+		n3.addDestination(n6, 1);
+		n3.addDestination(n4, 5);
+		n4.addDestination(n5, 2);
+		n4.addDestination(n6, 1);
+		n6.addDestination(n5, 4);
+		
+		
 		
 		graphe.ajouterNoeud(n1);
 		graphe.ajouterNoeud(n2);
 		graphe.ajouterNoeud(n3);
 		graphe.ajouterNoeud(n4);
 		graphe.ajouterNoeud(n5);
-		graphe.ajouterNoeud(n6);*/
+		graphe.ajouterNoeud(n6);
 		
 		/*Test de l'algorithme
 		 * Nombre d'itérations : 100
@@ -126,8 +154,8 @@ public class Main {
 		System.out.println("Algo terminé !");
 		//algo.getProbleme().afficherGraphe();
 		System.out.println("\n\n Affichage du résultat");
-		//algo.getResultant().afficherGraphe();
-		algo.afficherSolution();
+		algo.obtenirSolution().afficherGraphe();
+		//algo.afficherSolution2(n1,0,algo.obtenirSolution().getNoeuds());
 	}
 	
 	public static void resoudreSansInterface2(String nomfichier)

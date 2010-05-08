@@ -83,6 +83,7 @@ public class Fourmis
 				proba = (Math.pow(pheromone,ALPHA)/(Math.pow(poids,BETA)))/somme;
 				if(proba >= ancienneProba)
 					noeudSuivant = noeudPossible;
+				
 				ancienneProba = proba;
 			}
 		}

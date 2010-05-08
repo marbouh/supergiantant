@@ -147,7 +147,7 @@ public class GrapheList implements Graphe
 			ArrayList<ArreteList> listeArretes = noeuds.get(i).getDestinations();
 			for(int j=0; j < listeArretes.size() ;j++)
 			{
-				listeArretes.get(j).setPoids(0);
+				listeArretes.get(j).setPoids(1);
 			}
 		}
 	}
