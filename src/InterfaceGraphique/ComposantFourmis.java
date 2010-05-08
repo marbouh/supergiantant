@@ -57,7 +57,8 @@ public class ComposantFourmis {
 		int evap = Integer.parseInt(vitesseEvapPheromone.getText());
 		double phero = Double.parseDouble(nbrePheromone.getText());
 		af = new AlgoFourmis(fourmis, it, evap, phero, graphe);
-		af.traiterProbleme(graphe.getNoeuds().get(0));
+		af.setNoeudDeDepart(graphe.getNoeuds().get(0));
+		af.traiterProbleme();
 	}
 
 	public double obtenirDistance() {
