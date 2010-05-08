@@ -22,11 +22,11 @@ public class ComposantGenetique {
 	public ComposantGenetique() {
 		ag = null;
 		nbreIterations = new JTextField(4);
-		nbreIterations.setText("100");
+		nbreIterations.setText("200");
 		nbreIndividus = new JTextField(4);
-		nbreIndividus.setText("20");
+		nbreIndividus.setText("10");
 		tauxMutation = new JTextField(4);
-		tauxMutation.setText("10");
+		tauxMutation.setText("40");
 		}
 
 	public JPanel creerPanneauParametre() {
