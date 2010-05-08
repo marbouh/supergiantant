@@ -156,7 +156,7 @@ public class Main {
 		//algo.getProbleme().afficherGraphe();
 		System.out.println("\n\n Affichage du résultat");
 		algo.obtenirSolution().afficherGraphe();
-		//algo.afficherSolution2(n1,0,algo.obtenirSolution().getNoeuds());
+		System.out.println("La distance minimum trouvée est : "+algo.obtenirDistance());
 	}
 	
 	public static void resoudreSansInterface2(String nomfichier)
