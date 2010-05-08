@@ -38,7 +38,7 @@ public class ComposantGenetique {
 		contenuParamGenetiqueGrid.setLayout(new GridLayout(3, 2));
 		contenuParamGenetiqueGrid.add(new JLabel("Nombre d'itérations"));
 		contenuParamGenetiqueGrid.add(nbreIterations);
-		contenuParamGenetiqueGrid.add(new JLabel("Nombre de fourmis"));
+		contenuParamGenetiqueGrid.add(new JLabel("Nombre d'individus"));
 		contenuParamGenetiqueGrid.add(nbreIndividus);
 		contenuParamGenetiqueGrid.add(new JLabel("Taux de mutation"));
 		contenuParamGenetiqueGrid.add(tauxMutation);
