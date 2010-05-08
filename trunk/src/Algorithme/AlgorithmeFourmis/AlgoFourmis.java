@@ -70,7 +70,7 @@ public class AlgoFourmis extends Algorithme{
 			{
 				random = (int)(Math.random() * (listeDestinations.size()));
 			
-				if(!cheminDejaPris.contains(random) && cheminDejaPris.size() <= listeDestinations.size())
+				if(!cheminDejaPris.contains(random) && cheminDejaPris.size() < listeDestinations.size())
 				{
 					ArreteList chemin = listeDestinations.get(random);
 					listeFourmis.get(j).ajouterNoeudVisite(chemin.getArrivee());
