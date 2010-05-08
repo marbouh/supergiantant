@@ -19,11 +19,6 @@ import org.jgraph.JGraph;
 import org.jgraph.graph.DefaultGraphCell;
 import org.jgraph.graph.GraphConstants;
 
-import org.jgrapht.ListenableGraph;
-import org.jgrapht.ext.JGraphModelAdapter;
-import org.jgrapht.graph.ListenableDirectedGraph;
-import org.jgrapht.graph.DefaultEdge;
-
 import Algorithme.AlgorithmeFourmis.AlgoFourmis;
 import Algorithme.Graphe.GrapheList;
 import Algorithme.Graphe.NoeudList;
@@ -36,16 +31,16 @@ public class Interface extends JFrame implements ActionListener
 	JTable resultat;
 	JLabel resultats;
 	GrapheList graphe;
-	private JGraphModelAdapter jgmodel;
 
 	public Interface()
 	{
 		recupGraphe();
 		/* Onglet du graphe */
 		JPanel contenuGraphe = new JPanel();
-		ListenableGraph g = new ListenableDirectedGraph(DefaultEdge.class);
-		jgmodel = new JGraphModelAdapter(g);
-		JGraph jgraph = new JGraph(jgmodel);
+		contenuGraphe.setLayout(new GridLayout(1, 1));
+		JGraph jgraph = new JGraph();
+		JScrollPane scrollpane = new JScrollPane(jgraph);
+		contenuGraphe.add(scrollpane);
 
 		/* Onglet des paramètres */
 		fourmis = new ComposantFourmis();
