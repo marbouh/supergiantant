@@ -15,6 +15,10 @@ import javax.swing.JTextField;
 import javax.swing.JTabbedPane;
 import javax.swing.BoxLayout;
 
+import org.jgraph.JGraph;
+import org.jgraph.graph.DefaultGraphCell;
+import org.jgraph.graph.GraphConstants;
+
 import org.jgrapht.ListenableGraph;
 import org.jgrapht.ext.JGraphModelAdapter;
 import org.jgrapht.graph.ListenableDirectedGraph;
@@ -41,6 +45,7 @@ public class Interface extends JFrame implements ActionListener
 		JPanel contenuGraphe = new JPanel();
 		ListenableGraph g = new ListenableDirectedGraph(DefaultEdge.class);
 		jgmodel = new JGraphModelAdapter(g);
+		JGraph jgraph = new JGraph(jgmodel);
 
 		/* Onglet des paramètres */
 		fourmis = new ComposantFourmis();
