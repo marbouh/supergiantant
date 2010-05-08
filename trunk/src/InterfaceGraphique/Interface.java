@@ -27,6 +27,7 @@ import org.jgrapht.graph.DefaultEdge;
 import Algorithme.AlgorithmeFourmis.AlgoFourmis;
 import Algorithme.Graphe.GrapheList;
 import Algorithme.Graphe.NoeudList;
+import Algorithme.Graphe.ArreteList;
 
 public class Interface extends JFrame implements ActionListener
 {
@@ -56,8 +57,8 @@ public class Interface extends JFrame implements ActionListener
 		for (int i = 0; i < graphe.getNbreNoeuds(); i++) {
 			NoeudList n = graphe.getNoeuds().get(i);
 			for (int j = 0; j < n.getDestinations().size(); j++) {
-				NoeudList n2 = n.getDestinations().get(j).getArrivee();
-				g.addEdge("" + n.getId(), "" + n2.getId());
+				ArreteList a = n.getDestinations().get(j);
+				g.addEdge("" + n.getId(), "" + a.getArrivee().getId(), a.getPoids());
 			}
 		}
 
@@ -127,7 +128,7 @@ public class Interface extends JFrame implements ActionListener
 	}
 	
 	public void recupGraphe() {
-		graphe = new GrapheList("AG", 10);
+		/*	graphe = new GrapheList("AG", 10);
 		NoeudList n1 = new NoeudList(1);
 		NoeudList n2 = new NoeudList(2);
 		NoeudList n3 = new NoeudList(3);
@@ -194,10 +195,10 @@ public class Interface extends JFrame implements ActionListener
 		graphe.ajouterNoeud(n7);
 		graphe.ajouterNoeud(n8);
 		graphe.ajouterNoeud(n9);
-		graphe.ajouterNoeud(n10);
+		graphe.ajouterNoeud(n10);*/
 		
 		
-		/*
+		
 		graphe = new GrapheList("Test",6);
 		NoeudList n1 = new NoeudList(1);
 		NoeudList n2 = new NoeudList(2);
@@ -227,6 +228,6 @@ public class Interface extends JFrame implements ActionListener
 		graphe.ajouterNoeud(n3);
 		graphe.ajouterNoeud(n4);
 		graphe.ajouterNoeud(n5);
-		graphe.ajouterNoeud(n6);*/
+		graphe.ajouterNoeud(n6);
 	}
 }
