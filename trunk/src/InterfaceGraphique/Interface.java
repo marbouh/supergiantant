@@ -64,7 +64,6 @@ public class Interface extends JFrame implements ActionListener
 		resultat = new JTable(new ResultTableModele());
 		JScrollPane scroll = new JScrollPane(resultat);
 		ResultTableModele refModele = (ResultTableModele)resultat.getModel();
-		refModele.ajoutLigne(3, "3, 6, 6, 3", 45, 34, "4, 8, 1, 3", 30, 180);
 		contenuTest.add(scroll);
 
 		/* Fenetre principal */
