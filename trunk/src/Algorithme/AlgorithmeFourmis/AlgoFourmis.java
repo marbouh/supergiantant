@@ -239,31 +239,57 @@ public class AlgoFourmis extends Algorithme{
 	 */
 	public double obtenirDistance() 
 	{
+		ArrayList<NoeudList> listeNoeuds = new ArrayList<NoeudList>();
+		double distance = calculDistance(getNoeudDeDepart(), getNbreNoeuds(),listeNoeuds);
+		
+		return distance;
+	}
+	
+	private double calculDistance(NoeudList noeud,int nbreNoeud, ArrayList<NoeudList> noeudsVisites)
+	{
 		double distanceTotal = 0.0;
-		ArrayList<ArreteList> listeDeToutesLesArretes = new ArrayList<ArreteList>();
-		for(int i=0; i < this.solution.getNbreNoeuds() ;i++)
-		{
-			NoeudList listeNoeuds = this.solution.getNoeuds().get(i);
-			ArrayList<ArreteList> listeArretes = listeNoeuds.getDestinations();
-			for(int j=0;j< listeArretes.size() ;j++)
-			{
-				if(!arreteInverseePresente(listeDeToutesLesArretes, listeArretes.get(j)))
+		double precPheromone = 0.0;
+		double poids = 0.0;
+	
+		NoeudList noeudDepS = null;
+		NoeudList noeudDepP = null;
+		NoeudList noeudSuivant = null;
+		noeudsVisites.add(noeud);
+		
+		if(nbreNoeud > 0)
+		{	
+			if(noeud!=null)
+			{	
+				noeudDepS = NoeudList.trouverNoeud(this.solution.getNoeuds(), noeud.getId());
+				noeudDepP = NoeudList.trouverNoeud(this.probleme.getNoeuds(), noeud.getId());
+					
+				if(noeudDepS != null && noeudDepP != null)
 				{
-					if(listeArretes.get(j).getPoids() >= 1)
+					for(int i=0; i < noeudDepS.getDestinations().size();i++)
 					{
-						listeDeToutesLesArretes.add(this.probleme.getNoeuds().get(i).getDestinations().get(j));
-					}
+						if(precPheromone < noeudDepS.getDestinations().get(i).getPoids())
+						{
+							if(NoeudList.trouverNoeud(noeudsVisites, noeudDepS.getDestinations().get(i).getArrivee().getId()) == null)//le noeud n'a pas encore été visité
+							{
+								poids = noeudDepP.getDestinations().get(i).getPoids();
+								noeudSuivant = noeudDepS.getDestinations().get(i).getArrivee();
+								precPheromone = noeudDepS.getDestinations().get(i).getPoids();
+								
+							}
+						}
+					}			
+				}
+				if(noeudSuivant != null)
+				{
+					noeudsVisites.add(noeudSuivant);
+					distanceTotal += calculDistance(noeudSuivant,nbreNoeud-1,noeudsVisites) + poids;
 				}
 			}
-		}
-		
-		for(int i=0; i < listeDeToutesLesArretes.size();i++)
-		{
-			distanceTotal += listeDeToutesLesArretes.get(i).getPoids();
-		}
-		
+		}else
+			return 0;
 		return distanceTotal;
 	}
+	
 	/* Getters et setters des attributs de la classe */
 	public int getNbreFourmis() {
 		return nbreFourmis;
