@@ -11,7 +11,7 @@ public class Main {
 
 	public static void main(String[] args)
 	{
-		//Interface fenetre = new Interface();
+		Interface fenetre = new Interface();
 		//resoudreSansInterface2("graphe.txt");
 		resoudreSansInterface1();
 	}
@@ -89,7 +89,6 @@ public class Main {
 		
 		
 		
-		
 		GrapheList graphe = new GrapheList("Test",6);
 		NoeudList n1 = new NoeudList(1);
 		NoeudList n2 = new NoeudList(2);
@@ -98,33 +97,13 @@ public class Main {
 		NoeudList n5 = new NoeudList(5);
 		NoeudList n6 = new NoeudList(6);
 		
-		
-		
-		/*n1.addDestination(n2, 50);
-		n1.addDestination(n3, 5);
-		n2.addDestination(n4, 6);
-		n2.addDestination(n5, 1);
-		n3.addDestination(n5, 1);
-		n3.addDestination(n6, 2);
-		n4.addDestination(n5, 2);
-		n6.addDestination(n5, 4);
-		
-		n1.addDestination(n4, 20);
-		n1.addDestination(n5, 20);
-		n1.addDestination(n6, 20);
-		n2.addDestination(n3, 20);
-		n2.addDestination(n6, 20);
-		n3.addDestination(n4, 20);
-		n4.addDestination(n6, 20);*/
-		
-		
 		n1.addDestination(n2, 4);
 		n1.addDestination(n3, 5);
 		n1.addDestination(n4, 3);
 		n1.addDestination(n5, 1);
 		n1.addDestination(n6, 8);
 		n2.addDestination(n4, 1);
-		n2.addDestination(n5, 1);
+		n2.addDestination(n5, 3);
 		n2.addDestination(n3, 3);
 		n2.addDestination(n6, 2);
 		n3.addDestination(n5, 1);
@@ -133,8 +112,6 @@ public class Main {
 		n4.addDestination(n5, 2);
 		n4.addDestination(n6, 1);
 		n6.addDestination(n5, 4);
-		
-		
 		
 		graphe.ajouterNoeud(n1);
 		graphe.ajouterNoeud(n2);
@@ -152,11 +129,11 @@ public class Main {
 		AlgoFourmis algo = new AlgoFourmis(10,100,10,0.5,graphe);//il faut qu'il y ait un facteur de 10 entre le nombre de fourmis et le nombre d'itération
 		algo.setNoeudDeDepart(n1);
 		algo.traiterProbleme();
-		System.out.println("Algo terminé !");
+		//System.out.println("Algo terminé !");
 		//algo.getProbleme().afficherGraphe();
 		System.out.println("\n\n Affichage du résultat");
 		algo.obtenirSolution().afficherGraphe();
-		System.out.println("La distance minimum trouvée est : "+algo.obtenirDistance());
+		System.out.println("La distance minimum trouvée est : " + algo.obtenirDistance());
 	}
 	
 	public static void resoudreSansInterface2(String nomfichier)
@@ -176,7 +153,7 @@ public class Main {
 		//algo.getProbleme().afficherGraphe();
 		System.out.println("\nAffichage du résultat");
 		//algo.getResultant().afficherGraphe();
-		algo.afficherSolution();
+		
 	}
 	
 }

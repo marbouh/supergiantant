@@ -154,67 +154,45 @@ public class AlgoFourmis extends Algorithme{
 	/*
 	 * Procédure affiche résultat 
 	 */
-	public void afficherSolution()
+	public String afficherSolution(NoeudList noeud,int nbreNoeud, ArrayList<NoeudList> noeudsVisites)
 	{
-		double distanceTotal = 0.0;
-		/*double precPheromone = 0.0;
-		double poids = 0.0;
-	
+		String chemin = "";
+		double precPheromone = 0.0;
 		NoeudList noeudDepS = null;
-		NoeudList noeudDepP = null;
 		NoeudList noeudSuivant = null;
-		
-		if(noeudDepart!=null)
-		{
-			noeudDepS = NoeudList.trouverNoeud(this.solution.getNoeuds(), noeudDepart.getId());
-			noeudDepP = NoeudList.trouverNoeud(this.probleme.getNoeuds(), noeudDepart.getId());
 				
-			if(noeudDepS != null && noeudDepP != null)
-			{
-				for(int i=0; i < noeudDepS.getDestinations().size();i++)
+		if(nbreNoeud > 0)
+		{	
+			if(noeud!=null)
+			{	
+				noeudsVisites.add(noeud);
+				chemin = ""+noeud.getId();
+				
+				noeudDepS = NoeudList.trouverNoeud(this.solution.getNoeuds(), noeud.getId());
+									
+				if(noeudDepS != null)
 				{
-			
-					if(precPheromone < noeudDepS.getDestinations().get(i).getPoids())
+					ArrayList<ArreteList> listeArretes = noeudDepS.getDestinations();
+					for(int i=0; i < listeArretes.size();i++)
 					{
-						poids = noeudDepP.getDestinations().get(i).getPoids();
-						noeudSuivant = noeudDepS.getDestinations().get(i).getArrivee();
-						precPheromone = noeudDepS.getDestinations().get(i).getPoids();
+						if(NoeudList.trouverNoeud(noeudsVisites, listeArretes.get(i).getArrivee().getId()) == null)//le noeud n'a pas encore été visité
+						{
+							if(precPheromone < listeArretes.get(i).getPoids())
+							{
+								noeudSuivant = listeArretes.get(i).getArrivee();
+								precPheromone = listeArretes.get(i).getPoids();
+							}
+						}
 					}
-				}			
-			}
-			if(noeudSuivant != null)
-			{
-				System.out.print(noeudDepS.getId()+"-( "+ poids +" )-"+noeudSuivant.getId());
-				afficherSolution(noeudSuivant,distanceTotal+poids);
-				System.out.print(" --> ");
-			}
-		}*/
-		ArrayList<ArreteList> listeDeToutesLesArretes = new ArrayList<ArreteList>();
-		for(int i=0; i < this.solution.getNbreNoeuds() ;i++)
-		{
-			NoeudList listeNoeuds = this.solution.getNoeuds().get(i);
-			ArrayList<ArreteList> listeArretes = listeNoeuds.getDestinations();
-			for(int j=0;j< listeArretes.size() ;j++)
-			{
-				if(!arreteInverseePresente(listeDeToutesLesArretes, listeArretes.get(j)))
-				{
-					if(listeArretes.get(j).getPoids() >= 1)
+					if(noeudSuivant != null)
 					{
-						listeDeToutesLesArretes.add(this.probleme.getNoeuds().get(i).getDestinations().get(j));
+						chemin += " , " + afficherSolution(noeudSuivant,nbreNoeud-1,noeudsVisites);
 					}
-				}
+				}				
 			}
-		}
-		
-		for(int i=0; i < listeDeToutesLesArretes.size();i++)
-		{
-			distanceTotal += listeDeToutesLesArretes.get(i).getPoids();
-			System.out.print(listeDeToutesLesArretes.get(i).getDepart().getId()+"-( "+ listeDeToutesLesArretes.get(i).getPoids() +" )-"+listeDeToutesLesArretes.get(i).getArrivee().getId());
-			if(i+1 < listeDeToutesLesArretes.size())
-				System.out.print(" --> ");
-		}
-		System.out.println("\n La distance parcourue est de : " + distanceTotal);
-
+		}else
+			return "";
+		return chemin;
 	}
 	
 	/*
@@ -254,36 +232,35 @@ public class AlgoFourmis extends Algorithme{
 		NoeudList noeudDepS = null;
 		NoeudList noeudDepP = null;
 		NoeudList noeudSuivant = null;
-		noeudsVisites.add(noeud);
 		
 		if(nbreNoeud > 0)
 		{	
 			if(noeud!=null)
 			{	
+				noeudsVisites.add(noeud);
 				noeudDepS = NoeudList.trouverNoeud(this.solution.getNoeuds(), noeud.getId());
 				noeudDepP = NoeudList.trouverNoeud(this.probleme.getNoeuds(), noeud.getId());
 					
 				if(noeudDepS != null && noeudDepP != null)
 				{
-					for(int i=0; i < noeudDepS.getDestinations().size();i++)
+					ArrayList<ArreteList> listeArretes = noeudDepS.getDestinations();
+					for(int i=0; i < listeArretes.size();i++)
 					{
-						if(precPheromone < noeudDepS.getDestinations().get(i).getPoids())
+						if(NoeudList.trouverNoeud(noeudsVisites, listeArretes.get(i).getArrivee().getId()) == null)//le noeud n'a pas encore été visité
 						{
-							if(NoeudList.trouverNoeud(noeudsVisites, noeudDepS.getDestinations().get(i).getArrivee().getId()) == null)//le noeud n'a pas encore été visité
+							if(precPheromone < listeArretes.get(i).getPoids())
 							{
 								poids = noeudDepP.getDestinations().get(i).getPoids();
-								noeudSuivant = noeudDepS.getDestinations().get(i).getArrivee();
-								precPheromone = noeudDepS.getDestinations().get(i).getPoids();
-								
+								noeudSuivant = listeArretes.get(i).getArrivee();
+								precPheromone = listeArretes.get(i).getPoids();
 							}
 						}
-					}			
-				}
-				if(noeudSuivant != null)
-				{
-					noeudsVisites.add(noeudSuivant);
-					distanceTotal += calculDistance(noeudSuivant,nbreNoeud-1,noeudsVisites) + poids;
-				}
+					}
+					if(noeudSuivant != null)
+					{
+						distanceTotal += poids + calculDistance(noeudSuivant,nbreNoeud-1,noeudsVisites);
+					}
+				}				
 			}
 		}else
 			return 0;

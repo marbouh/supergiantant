@@ -71,15 +71,13 @@ public class ComposantFourmis {
 		return af.obtenirTemps();
 	}
 
-	public String obtenirParcours() {
-		ArrayList<NoeudList> noeuds = af.obtenirSolution().getNoeuds();
-		String parcours = "";
-		for (int i = 0; i < noeuds.size(); i++) {
-			parcours = parcours + noeuds.get(i).getId();
-			if (i < (noeuds.size() - 1))
-				parcours = parcours + ", ";
-		}
-		return parcours;
+	public String obtenirParcours()
+	{
+		ArrayList<NoeudList> listeNoeuds = new ArrayList<NoeudList>();
+		String chemin = af.afficherSolution(af.getNoeudDeDepart(), af.getNbreNoeuds(), listeNoeuds);
+		
+		
+		return chemin;
 	}
 
 };
