@@ -117,7 +117,10 @@ public class AlgoGenetique extends Algorithme {
 		//System.out.println("*** /!\\ Attention au Mutant !!! ***");
 
 		int nbVilles = graphe.getNbreNoeuds();
-		int alea = rnd.nextInt(nbVilles - 1);
+		int aleaMax = nbVilles - 1;
+		if (depart != null) aleaMax--;
+		int alea = rnd.nextInt(aleaMax); 
+		if (depart != null) alea++;
 		//individu.afficherIndividu();
 		individu.inverse(alea, alea + 1);
 		//individu.afficherIndividu();
