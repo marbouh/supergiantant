@@ -44,9 +44,9 @@ public class Individu implements Comparable {
 		}
 	}
 
-	public int obtenirDistance() {
+	public double obtenirDistance() {
 		ArrayList<NoeudList> noeuds = genes.getNoeuds();
-		int distance = 0;
+		double distance = 0;
 		for (int i = 1; i < genes.getNbreNoeuds(); i++) {
 			distance += base.getPoids(noeuds.get(i - 1), noeuds.get(i));
 		}
