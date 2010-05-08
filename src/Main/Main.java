@@ -11,9 +11,9 @@ public class Main {
 
 	public static void main(String[] args)
 	{
-		//Interface fenetre = new Interface();
+		Interface fenetre = new Interface();
 		//resoudreSansInterface2("graphe.txt");
-		resoudreSansInterface1();
+		//resoudreSansInterface1();
 	}
 
 	public static void resoudreSansInterface1()

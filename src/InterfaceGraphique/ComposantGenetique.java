@@ -53,7 +53,7 @@ public class ComposantGenetique {
 		ag.resoudre();
 	}
 	
-	public int obtenirDistance() {
+	public double obtenirDistance() {
 		if (ag == null) return -1;
 		return ag.obtenirDistance();
 	}

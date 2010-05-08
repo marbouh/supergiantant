@@ -128,7 +128,7 @@ public class AlgoGenetique extends Algorithme {
 	}
 
 	/**
-	 * RÃ©insert un individu
+	 * Réinsert un individu
 	 */ 
 	public void insertion(Individu individu) {
 		population.remove(nbIndividus - 1);
@@ -181,7 +181,7 @@ public class AlgoGenetique extends Algorithme {
 			population.get(i).afficherIndividu();
 	}
 
-	public int obtenirDistance() {
+	public double obtenirDistance() {
 		return population.get(0).obtenirDistance();
 	}
 

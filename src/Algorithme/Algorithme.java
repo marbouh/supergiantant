@@ -46,7 +46,7 @@ public abstract class Algorithme
 		return time;
 	}
 
-	public abstract  int obtenirDistance();
+	public abstract double obtenirDistance();
 
 	public abstract Graphe obtenirSolution();
 }

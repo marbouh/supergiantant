@@ -54,8 +54,8 @@ public class ResultTableModele extends AbstractTableModel {
 	}
 
 	public void ajoutLigne(int numtest, 
-						   String fparcours, int fdistance, int ftemps,
-						   String gparcours, int gdistance, int gtemps) {
+						   String fparcours, double fdistance, int ftemps,
+						   String gparcours, double gdistance, int gtemps) {
 		ArrayList nouvelleLigne = new ArrayList();
 		nouvelleLigne.add(numtest);
 		nouvelleLigne.add(fparcours);
