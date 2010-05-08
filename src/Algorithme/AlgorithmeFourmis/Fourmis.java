@@ -11,8 +11,8 @@ public class Fourmis
 {
 	private static int CONSTANTE = 50;
 	//Paramètre de la règle aléatoire de transition proportionnelle
-	private static double ALPHA = 0.666666666;//paramètre pour l'intensité de la piste de phéromone
-	private static double BETA = 0.333333333;//paramètre pour la visibilité des noeuds (1/distance)
+	private static double ALPHA = 1;//0.666666666;//paramètre pour l'intensité de la piste de phéromone
+	private static double BETA = 3;//0.333333333;//paramètre pour la visibilité des noeuds (1/distance)
 	
 	enum Etat{ 
 		CherchePremierNoeud,
@@ -49,6 +49,7 @@ public class Fourmis
 		double ancienneProba =0;
 		double poidsCoeff = 0.0;
 		double pheroCoeff = 0.0;
+		
 		/* Le noeud où se situe la fourmis est le dernier noeud qui a été visité */
 		NoeudList noeudCourant = listeNoeudsVisites.get(listeNoeudsVisites.size()-1);
 		ArrayList<NoeudList> listeNoeudSuivant = algo.getProbleme().getSuivants(noeudCourant);
