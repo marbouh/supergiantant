@@ -86,14 +86,14 @@ public class Interface extends JFrame implements ActionListener
 		int nbreTests = Integer.parseInt(this.nbreTests.getText());
 		for (int i = 0; i < nbreTests; i++) {
 			genetique.lancement(graphe);
-			//			fourmis.lancement(resultats);
+			fourmis.lancement(graphe);
 			refModele.ajoutLigne(i + 1, 
 								 genetique.obtenirParcours(), 
 								 genetique.obtenirDistance(), 
 								 (int)genetique.obtenirTemps(),
-								 genetique.obtenirParcours(), 
-								 genetique.obtenirDistance(), 
-								 (int)genetique.obtenirTemps());
+								 fourmis.obtenirParcours(), 
+								 fourmis.obtenirDistance(), 
+								 (int)fourmis.obtenirTemps());
 		}
 	}
 	

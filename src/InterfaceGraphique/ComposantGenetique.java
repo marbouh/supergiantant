@@ -32,11 +32,11 @@ public class ComposantGenetique {
 	public JPanel creerPanneauParametre() {
 		JPanel contenuParamGenetique = new JPanel();
 		contenuParamGenetique.setLayout(new BoxLayout(contenuParamGenetique, BoxLayout.Y_AXIS));
-		contenuParamGenetique.add(new JLabel("Algorithme GÃ©nÃ©tique"));
+		contenuParamGenetique.add(new JLabel("Algorithme Génétique"));
 		JPanel contenuParamGenetiqueGrid = new JPanel();
 		contenuParamGenetique.add(contenuParamGenetiqueGrid);
 		contenuParamGenetiqueGrid.setLayout(new GridLayout(3, 2));
-		contenuParamGenetiqueGrid.add(new JLabel("Nombre d'itÃ©rations"));
+		contenuParamGenetiqueGrid.add(new JLabel("Nombre d'itérations"));
 		contenuParamGenetiqueGrid.add(nbreIterations);
 		contenuParamGenetiqueGrid.add(new JLabel("Nombre de fourmis"));
 		contenuParamGenetiqueGrid.add(nbreIndividus);

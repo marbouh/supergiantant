@@ -40,13 +40,13 @@ public class ComposantFourmis {
 		JPanel contenuParamFourmisGrid = new JPanel();
 		contenuParamFourmis.add(contenuParamFourmisGrid);
 		contenuParamFourmisGrid.setLayout(new GridLayout(4, 2));
-		contenuParamFourmisGrid.add(new JLabel("Nombre d'iterations"));
+		contenuParamFourmisGrid.add(new JLabel("Nombre d'itérations"));
 		contenuParamFourmisGrid.add(nbreIterations);
 		contenuParamFourmisGrid.add(new JLabel("Nombre de fourmis"));
 		contenuParamFourmisGrid.add(nbreFourmis);
-		contenuParamFourmisGrid.add(new JLabel("Vitesse d'evaporation des pheromonoes"));
+		contenuParamFourmisGrid.add(new JLabel("Vitesse d'evaporation des pheromones"));
 		contenuParamFourmisGrid.add(vitesseEvapPheromone);
-		contenuParamFourmisGrid.add(new JLabel("Nombre de pheromone"));
+		contenuParamFourmisGrid.add(new JLabel("Nombre de pheromones"));
 		contenuParamFourmisGrid.add(nbrePheromone);
 		return contenuParamFourmis;
 	}
