@@ -60,7 +60,7 @@ public class ComposantFourmis {
 		af.traiterProbleme(graphe.getNoeuds().get(0));
 	}
 
-	public int obtenirDistance() {
+	public double obtenirDistance() {
 		if (af == null) return -1;
 		return af.obtenirDistance();
 	}
