@@ -180,9 +180,9 @@ public class AlgoGenetique extends Algorithme {
 				//fils.afficherIndividu();
 			}
 		}
-		population.get(0).afficherIndividu();
+		//population.get(0).afficherIndividu();
 		stop();
-		System.out.println("Temps mis : " + obtenirTemps() + " ms");
+		//System.out.println("Temps mis : " + obtenirTemps() + " ms");
 	}
 
 	public void afficherPopulation() {
