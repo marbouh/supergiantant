@@ -115,7 +115,7 @@ public class AlgoFourmis extends Algorithme{
 			//resultant.afficherGraphe();
 		}
 		this.stop();
-		System.out.println("Temps mis : "+this.obtenirTemps()+" millisecondes !");
+		//System.out.println("Temps mis : "+this.obtenirTemps()+" millisecondes !");
 	}
 	
 	/*
