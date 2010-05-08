@@ -50,6 +50,7 @@ public class ComposantGenetique {
 		int indiv = Integer.parseInt(nbreIndividus.getText());
 		int mute = Integer.parseInt(tauxMutation.getText());
 		ag = new AlgoGenetique(indiv, it, mute, graphe);
+		ag.setDepart(graphe.getNoeuds().get(0));
 		ag.resoudre();
 	}
 	
