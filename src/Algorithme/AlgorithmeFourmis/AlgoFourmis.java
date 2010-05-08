@@ -233,7 +233,36 @@ public class AlgoFourmis extends Algorithme{
 		}
 		return false;
 	}
-	
+	/*
+	 * Fonction permettant d'obtenir la distance du plus court chemin trouvé
+	 */
+	public double obtenirDistance() 
+	{
+		double distanceTotal = 0.0;
+		ArrayList<ArreteList> listeDeToutesLesArretes = new ArrayList<ArreteList>();
+		for(int i=0; i < this.solution.getNbreNoeuds() ;i++)
+		{
+			NoeudList listeNoeuds = this.solution.getNoeuds().get(i);
+			ArrayList<ArreteList> listeArretes = listeNoeuds.getDestinations();
+			for(int j=0;j< listeArretes.size() ;j++)
+			{
+				if(!arreteInverseePresente(listeDeToutesLesArretes, listeArretes.get(j)))
+				{
+					if(listeArretes.get(j).getPoids() >= 1)
+					{
+						listeDeToutesLesArretes.add(this.probleme.getNoeuds().get(i).getDestinations().get(j));
+					}
+				}
+			}
+		}
+		
+		for(int i=0; i < listeDeToutesLesArretes.size();i++)
+		{
+			distanceTotal += listeDeToutesLesArretes.get(i).getPoids();
+		}
+		
+		return distanceTotal;
+	}
 	/* Getters et setters des attributs de la classe */
 	public int getNbreFourmis() {
 		return nbreFourmis;
@@ -288,31 +317,5 @@ public class AlgoFourmis extends Algorithme{
 		return nbrePheromoneAEvap;
 	}
 
-	public double obtenirDistance() 
-	{
-		double distanceTotal = 0.0;
-		ArrayList<ArreteList> listeDeToutesLesArretes = new ArrayList<ArreteList>();
-		for(int i=0; i < this.solution.getNbreNoeuds() ;i++)
-		{
-			NoeudList listeNoeuds = this.solution.getNoeuds().get(i);
-			ArrayList<ArreteList> listeArretes = listeNoeuds.getDestinations();
-			for(int j=0;j< listeArretes.size() ;j++)
-			{
-				if(!arreteInverseePresente(listeDeToutesLesArretes, listeArretes.get(j)))
-				{
-					if(listeArretes.get(j).getPoids() >= 1)
-					{
-						listeDeToutesLesArretes.add(this.probleme.getNoeuds().get(i).getDestinations().get(j));
-					}
-				}
-			}
-		}
-		
-		for(int i=0; i < listeDeToutesLesArretes.size();i++)
-		{
-			distanceTotal += listeDeToutesLesArretes.get(i).getPoids();
-		}
-		
-		return distanceTotal;
-	}
+	
 }
