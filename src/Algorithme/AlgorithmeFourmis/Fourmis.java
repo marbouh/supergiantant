@@ -17,7 +17,7 @@ public class Fourmis
 	enum Etat{ 
 		CherchePremierNoeud,
 		ParcoursGraphe, 
-		Rentre//,Bloquee
+		Rentre
 	};
 	
 	private double distanceParcourue;
@@ -41,6 +41,63 @@ public class Fourmis
 	 */
 	public void trouverChemin()
 	{
+		NoeudList noeudSuivant = null;
+		NoeudList noeudPossible = null;
+				
+		double somme = 0;
+		double proba = 0;
+		double ancienneProba =0;
+		double poidsCoeff = 0.0;
+		
+		/* Le noeud où se situe la fourmis est le dernier noeud qui a été visité */
+		NoeudList noeudCourant = listeNoeudsVisites.get(listeNoeudsVisites.size()-1);
+		ArrayList<NoeudList> listeNoeudSuivant = algo.getProbleme().getSuivants(noeudCourant);
+		
+		for(int i = 0; i < listeNoeudSuivant.size();i++)
+		{//On parcours la liste des chemins possibles depuis le noeud courant où est la fourmi
+			noeudPossible = listeNoeudSuivant.get(i);
+						
+			if(!aDejaEteVisite(noeudPossible))//si le noeud n'a pas déjà été visité
+			{
+				double poids = algo.getProbleme().getPoids(noeudCourant, noeudPossible);
+				double pheromone = algo.obtenirSolution().getPoids(noeudCourant, noeudPossible);
+				
+				for(int j =0;j < listeNoeudSuivant.size() ;j++)
+				{
+					if(!noeudPossible.compareTo(listeNoeudSuivant.get(j)))
+					{
+						double pheroCoeff = Math.pow(algo.obtenirSolution().getPoids(noeudCourant, listeNoeudSuivant.get(j)),ALPHA);
+						/*if(pheroCoeff == 0)//si le chemin n'a jamais été parcouru
+							aDejaEteParcouru = aDejaEteParcouru && true;
+						else
+							aDejaEteParcouru = aDejaEteParcouru && false;//s'il existe un chemin qui a été parcouru
+						*/
+						
+						poidsCoeff = Math.pow(algo.getProbleme().getPoids(noeudCourant, listeNoeudSuivant.get(j)),BETA);
+						
+						somme += (pheroCoeff/poidsCoeff);	
+					}
+				}
+				if(somme == 0)
+					somme = 1;
+				proba = (Math.pow(pheromone,ALPHA)/(Math.pow(poids,BETA)))/somme;
+				if(proba >= ancienneProba)
+					noeudSuivant = noeudPossible;
+				ancienneProba = proba;
+			}
+		}
+		if(noeudSuivant != null)
+		{
+			ajouterNoeudVisite(noeudSuivant);
+			distanceParcourue += algo.getProbleme().getPoids(noeudCourant, noeudSuivant);
+		}
+		else//on n'a pas trouvé d'autre noeud donc la fourmis doit rentrer
+			setEtat(Etat.Rentre);
+	}
+	
+	
+	/*public void trouverChemin()
+	{
 		double precPheromone = 0;
 		boolean aDejaEteParcouru = true;
 		
@@ -52,7 +109,7 @@ public class Fourmis
 		double ancienneProba =0;
 
 		
-		/* Le noeud où se situe la fourmis est le dernier noeud qui a été visité */
+		// Le noeud où se situe la fourmis est le dernier noeud qui a été visité
 		NoeudList noeudCourant = listeNoeudsVisites.get(listeNoeudsVisites.size()-1);
 		ArrayList<NoeudList> listeNoeudSuivant = algo.getProbleme().getSuivants(noeudCourant);
 		
@@ -93,12 +150,6 @@ public class Fourmis
 				}
 				
 				precPheromone = pheromone;
-				/*double resultat = Math.pow(pheromone,2/3)*Math.pow(poids, 1/3);
-				if(resultat <= resultatPrecedent)
-				{
-					noeudSuivant = noeudPossible;
-				}
-				resultatPrecedent = resultat;*/
 			}
 		}
 		if(noeudSuivant != null)
@@ -108,7 +159,7 @@ public class Fourmis
 		}
 		else//on n'a pas trouvé d'autre noeud donc la fourmis doit rentrer
 			setEtat(Etat.Rentre);
-	}
+	}*/
 	
 	/*
 	 * Procédure faisant rentrer une fourmis à la colonie en déposant des phéromones
