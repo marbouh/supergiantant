@@ -11,7 +11,7 @@ public class Fourmis
 {
 	private static int CONSTANTE = 50;
 	//Paramètre de la règle aléatoire de transition proportionnelle
-	private static double ALPHA = 1;//0.666666666;//paramètre pour l'intensité de la piste de phéromone
+	private static double ALPHA = 2;//0.666666666;//paramètre pour l'intensité de la piste de phéromone
 	private static double BETA = 4;//0.333333333;//paramètre pour la visibilité des noeuds (1/distance)
 	
 	enum Etat{ 
@@ -68,12 +68,12 @@ public class Fourmis
 					if(!noeudPossible.compareTo(listeNoeudSuivant.get(j)))
 					{
 						pheroCoeff = Math.pow(algo.obtenirSolution().getPoids(noeudCourant, listeNoeudSuivant.get(j)),ALPHA);
-						poidsCoeff = Math.pow(algo.getProbleme().getPoids(noeudCourant, listeNoeudSuivant.get(j)),BETA);
-						somme += (pheroCoeff/poidsCoeff);	
+						poidsCoeff = Math.pow(1/algo.getProbleme().getPoids(noeudCourant, listeNoeudSuivant.get(j)),BETA);
+						somme += (pheroCoeff*poidsCoeff);	
 					}
 				}
 				
-				proba = (Math.pow(pheromone,ALPHA)/(Math.pow(poids,BETA)))/somme;
+				proba = (Math.pow(pheromone,ALPHA)*(Math.pow(1/poids,BETA)))/somme;
 				if(proba >= ancienneProba)
 				{
 					noeudSuivant = noeudPossible;
