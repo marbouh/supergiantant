@@ -15,6 +15,11 @@ import javax.swing.JTextField;
 import javax.swing.JTabbedPane;
 import javax.swing.BoxLayout;
 
+import org.jgrapht.ListenableGraph;
+import org.jgrapht.ext.JGraphModelAdapter;
+import org.jgrapht.graph.ListenableDirectedGraph;
+import org.jgrapht.graph.DefaultEdge;
+
 import Algorithme.AlgorithmeFourmis.AlgoFourmis;
 import Algorithme.Graphe.GrapheList;
 import Algorithme.Graphe.NoeudList;
@@ -27,12 +32,15 @@ public class Interface extends JFrame implements ActionListener
 	JTable resultat;
 	JLabel resultats;
 	GrapheList graphe;
+	private JGraphModelAdapter jgmodel;
 
 	public Interface()
 	{
 		recupGraphe();
 		/* Onglet du graphe */
 		JPanel contenuGraphe = new JPanel();
+		ListenableGraph g = new ListenableDirectedGraph(DefaultEdge.class);
+		jgmodel = new JGraphModelAdapter(g);
 
 		/* Onglet des paramètres */
 		fourmis = new ComposantFourmis();
