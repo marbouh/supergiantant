@@ -1,6 +1,7 @@
 package InterfaceGraphique;
 
 import java.awt.GridLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -49,6 +50,7 @@ public class Interface extends JFrame implements ActionListener
 		contenuTestLancement.setLayout(new BoxLayout(contenuTestLancement, BoxLayout.X_AXIS));
 		contenuTestLancement.add(new JLabel("Nombre de test"));
 		nbreTests = new JTextField(4);
+		nbreTests.setMaximumSize(new Dimension(2000, 30));
 		nbreTests.setText("10");
 		contenuTestLancement.add(nbreTests);
 		JButton lancement = new JButton("Lancement");
@@ -85,7 +87,7 @@ public class Interface extends JFrame implements ActionListener
 		refModele.vider();
 		int nbreTests = Integer.parseInt(this.nbreTests.getText());
 		for (int i = 0; i < nbreTests; i++) {
-			genetique.lancement(graphe);
+		   	genetique.lancement(graphe);
 			fourmis.lancement(graphe);
 			refModele.ajoutLigne(i + 1, 
 								 genetique.obtenirParcours(), 

@@ -1,7 +1,7 @@
 package InterfaceGraphique;
 
 import java.util.ArrayList;
-
+import java.lang.System;
 import java.awt.GridLayout;
 
 import javax.swing.JLabel;
@@ -22,12 +22,12 @@ public class ComposantGenetique {
 	public ComposantGenetique() {
 		ag = null;
 		nbreIterations = new JTextField(4);
-		nbreIterations.setText("10");
+		nbreIterations.setText("100");
 		nbreIndividus = new JTextField(4);
 		nbreIndividus.setText("20");
 		tauxMutation = new JTextField(4);
-		tauxMutation.setText("25");
-	}
+		tauxMutation.setText("10");
+		}
 
 	public JPanel creerPanneauParametre() {
 		JPanel contenuParamGenetique = new JPanel();
@@ -52,6 +52,11 @@ public class ComposantGenetique {
 		ag = new AlgoGenetique(indiv, it, mute, graphe);
 		ag.setDepart(graphe.getNoeuds().get(0));
 		ag.resoudre();
+	}
+
+	public void vider() {
+		ag = null;
+		System.gc();
 	}
 	
 	public double obtenirDistance() {

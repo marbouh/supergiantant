@@ -131,7 +131,7 @@ public class AlgoGenetique extends Algorithme {
 	 * Evalue la pertinence d'un individu (fils)
 	 */
 	public boolean evaluation(Individu individu) {
-		if (individu.obtenirDistance() >= population.get(nbIndividus - 1).obtenirDistance())
+		if (existeIndividu(individu) || individu.obtenirDistance() >= population.get(nbIndividus - 1).obtenirDistance())
 			return false;
 		return true;
 	}
@@ -154,18 +154,10 @@ public class AlgoGenetique extends Algorithme {
 	public void resoudre() {
 		start();
 		creerPopulationInitiale();
-		//afficherPopulation();
-		//System.out.println("--------------------------");
 		for (int it = 0; it < nbIterations; it++) {
 			int cassure = rnd.nextInt(graphe.getNbreNoeuds() - 1) + 1;
-			//System.out.println("\nIteration " + it);
-			//System.out.println("Cassure : " + cassure);
 			Individu parent1 = selection();
-			//System.out.println("Parent1 :");
-			//parent1.afficherIndividu();
 			Individu parent2 = selection();
-			//System.out.println("Parent2 :");
-			//parent2.afficherIndividu();
 			for (int i = 0; i < 2; i++) {
 				Individu fils;
 				if (i == 0)
@@ -176,13 +168,9 @@ public class AlgoGenetique extends Algorithme {
 					mutation(fils);
 				if (evaluation(fils))
 					insertion(fils);
-				//System.out.println("Fils" + (i + 1) + " :");
-				//fils.afficherIndividu();
 			}
 		}
-		//population.get(0).afficherIndividu();
 		stop();
-		//System.out.println("Temps mis : " + obtenirTemps() + " ms");
 	}
 
 	public void afficherPopulation() {
