@@ -15,8 +15,8 @@ import java.util.ArrayList;
 public class ResultTableModele extends AbstractTableModel {
 	private String nomColonnes[] = {
 		"Num test",
-		"Parcours", "Distance", "Temps",
-		"Parcours", "Distance", "Temps"
+		"Parcours", "Distance", "Temps (ms)",
+		"Parcours", "Distance", "Temps (ms)"
 	};
 
 	private ArrayList donnees;
@@ -54,20 +54,45 @@ public class ResultTableModele extends AbstractTableModel {
 	}
 
 	public void ajoutLigne(int numtest, 
-						   String fparcours, double fdistance, int ftemps,
-						   String gparcours, double gdistance, int gtemps) {
+						   String gparcours, double gdistance, double gtemps,
+						   String fparcours, double fdistance, double ftemps) {
 		ArrayList nouvelleLigne = new ArrayList();
-		nouvelleLigne.add(numtest);
-		nouvelleLigne.add(fparcours);
-		nouvelleLigne.add(fdistance);
-		nouvelleLigne.add(ftemps);
+		if (numtest == -1)
+			nouvelleLigne.add("Moyenne");
+		else
+			nouvelleLigne.add(numtest);
 		nouvelleLigne.add(gparcours);
 		nouvelleLigne.add(gdistance);
 		nouvelleLigne.add(gtemps);
+		nouvelleLigne.add(fparcours);
+		nouvelleLigne.add(fdistance);
+		nouvelleLigne.add(ftemps);
 		donnees.add(nouvelleLigne);
 		fireTableStructureChanged();
 	}
 
+	public void ajoutMoyenne() {
+		double gdistance = 0.;
+		double fdistance = 0.;
+		double gtemps = 0.;
+		double ftemps = 0.;
+		
+		for (int i = 0; i < getRowCount(); i++) {
+			gdistance += Double.valueOf(getValueAt(i, 2).toString());
+			gtemps += Double.valueOf(getValueAt(i, 3).toString());
+			fdistance += Double.valueOf(getValueAt(i, 5).toString());
+			ftemps += Double.valueOf(getValueAt(i, 6).toString());
+		}
+		
+		gdistance /= getRowCount();
+		gtemps /= getRowCount();
+		fdistance /= getRowCount();
+		ftemps /= getRowCount();
+
+		ajoutLigne(-1, "- Génétique -", gdistance, gtemps,
+				   "- Fourmis -", fdistance, ftemps);
+	}
+	
 	public void vider() {
 		if (getRowCount() == 0) return;
 		donnees.clear();

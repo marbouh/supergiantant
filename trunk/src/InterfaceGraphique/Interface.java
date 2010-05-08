@@ -91,11 +91,12 @@ public class Interface extends JFrame implements ActionListener
 			refModele.ajoutLigne(i + 1, 
 								 genetique.obtenirParcours(), 
 								 genetique.obtenirDistance(), 
-								 (int)genetique.obtenirTemps(),
+								 genetique.obtenirTemps() / 1000000,
 								 fourmis.obtenirParcours(), 
 								 fourmis.obtenirDistance(), 
-								 (int)fourmis.obtenirTemps());
+								 fourmis.obtenirTemps() / 1000000);
 		}
+		refModele.ajoutMoyenne();
 	}
 	
 	public void recupGraphe() {
