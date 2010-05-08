@@ -16,7 +16,7 @@ public class Individu implements Comparable {
 		base = graphe;
 	}
 
-	public void generer() {
+	public void generer(NoeudList depart) {
 		Random rnd = new Random();
 		ArrayList<NoeudList> noeuds = base.getNoeuds();
 		int nbreNoeuds = base.getNbreNoeuds();
@@ -24,16 +24,21 @@ public class Individu implements Comparable {
 		int tab_long = 0;
 
 		for (int i = 0; i < nbreNoeuds; i++) {
-			NoeudList n1 = noeuds.get(rnd.nextInt(nbreNoeuds));
-			boolean nouveau = true;
-			for (int j = 0; j < tab_long; j++) {
-				if (tab[j] == n1.getId())
-					nouveau = false;
-			}
+			NoeudList n1;
+			if (i == 0 && depart != null) {
+				n1 = depart;
+			} else {
+				n1 = noeuds.get(rnd.nextInt(nbreNoeuds));
+				boolean nouveau = true;
+				for (int j = 0; j < tab_long; j++) {
+					if (tab[j] == n1.getId())
+						nouveau = false;
+				}
 
-			if (!nouveau) {
-				i--;
-				continue;
+				if (!nouveau) {
+					i--;
+					continue;
+				}
 			}
 
 			NoeudList n2 = new NoeudList(n1.getId());

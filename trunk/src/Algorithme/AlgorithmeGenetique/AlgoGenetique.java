@@ -15,6 +15,7 @@ public class AlgoGenetique extends Algorithme {
 	private int nbIndividus;
 	private int nbIterations;
 	private GrapheList graphe;
+	private NoeudList depart;
 	private ArrayList<Individu> population;
 	private int tauxMutation;
 	private Random rnd;
@@ -22,6 +23,7 @@ public class AlgoGenetique extends Algorithme {
 	public AlgoGenetique(int nbIndividus, int nbIterations, int tauxMutation, GrapheList probleme) {
 		init(nbIndividus, nbIterations, tauxMutation);
 		setGraphe(probleme);
+		depart = null;
 	}
 
 	public void init(int nbIndividus, int nbIterations, int tauxMutation) {
@@ -34,6 +36,10 @@ public class AlgoGenetique extends Algorithme {
 
 	public void setGraphe(GrapheList graphe) {
 		this.graphe = graphe;
+	}
+
+	public void setDepart(NoeudList depart) {
+		this.depart = depart;
 	}
 
 	private void triePopulation() {
@@ -53,7 +59,7 @@ public class AlgoGenetique extends Algorithme {
 		population = new ArrayList<Individu>();
 		for (int i = 0; i < nbIndividus; i++) {
 			individu = new Individu(graphe);
-			individu.generer();
+			individu.generer(depart);
 			if (existeIndividu(individu)) {
 				i--;
 				continue;
