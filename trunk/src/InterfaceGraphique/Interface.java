@@ -179,15 +179,15 @@ public class Interface extends JFrame implements ActionListener
 		NoeudList n5 = new NoeudList(5);
 		NoeudList n6 = new NoeudList(6);
 		
-		n1.addDestination(n2, 4);
-		n1.addDestination(n3, 5);
-		n1.addDestination(n4, 3);
-		n1.addDestination(n5, 1);
+		//n1.addDestination(n2, 4);
+		//n1.addDestination(n3, 5);
+		//n1.addDestination(n4, 3);
+		//		n1.addDestination(n5, 1);
 		n1.addDestination(n6, 8);
 		n2.addDestination(n4, 1);
 		n2.addDestination(n5, 1);
 		n2.addDestination(n3, 3);
-		n2.addDestination(n6, 2);
+		//n2.addDestination(n6, 2);
 		n3.addDestination(n5, 1);
 		n3.addDestination(n6, 1);
 		n3.addDestination(n4, 5);

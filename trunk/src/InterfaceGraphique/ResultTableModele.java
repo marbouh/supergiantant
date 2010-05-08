@@ -89,7 +89,7 @@ public class ResultTableModele extends AbstractTableModel {
 		fdistance /= getRowCount();
 		ftemps /= getRowCount();
 
-		ajoutLigne(-1, "- Génétique -", gdistance, gtemps,
+		ajoutLigne(-1, "- Genetique -", gdistance, gtemps,
 				   "- Fourmis -", fdistance, ftemps);
 	}
 	

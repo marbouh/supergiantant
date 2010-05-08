@@ -9,6 +9,7 @@ public class GrapheList implements Graphe
 {
 	private String nom;
 	private ArrayList<NoeudList> noeuds;
+	private double inf;
 	
 	/*
 	 * Constructeur de la classe GrapheList
@@ -16,6 +17,7 @@ public class GrapheList implements Graphe
 	public GrapheList(String nom, int nbreNoeuds)
 	{
 		this.nom = nom;
+		inf = -1;
 		noeuds = new ArrayList<NoeudList>(nbreNoeuds);
 	}
 
@@ -99,7 +101,7 @@ public class GrapheList implements Graphe
 			if (listeArretes.get(i).checkTrajet(noeudDepart, noeudArrivee))
 				return listeArretes.get(i).getPoids();
 		}
-		return -1;
+		return inf;
 	}
 
 	/*
@@ -166,6 +168,10 @@ public class GrapheList implements Graphe
 				System.out.println("\t"+listeArretes.get(j).getDepart().getId()+"\t\t\t" + listeArretes.get(j).getArrivee().getId()+"\t\t  "+listeArretes.get(j).getPoids());
 			}
 		}		
+	}
+
+	public void rendreConnexe(double valeurInf) {
+		inf = valeurInf;
 	}
 	
 	/*Getters et Setters des attributs de la classe */
