@@ -19,6 +19,11 @@ import org.jgraph.JGraph;
 import org.jgraph.graph.DefaultGraphCell;
 import org.jgraph.graph.GraphConstants;
 
+import org.jgrapht.ListenableGraph;
+import org.jgrapht.ext.JGraphModelAdapter;
+import org.jgrapht.graph.ListenableDirectedGraph;
+import org.jgrapht.graph.DefaultEdge;
+
 import Algorithme.AlgorithmeFourmis.AlgoFourmis;
 import Algorithme.Graphe.GrapheList;
 import Algorithme.Graphe.NoeudList;
@@ -38,9 +43,23 @@ public class Interface extends JFrame implements ActionListener
 		/* Onglet du graphe */
 		JPanel contenuGraphe = new JPanel();
 		contenuGraphe.setLayout(new GridLayout(1, 1));
-		JGraph jgraph = new JGraph();
+		ListenableGraph g = new ListenableDirectedGraph(DefaultEdge.class);
+		JGraphModelAdapter adapt = new JGraphModelAdapter(g);
+		JGraph jgraph = new JGraph(adapt);
 		JScrollPane scrollpane = new JScrollPane(jgraph);
 		contenuGraphe.add(scrollpane);
+
+		for (int i = 0; i < graphe.getNbreNoeuds(); i++) {
+			g.addVertex("" + graphe.getNoeuds().get(i).getId());
+		}
+
+		for (int i = 0; i < graphe.getNbreNoeuds(); i++) {
+			NoeudList n = graphe.getNoeuds().get(i);
+			for (int j = 0; j < n.getDestinations().size(); j++) {
+				NoeudList n2 = n.getDestinations().get(j).getArrivee();
+				g.addEdge("" + n.getId(), "" + n2.getId());
+			}
+		}
 
 		/* Onglet des paramètres */
 		fourmis = new ComposantFourmis();
