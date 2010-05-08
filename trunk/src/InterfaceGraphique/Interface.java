@@ -100,7 +100,7 @@ public class Interface extends JFrame implements ActionListener
 	}
 	
 	public void recupGraphe() {
-		/*graphe = new GrapheList("AG", 10);
+		graphe = new GrapheList("AG", 10);
 		NoeudList n1 = new NoeudList(1);
 		NoeudList n2 = new NoeudList(2);
 		NoeudList n3 = new NoeudList(3);
@@ -167,10 +167,10 @@ public class Interface extends JFrame implements ActionListener
 		graphe.ajouterNoeud(n7);
 		graphe.ajouterNoeud(n8);
 		graphe.ajouterNoeud(n9);
-		graphe.ajouterNoeud(n10);*/
+		graphe.ajouterNoeud(n10);
 		
 		
-		
+		/*
 		graphe = new GrapheList("Test",6);
 		NoeudList n1 = new NoeudList(1);
 		NoeudList n2 = new NoeudList(2);
@@ -200,6 +200,6 @@ public class Interface extends JFrame implements ActionListener
 		graphe.ajouterNoeud(n3);
 		graphe.ajouterNoeud(n4);
 		graphe.ajouterNoeud(n5);
-		graphe.ajouterNoeud(n6);
+		graphe.ajouterNoeud(n6);*/
 	}
 }
