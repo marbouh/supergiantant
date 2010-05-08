@@ -28,7 +28,7 @@ public class ComposantFourmis {
 		nbreFourmis = new JTextField(4);
 		nbreFourmis.setText("10");
 		vitesseEvapPheromone = new JTextField(4);
-		vitesseEvapPheromone.setText("10");
+		vitesseEvapPheromone.setText("5");
 		nbrePheromone = new JTextField(4);
 		nbrePheromone.setText("0.5");
 	}
