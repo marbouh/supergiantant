@@ -58,26 +58,28 @@ public class AlgoFourmis extends Algorithme{
 	 */
 	public void affecterPremierNoeud()
 	{
-		NoeudList noeudDepart = listeFourmis.get(0).getListeNoeudsVisites().get(0);
-		ArrayList<ArreteList> listeDestinations = noeudDepart.getDestinations();
+		
+		ArrayList<ArreteList> listeDestinations = noeudDeDepart.getDestinations();
+		int tailleListeDest = listeDestinations.size();
 		int random = -1;//permet de définir aléatoirement le chemin qui doit être pris
 		ArrayList<Integer> cheminDejaPris = new ArrayList<Integer>();
 		boolean cheminTrouve = false;
+		
 		
 		for(int j=0; j < listeFourmis.size();j++)
 		{
 			while(cheminTrouve == false)//boucle permettant d'affecter au moins une fourmis sur chaque destination possible
 			{
-				random = (int)(Math.random() * (listeDestinations.size()));
+				random = (int)(Math.random() * tailleListeDest);
 			
-				if(!cheminDejaPris.contains(random) && cheminDejaPris.size() < listeDestinations.size())
+				if(!cheminDejaPris.contains(random) && cheminDejaPris.size() < tailleListeDest)
 				{
 					ArreteList chemin = listeDestinations.get(random);
 					listeFourmis.get(j).ajouterNoeudVisite(chemin.getArrivee());
 					listeFourmis.get(j).setEtat(Etat.ParcoursGraphe);
 					cheminTrouve = true;
 					cheminDejaPris.add(random);
-				}else if(cheminDejaPris.size() >= listeDestinations.size())
+				}else if(cheminDejaPris.size() >= tailleListeDest)
 				{
 					ArreteList chemin = listeDestinations.get(random);
 					listeFourmis.get(j).ajouterNoeudVisite(chemin.getArrivee());
