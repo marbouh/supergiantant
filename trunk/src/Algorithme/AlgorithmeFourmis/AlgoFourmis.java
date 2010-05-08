@@ -19,6 +19,7 @@ public class AlgoFourmis extends Algorithme{
 	private int vitesseEvapPheromone;
 	private double nbrePheromoneAEvap;
 	private ArrayList<Fourmis> listeFourmis;
+	private NoeudList noeudDeDepart;
 	private Graphe probleme;
 	private Graphe solution;//c'est dans ce graphe que l'on dépose le phéromone
 	
@@ -42,12 +43,12 @@ public class AlgoFourmis extends Algorithme{
 	/*
 	 * Fonction permettant de créer l'ensemble des fourmis qui seront utilisées pour l'algorithme
 	 */
-	public void creerFourmis(NoeudList noeudDepart)
+	public void creerFourmis()
 	{
 		for(int j=0; j < nbreFourmis;j++)
 		{
 			Fourmis f = new Fourmis(this);
-			f.ajouterNoeudVisite(noeudDepart);
+			f.ajouterNoeudVisite(noeudDeDepart);
 			listeFourmis.add(f);
 		}
 	}
@@ -91,10 +92,10 @@ public class AlgoFourmis extends Algorithme{
 	/*
 	 * Procédure permettant de créer l'ensemble des fourmis et d'exécuter l'algorithme des fourmis
 	 */
-	public void traiterProbleme(NoeudList noeudDepart)
+	public void traiterProbleme()
 	{
 		this.start();
-		this.creerFourmis(noeudDepart);
+		this.creerFourmis();
 		this.affecterPremierNoeud();
 		
 		for(int i=0; i < nbreIterations;i++)
@@ -115,7 +116,7 @@ public class AlgoFourmis extends Algorithme{
 			//resultant.afficherGraphe();
 		}
 		this.stop();
-		//System.out.println("Temps mis : "+this.obtenirTemps()+" millisecondes !");
+		
 	}
 	
 	/*
@@ -317,5 +318,12 @@ public class AlgoFourmis extends Algorithme{
 		return nbrePheromoneAEvap;
 	}
 
+	public NoeudList getNoeudDeDepart() {
+		return noeudDeDepart;
+	}
+
+	public void setNoeudDeDepart(NoeudList noeudDeDepart) {
+		this.noeudDeDepart = noeudDeDepart;
+	}
 	
 }

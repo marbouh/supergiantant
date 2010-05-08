@@ -11,9 +11,9 @@ public class Main {
 
 	public static void main(String[] args)
 	{
-		Interface fenetre = new Interface();
+		//Interface fenetre = new Interface();
 		//resoudreSansInterface2("graphe.txt");
-		//resoudreSansInterface1();
+		resoudreSansInterface1();
 	}
 
 	public static void resoudreSansInterface1()
@@ -150,7 +150,8 @@ public class Main {
 		 * Nombre de phéromones à évaporer : 0.5
 		 */
 		AlgoFourmis algo = new AlgoFourmis(10,100,10,0.5,graphe);//il faut qu'il y ait un facteur de 10 entre le nombre de fourmis et le nombre d'itération
-		algo.traiterProbleme(n1);
+		algo.setNoeudDeDepart(n1);
+		algo.traiterProbleme();
 		System.out.println("Algo terminé !");
 		//algo.getProbleme().afficherGraphe();
 		System.out.println("\n\n Affichage du résultat");
@@ -169,7 +170,8 @@ public class Main {
 		 * Nombre de phéromones à évaporer : 0.5
 		 */
 		AlgoFourmis algo = new AlgoFourmis(10,100,10,0.5,probleme);//il faut qu'il y ait un facteur de 10 entre le nombre de fourmis et le nombre d'itération
-		algo.traiterProbleme(probleme.getNoeuds().get(0));
+		algo.setNoeudDeDepart(probleme.getNoeuds().get(0));
+		algo.traiterProbleme();
 		System.out.println("Algo terminé !");
 		//algo.getProbleme().afficherGraphe();
 		System.out.println("\nAffichage du résultat");

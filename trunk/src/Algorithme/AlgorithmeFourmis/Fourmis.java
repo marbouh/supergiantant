@@ -43,7 +43,7 @@ public class Fourmis
 	{
 		NoeudList noeudSuivant = null;
 		NoeudList noeudPossible = null;
-				
+		ArrayList<NoeudList> listeNoeudsCandidats = new ArrayList<NoeudList>();
 		double somme = 0;
 		double proba = 0;
 		double ancienneProba =0;
@@ -81,14 +81,23 @@ public class Fourmis
 				if(somme == 0)
 					somme = 1;
 				proba = (Math.pow(pheromone,ALPHA)/(Math.pow(poids,BETA)))/somme;
-				if(proba >= ancienneProba)
+				if(proba > ancienneProba)
 					noeudSuivant = noeudPossible;
-				
+				else if(proba == ancienneProba)
+				{
+					noeudSuivant = noeudPossible;
+					listeNoeudsCandidats.add(noeudPossible);
+				}
 				ancienneProba = proba;
 			}
 		}
 		if(noeudSuivant != null)
 		{
+			if(listeNoeudsCandidats.size() > 0)
+			{
+				int choix = (int)(Math.random() * (listeNoeudsCandidats.size()));
+				noeudSuivant = listeNoeudsCandidats.get(choix);
+			}
 			ajouterNoeudVisite(noeudSuivant);
 			distanceParcourue += algo.getProbleme().getPoids(noeudCourant, noeudSuivant);
 		}
