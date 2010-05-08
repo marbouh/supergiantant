@@ -12,7 +12,7 @@ public class Fourmis
 	private static int CONSTANTE = 50;
 	//Paramètre de la règle aléatoire de transition proportionnelle
 	private static double ALPHA = 1;//0.666666666;//paramètre pour l'intensité de la piste de phéromone
-	private static double BETA = 3;//0.333333333;//paramètre pour la visibilité des noeuds (1/distance)
+	private static double BETA = 4;//0.333333333;//paramètre pour la visibilité des noeuds (1/distance)
 	
 	enum Etat{ 
 		CherchePremierNoeud,
