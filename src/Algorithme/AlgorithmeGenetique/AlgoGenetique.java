@@ -152,6 +152,7 @@ public class AlgoGenetique extends Algorithme {
 	}
 	
 	public void resoudre() {
+		graphe.rendreConnexe(10000000.);
 		start();
 		creerPopulationInitiale();
 		for (int it = 0; it < nbIterations; it++) {
@@ -171,6 +172,7 @@ public class AlgoGenetique extends Algorithme {
 			}
 		}
 		stop();
+		graphe.rendreConnexe(-1);
 	}
 
 	public void afficherPopulation() {
