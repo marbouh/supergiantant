@@ -13,7 +13,7 @@ public class Main {
 	{
 		Interface fenetre = new Interface();
 		//resoudreSansInterface2("graphe.txt");
-		resoudreSansInterface1();
+		//resoudreSansInterface1();
 	}
 
 	public static void resoudreSansInterface1()

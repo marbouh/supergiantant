@@ -65,28 +65,21 @@ public class AlgoFourmis extends Algorithme{
 		ArrayList<Integer> cheminDejaPris = new ArrayList<Integer>();
 		boolean cheminTrouve = false;
 		
-		
 		for(int j=0; j < listeFourmis.size();j++)
 		{
-			while(cheminTrouve == false)//boucle permettant d'affecter au moins une fourmis sur chaque destination possible
+			while(cheminTrouve == false && cheminDejaPris.size() < tailleListeDest)//boucle permettant d'affecter au moins une fourmis sur chaque destination possible
 			{
 				random = (int)(Math.random() * tailleListeDest);
 			
-				if(!cheminDejaPris.contains(random) && cheminDejaPris.size() < tailleListeDest)
+				if(!cheminDejaPris.contains(random))
 				{
-					ArreteList chemin = listeDestinations.get(random);
-					listeFourmis.get(j).ajouterNoeudVisite(chemin.getArrivee());
-					listeFourmis.get(j).setEtat(Etat.ParcoursGraphe);
 					cheminTrouve = true;
 					cheminDejaPris.add(random);
-				}else if(cheminDejaPris.size() >= tailleListeDest)
-				{
-					ArreteList chemin = listeDestinations.get(random);
-					listeFourmis.get(j).ajouterNoeudVisite(chemin.getArrivee());
-					listeFourmis.get(j).setEtat(Etat.ParcoursGraphe);
-					cheminTrouve = true;
 				}			
 			}
+			ArreteList chemin = listeDestinations.get(random);
+			listeFourmis.get(j).ajouterNoeudVisite(chemin.getArrivee());
+			listeFourmis.get(j).setEtat(Etat.ParcoursGraphe);
 			cheminTrouve = false;
 		}
 	}
