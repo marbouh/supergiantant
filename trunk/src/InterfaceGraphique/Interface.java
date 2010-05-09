@@ -2,8 +2,12 @@ package InterfaceGraphique;
 
 import java.awt.GridLayout;
 import java.awt.Dimension;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -52,6 +56,7 @@ public class Interface extends JFrame implements ActionListener
 
 		for (int i = 0; i < graphe.getNbreNoeuds(); i++) {
 			g.addVertex("" + graphe.getNoeuds().get(i).getId());
+			positionNoeud("" + graphe.getNoeuds().get(i).getId(), adapt, i, 600, 600);
 		}
 
 		for (int i = 0; i < graphe.getNbreNoeuds(); i++) {
@@ -109,6 +114,24 @@ public class Interface extends JFrame implements ActionListener
 		pack();
 	}
 
+	public void positionNoeud(Object vertex, JGraphModelAdapter adapt, int num, int largeur, int hauteur) {
+		double angle = (2. * Math.PI / graphe.getNbreNoeuds()) * num;
+		int demiLargeur = largeur / 2;
+		int demiHauteur = hauteur / 2;
+		int x = (int)(demiLargeur * Math.cos(angle) + demiLargeur);
+		int y = (int)(demiHauteur * Math.sin(angle) + demiHauteur);
+
+		DefaultGraphCell cell = adapt.getVertexCell(vertex);
+        Map attr = cell.getAttributes();
+        Rectangle b = GraphConstants.getBounds(attr).getBounds();
+
+        GraphConstants.setBounds(attr, new Rectangle(x, y, b.width, b.height));
+
+        Map cellAttr = new HashMap();
+        cellAttr.put(cell, attr);
+        adapt.edit(cellAttr, null, null, null);
+	}
+
 	public void actionPerformed(ActionEvent evenement) {
 		ResultTableModele refModele = (ResultTableModele)resultat.getModel();
 		refModele.vider();
@@ -123,12 +146,13 @@ public class Interface extends JFrame implements ActionListener
 								 fourmis.obtenirParcours(), 
 								 fourmis.obtenirDistance(), 
 								 fourmis.obtenirTemps() / 1000000);
+			
 		}
 		refModele.ajoutMoyenne();
 	}
 	
 	public void recupGraphe() {
-		/*	graphe = new GrapheList("AG", 10);
+		graphe = new GrapheList("AG", 10);
 		NoeudList n1 = new NoeudList(1);
 		NoeudList n2 = new NoeudList(2);
 		NoeudList n3 = new NoeudList(3);
@@ -195,9 +219,9 @@ public class Interface extends JFrame implements ActionListener
 		graphe.ajouterNoeud(n7);
 		graphe.ajouterNoeud(n8);
 		graphe.ajouterNoeud(n9);
-		graphe.ajouterNoeud(n10);*/
+		graphe.ajouterNoeud(n10);
 		
-		
+		/*
 		
 		graphe = new GrapheList("Test",6);
 		NoeudList n1 = new NoeudList(1);
@@ -228,6 +252,6 @@ public class Interface extends JFrame implements ActionListener
 		graphe.ajouterNoeud(n3);
 		graphe.ajouterNoeud(n4);
 		graphe.ajouterNoeud(n5);
-		graphe.ajouterNoeud(n6);
+		graphe.ajouterNoeud(n6);*/
 	}
 }
