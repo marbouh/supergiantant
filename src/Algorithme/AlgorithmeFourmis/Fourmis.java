@@ -49,6 +49,7 @@ public class Fourmis
 		double ancienneProba =0;
 		double poidsCoeff = 0.0;
 		double pheroCoeff = 0.0;
+		double distance = 0.0;
 		
 		/* Le noeud où se situe la fourmis est le dernier noeud qui a été visité */
 		NoeudList noeudCourant = listeNoeudsVisites.get(listeNoeudsVisites.size()-1);
@@ -78,13 +79,14 @@ public class Fourmis
 				{
 					noeudSuivant = noeudPossible;
 					ancienneProba = proba;
+					distance = poids;
 				}
 			}
 		}
 		if(noeudSuivant != null)
 		{
 			ajouterNoeudVisite(noeudSuivant);
-			distanceParcourue += algo.getProbleme().getPoids(noeudCourant, noeudSuivant);
+			distanceParcourue += distance;
 		}
 		else//on n'a pas trouvé d'autre noeud donc la fourmis doit rentrer
 			setEtat(Etat.Rentre);
@@ -163,59 +165,41 @@ public class Fourmis
 	{
 		NoeudList noeudDepart = null;
 		NoeudList noeudArrivee = null;
+		NoeudList noeudPossible = null;
 		double nbrePheromoneADeposer = 0.0;
-		if(etat == Etat.Rentre)
-		{
-			int dernierElement = listeNoeudsVisites.size()-1;
-			if(dernierElement > 0)
-			{	
-				for(int j = 0;j < algo.obtenirSolution().getNbreNoeuds() ;j++)
-				{
-					if(algo.obtenirSolution().getNoeuds().get(j).compareTo(listeNoeudsVisites.get(dernierElement)))
-					{
-						noeudDepart = algo.obtenirSolution().getNoeuds().get(j);
-					}
-					if(algo.obtenirSolution().getNoeuds().get(j).compareTo(listeNoeudsVisites.get(dernierElement-1)))
-					{
-						noeudArrivee = algo.obtenirSolution().getNoeuds().get(j);
-					}
-				}
-				if(noeudDepart != null && noeudArrivee != null)
-				{
-					if(this.listeNoeudsVisites.size() == this.getAlgo().getNbreNoeuds())
-						nbrePheromoneADeposer = CONSTANTE - this.distanceParcourue;
-					else
-						nbrePheromoneADeposer = CONSTANTE - (this.distanceParcourue + 0.5 * this.distanceParcourue);
-					if(nbrePheromoneADeposer <= 0)
-						nbrePheromoneADeposer = 1;
-					algo.deposerPheromone(noeudDepart,noeudArrivee, nbrePheromoneADeposer);
-					listeNoeudsVisites.remove(dernierElement);
-				}
-			}
-			else if(dernierElement == 0)
+		
+		int dernierElement = listeNoeudsVisites.size()-1;
+		if(dernierElement > 0)
+		{	
+			for(int j = 0;j < algo.obtenirSolution().getNbreNoeuds() ;j++)
 			{
-				this.reinitialiserFourmis();
+				noeudPossible = algo.obtenirSolution().getNoeuds().get(j);
+				if(noeudPossible.compareTo(listeNoeudsVisites.get(dernierElement)))
+				{
+					noeudDepart = noeudPossible;
+				}
+				if(noeudPossible.compareTo(listeNoeudsVisites.get(dernierElement-1)))
+				{
+					noeudArrivee = noeudPossible;
+				}
 			}
-			/*for(int i = listeNoeudsVisites.size()-1;i > 0;i--)
+			if(noeudDepart != null && noeudArrivee != null)
 			{
-				for(int j = 0;j < algo.getResultant().getNbreNoeuds() ;j++)
-				{
-					if(algo.getResultant().getNoeuds().get(j).compareTo(listeNoeudsVisites.get(i)))
-					{
-						noeudDepart = algo.getResultant().getNoeuds().get(j);
-					}
-					if(algo.getResultant().getNoeuds().get(j).compareTo(listeNoeudsVisites.get(i-1)))
-					{
-						noeudArrivee = algo.getResultant().getNoeuds().get(j);
-					}
-				}
-				if(noeudDepart != null && noeudArrivee != null)
-				{
-					algo.deposerPheromone(noeudDepart,noeudArrivee, this.nbrePheromonesADeposer);
-				}
+				if(this.listeNoeudsVisites.size() == this.getAlgo().getNbreNoeuds())
+					nbrePheromoneADeposer = CONSTANTE - this.distanceParcourue;
+				else
+					nbrePheromoneADeposer = CONSTANTE - (this.distanceParcourue + 0.5 * this.distanceParcourue);
+				if(nbrePheromoneADeposer <= 0)
+					nbrePheromoneADeposer = 1;
+				algo.deposerPheromone(noeudDepart,noeudArrivee, nbrePheromoneADeposer);
+				listeNoeudsVisites.remove(dernierElement);
 			}
-			this.reinitialiserFourmis();*/
 		}
+		else if(dernierElement == 0)
+		{
+			this.reinitialiserFourmis();
+		}
+		
 	}
 	
 	/*
