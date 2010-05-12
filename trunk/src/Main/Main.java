@@ -97,21 +97,21 @@ public class Main {
 		NoeudList n5 = new NoeudList(5);
 		NoeudList n6 = new NoeudList(6);
 		
-		n1.addDestination(n2, 4);
-		n1.addDestination(n3, 5);
-		n1.addDestination(n4, 3);
-		n1.addDestination(n5, 1);
-		n1.addDestination(n6, 8);
-		n2.addDestination(n4, 1);
-		n2.addDestination(n5, 3);
-		n2.addDestination(n3, 3);
-		n2.addDestination(n6, 2);
-		n3.addDestination(n5, 1);
-		n3.addDestination(n6, 1);
-		n3.addDestination(n4, 5);
-		n4.addDestination(n5, 2);
-		n4.addDestination(n6, 1);
-		n6.addDestination(n5, 4);
+		n1.ajouterDestination(n2, 4);
+		n1.ajouterDestination(n3, 5);
+		n1.ajouterDestination(n4, 3);
+		n1.ajouterDestination(n5, 1);
+		n1.ajouterDestination(n6, 8);
+		n2.ajouterDestination(n4, 1);
+		n2.ajouterDestination(n5, 3);
+		n2.ajouterDestination(n3, 3);
+		n2.ajouterDestination(n6, 2);
+		n3.ajouterDestination(n5, 1);
+		n3.ajouterDestination(n6, 1);
+		n3.ajouterDestination(n4, 5);
+		n4.ajouterDestination(n5, 2);
+		n4.ajouterDestination(n6, 1);
+		n6.ajouterDestination(n5, 4);
 		
 		graphe.ajouterNoeud(n1);
 		graphe.ajouterNoeud(n2);
@@ -127,7 +127,7 @@ public class Main {
 		 * Nombre de phéromones à évaporer : 0.5
 		 */
 		AlgoFourmis algo = new AlgoFourmis(10,100,10,0.5,graphe);//il faut qu'il y ait un facteur de 10 entre le nombre de fourmis et le nombre d'itération
-		algo.setNoeudDeDepart(n1);
+		algo.modifierNoeudDeDepart(n1);
 		algo.traiterProbleme();
 		//System.out.println("Algo terminé !");
 		//algo.getProbleme().afficherGraphe();
@@ -147,7 +147,7 @@ public class Main {
 		 * Nombre de phéromones à évaporer : 0.5
 		 */
 		AlgoFourmis algo = new AlgoFourmis(10,100,10,0.5,probleme);//il faut qu'il y ait un facteur de 10 entre le nombre de fourmis et le nombre d'itération
-		algo.setNoeudDeDepart(probleme.getNoeuds().get(0));
+		algo.modifierNoeudDeDepart(probleme.obtenirNoeuds().get(0));
 		algo.traiterProbleme();
 		System.out.println("Algo terminé !");
 		//algo.getProbleme().afficherGraphe();
