@@ -167,50 +167,37 @@ public class Fourmis
 		NoeudList noeudArrivee = null;
 		NoeudList noeudPossible = null;
 		double nbrePheromoneADeposer = 0.0;
-		if(etat == Etat.Rentre)
-		{
-			int dernierElement = listeNoeudsVisites.size()-1;
-			if(dernierElement > 0)
-			{	
-				for(int j = 0;j < algo.obtenirSolution().obtenirNbreNoeuds() ;j++)
+		
+		int dernierElement = listeNoeudsVisites.size()-1;
+		if(dernierElement > 0)
+		{	
+			for(int j = 0;j < algo.obtenirSolution().obtenirNbreNoeuds() ;j++)
+			{
+				noeudPossible = algo.obtenirSolution().obtenirNoeuds().get(j);
+				if(noeudPossible.compareTo(listeNoeudsVisites.get(dernierElement)))
 				{
-					if(algo.obtenirSolution().obtenirNoeuds().get(j).compareTo(listeNoeudsVisites.get(dernierElement)))
-					{
-						noeudDepart = algo.obtenirSolution().obtenirNoeuds().get(j);
-					}
-					if(algo.obtenirSolution().obtenirNoeuds().get(j).compareTo(listeNoeudsVisites.get(dernierElement-1)))
-					{
-						noeudArrivee = algo.obtenirSolution().obtenirNoeuds().get(j);
-					}
+					noeudDepart = noeudPossible;
 				}
 				if(noeudPossible.compareTo(listeNoeudsVisites.get(dernierElement-1)))
 				{
-					if(this.listeNoeudsVisites.size() == this.obtenirAlgo().obtenirNbreNoeuds())
-						nbrePheromoneADeposer = CONSTANTE - this.distanceParcourue;
-					else
-						nbrePheromoneADeposer = CONSTANTE - (this.distanceParcourue + 0.5 * this.distanceParcourue);
-					if(nbrePheromoneADeposer <= 0)
-						nbrePheromoneADeposer = 1;
-					algo.deposerPheromone(noeudDepart,noeudArrivee, nbrePheromoneADeposer);
-					listeNoeudsVisites.remove(dernierElement);
-				}
-			
-				if(noeudDepart != null && noeudArrivee != null)
-				{
-					if(this.listeNoeudsVisites.size() == this.obtenirAlgo().obtenirNbreNoeuds())
-						nbrePheromoneADeposer = CONSTANTE - this.distanceParcourue;
-					else
-						nbrePheromoneADeposer = CONSTANTE - (this.distanceParcourue + 0.5 * this.distanceParcourue);
-					if(nbrePheromoneADeposer <= 0)
-						nbrePheromoneADeposer = 1;
-					algo.deposerPheromone(noeudDepart,noeudArrivee, nbrePheromoneADeposer);
-					listeNoeudsVisites.remove(dernierElement);
+					noeudArrivee = noeudPossible;
 				}
 			}
-			else if(dernierElement == 0)
+			if(noeudDepart != null && noeudArrivee != null)
 			{
-				this.reinitialiserFourmis();
+				if(this.listeNoeudsVisites.size() == this.obtenirAlgo().obtenirNbreNoeuds())
+					nbrePheromoneADeposer = CONSTANTE - this.distanceParcourue;
+				else//si jamais une fourmis n'a pas pu visiter tous les noeuds alors on augmente la distance parcourue de moitié
+					nbrePheromoneADeposer = CONSTANTE - (this.distanceParcourue + 0.5 * this.distanceParcourue);
+				if(nbrePheromoneADeposer <= 0)
+					nbrePheromoneADeposer = 1;
+				algo.deposerPheromone(noeudDepart,noeudArrivee, nbrePheromoneADeposer);
+				listeNoeudsVisites.remove(dernierElement);
 			}
+		}
+		else if(dernierElement == 0)
+		{
+			this.reinitialiserFourmis();
 		}
 	}
 	
