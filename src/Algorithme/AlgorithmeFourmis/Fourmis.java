@@ -194,43 +194,24 @@ public class Fourmis
 					algo.deposerPheromone(noeudDepart,noeudArrivee, nbrePheromoneADeposer);
 					listeNoeudsVisites.remove(dernierElement);
 				}
-			}
-			if(noeudDepart != null && noeudArrivee != null)
-			{
-				if(this.listeNoeudsVisites.size() == this.getAlgo().getNbreNoeuds())
-					nbrePheromoneADeposer = CONSTANTE - this.distanceParcourue;
-				else
-					nbrePheromoneADeposer = CONSTANTE - (this.distanceParcourue + 0.5 * this.distanceParcourue);
-				if(nbrePheromoneADeposer <= 0)
-					nbrePheromoneADeposer = 1;
-				algo.deposerPheromone(noeudDepart,noeudArrivee, nbrePheromoneADeposer);
-				listeNoeudsVisites.remove(dernierElement);
-			}
-			/*for(int i = listeNoeudsVisites.size()-1;i > 0;i--)
-			{
-				for(int j = 0;j < algo.obtenirResultant().obtenirNbreNoeuds() ;j++)
-				{
-					if(algo.obtenirResultant().obtenirNoeuds().get(j).compareTo(listeNoeudsVisites.get(i)))
-					{
-						noeudDepart = algo.obtenirResultant().obtenirNoeuds().get(j);
-					}
-					if(algo.obtenirResultant().obtenirNoeuds().get(j).compareTo(listeNoeudsVisites.get(i-1)))
-					{
-						noeudArrivee = algo.obtenirResultant().obtenirNoeuds().get(j);
-					}
-				}
+			
 				if(noeudDepart != null && noeudArrivee != null)
 				{
-					algo.deposerPheromone(noeudDepart,noeudArrivee, this.nbrePheromonesADeposer);
+					if(this.listeNoeudsVisites.size() == this.obtenirAlgo().obtenirNbreNoeuds())
+						nbrePheromoneADeposer = CONSTANTE - this.distanceParcourue;
+					else
+						nbrePheromoneADeposer = CONSTANTE - (this.distanceParcourue + 0.5 * this.distanceParcourue);
+					if(nbrePheromoneADeposer <= 0)
+						nbrePheromoneADeposer = 1;
+					algo.deposerPheromone(noeudDepart,noeudArrivee, nbrePheromoneADeposer);
+					listeNoeudsVisites.remove(dernierElement);
 				}
 			}
-			this.reinitialiserFourmis();*/
+			else if(dernierElement == 0)
+			{
+				this.reinitialiserFourmis();
+			}
 		}
-		else if(dernierElement == 0)
-		{
-			this.reinitialiserFourmis();
-		}
-		
 	}
 	
 	/*

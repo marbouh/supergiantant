@@ -126,7 +126,7 @@ public class ParserGraphe
 			{
 				poids = Double.parseDouble(infos[i]);
 				if(nDepart != null && nArrivee != null && poids != -1)
-					nDepart.addDestination(nArrivee, poids);
+					nDepart.ajouterDestination(nArrivee, poids);
 			}
 		}
 	}

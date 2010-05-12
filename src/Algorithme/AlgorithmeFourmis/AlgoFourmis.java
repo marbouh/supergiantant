@@ -73,22 +73,13 @@ public class AlgoFourmis extends Algorithme{
 			
 				if(!cheminDejaPris.contains(random))
 				{
-					ArreteList chemin = listeDestinations.get(random);
-					listeFourmis.get(j).ajouterNoeudVisite(chemin.obtenirArrivee());
-					listeFourmis.get(j).modifierEtat(Etat.ParcoursGraphe);
 					cheminTrouve = true;
 					cheminDejaPris.add(random);
-				}else if(cheminDejaPris.size() >= tailleListeDest)
-				{
-					ArreteList chemin = listeDestinations.get(random);
-					listeFourmis.get(j).ajouterNoeudVisite(chemin.obtenirArrivee());
-					listeFourmis.get(j).modifierEtat(Etat.ParcoursGraphe);
-					cheminTrouve = true;
-				}			
+				}		
 			}
 			ArreteList chemin = listeDestinations.get(random);
-			listeFourmis.get(j).ajouterNoeudVisite(chemin.getArrivee());
-			listeFourmis.get(j).setEtat(Etat.ParcoursGraphe);
+			listeFourmis.get(j).ajouterNoeudVisite(chemin.obtenirArrivee());
+			listeFourmis.get(j).modifierEtat(Etat.ParcoursGraphe);
 			cheminTrouve = false;
 		}
 	}
@@ -146,10 +137,7 @@ public class AlgoFourmis extends Algorithme{
 			{
 				pheromoneEnCours = listeArretes.get(j).obtenirPoids();
 				nouveauPheromone = pheromoneEnCours - pheromoneEnCours*this.nbrePheromoneAEvap; 
-				if(nouveauPheromone < 0)
-					listeArretes.get(j).modifierPoids(0);
-				else
-					listeArretes.get(j).modifierPoids(nouveauPheromone);
+				listeArretes.get(j).modifierPoids(nouveauPheromone);
 			}
 		}
 		//System.out.println("Mis à jour des pheromones");
