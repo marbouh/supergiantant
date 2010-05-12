@@ -54,16 +54,16 @@ public class Interface extends JFrame implements ActionListener
 		JScrollPane scrollpane = new JScrollPane(jgraph);
 		contenuGraphe.add(scrollpane);
 
-		for (int i = 0; i < graphe.getNbreNoeuds(); i++) {
-			g.addVertex("" + graphe.getNoeuds().get(i).getId());
-			positionNoeud("" + graphe.getNoeuds().get(i).getId(), adapt, i, 600, 600);
+		for (int i = 0; i < graphe.obtenirNbreNoeuds(); i++) {
+			g.addVertex("" + graphe.obtenirNoeuds().get(i).obtenirId());
+			positionNoeud("" + graphe.obtenirNoeuds().get(i).obtenirId(), adapt, i, 600, 600);
 		}
 
-		for (int i = 0; i < graphe.getNbreNoeuds(); i++) {
-			NoeudList n = graphe.getNoeuds().get(i);
-			for (int j = 0; j < n.getDestinations().size(); j++) {
-				ArreteList a = n.getDestinations().get(j);
-				g.addEdge("" + n.getId(), "" + a.getArrivee().getId(), a.getPoids());
+		for (int i = 0; i < graphe.obtenirNbreNoeuds(); i++) {
+			NoeudList n = graphe.obtenirNoeuds().get(i);
+			for (int j = 0; j < n.obtenirDestinations().size(); j++) {
+				ArreteList a = n.obtenirDestinations().get(j);
+				g.addEdge("" + n.obtenirId(), "" + a.obtenirArrivee().obtenirId(), a.obtenirPoids());
 			}
 		}
 
@@ -84,7 +84,7 @@ public class Interface extends JFrame implements ActionListener
 		contenuTestLancement.add(new JLabel("Nombre de test"));
 		nbreTests = new JTextField(4);
 		nbreTests.setMaximumSize(new Dimension(2000, 30));
-		nbreTests.setText("10");
+		nbreTests.setText("100");
 		contenuTestLancement.add(nbreTests);
 		JButton lancement = new JButton("Lancement");
 		contenuTestLancement.add(lancement);
@@ -115,7 +115,7 @@ public class Interface extends JFrame implements ActionListener
 	}
 
 	public void positionNoeud(Object vertex, JGraphModelAdapter adapt, int num, int largeur, int hauteur) {
-		double angle = (2. * Math.PI / graphe.getNbreNoeuds()) * num;
+		double angle = (2. * Math.PI / graphe.obtenirNbreNoeuds()) * num;
 		int demiLargeur = largeur / 2;
 		int demiHauteur = hauteur / 2;
 		int x = (int)(demiLargeur * Math.cos(angle) + demiLargeur);
@@ -146,7 +146,6 @@ public class Interface extends JFrame implements ActionListener
 								 fourmis.obtenirParcours(), 
 								 fourmis.obtenirDistance(), 
 								 fourmis.obtenirTemps() / 1000000);
-			
 		}
 		refModele.ajoutMoyenne();
 	}
@@ -164,51 +163,51 @@ public class Interface extends JFrame implements ActionListener
 		NoeudList n9 = new NoeudList(9);
 		NoeudList n10 = new NoeudList(10);
 
-		n1.addDestination(n2, 4);
-		n1.addDestination(n3, 8);
-		n1.addDestination(n4, 5);
-		n1.addDestination(n5, 6);
-		n1.addDestination(n6, 2);
-		n1.addDestination(n7, 8);
-		n1.addDestination(n8, 3);
-		n1.addDestination(n9, 6);
-		n1.addDestination(n10, 15);
-		n2.addDestination(n3, 3);
-		n2.addDestination(n4, 10);
-		n2.addDestination(n5, 7);
-		n2.addDestination(n6, 1);
-		n2.addDestination(n7, 12);
-		n2.addDestination(n8, 7);
-		n2.addDestination(n9, 6);
-		n2.addDestination(n10, 3);		
-		n3.addDestination(n4, 9);
-		n3.addDestination(n5, 5);
-		n3.addDestination(n6, 8);
-		n3.addDestination(n7, 5);
-		n3.addDestination(n8, 13);
-		n3.addDestination(n9, 16);
-		n3.addDestination(n10, 19);
-		n4.addDestination(n5, 2);
-		n4.addDestination(n6, 10);
-		n4.addDestination(n7, 17);
-		n4.addDestination(n8, 4);
-		n4.addDestination(n9, 11);
-		n4.addDestination(n10, 10);
-		n5.addDestination(n6, 7);
-		n5.addDestination(n7, 18);
-		n5.addDestination(n8, 1);
-		n5.addDestination(n9, 4);
-		n5.addDestination(n10, 9);
-		n6.addDestination(n7, 13);
-		n6.addDestination(n8, 8);
-		n6.addDestination(n9, 7);
-		n6.addDestination(n10, 7);
-		n7.addDestination(n8, 14);
-		n7.addDestination(n9, 9);
-		n7.addDestination(n10, 19);
-		n8.addDestination(n9, 13);
-		n8.addDestination(n10, 3);
-		n9.addDestination(n10, 20);
+		//		n1.ajouterDestination(n2, 4);
+		n1.ajouterDestination(n3, 8);
+		//		n1.ajouterDestination(n4, 5);
+		//		n1.ajouterDestination(n5, 6);
+		//		n1.ajouterDestination(n6, 2);
+		//		n1.ajouterDestination(n7, 8);
+		//		n1.ajouterDestination(n8, 3);
+		//		n1.ajouterDestination(n9, 6);
+		//		n1.ajouterDestination(n10, 15);
+		//		n2.ajouterDestination(n3, 3);
+		//		n2.ajouterDestination(n4, 10);
+		//		n2.ajouterDestination(n5, 7);
+		//		n2.ajouterDestination(n6, 1);
+		//		n2.ajouterDestination(n7, 12);
+		//		n2.ajouterDestination(n8, 7);
+		n2.ajouterDestination(n9, 6);
+		n2.ajouterDestination(n10, 3);		
+		//		n3.ajouterDestination(n4, 9);
+		n3.ajouterDestination(n5, 5);
+		//		n3.ajouterDestination(n6, 8);
+		//		n3.ajouterDestination(n7, 5);
+		//		n3.ajouterDestination(n8, 13);
+		//		n3.ajouterDestination(n9, 16);
+		//		n3.ajouterDestination(n10, 19);
+		n4.ajouterDestination(n5, 2);
+		//		n4.ajouterDestination(n6, 10);
+		//		n4.ajouterDestination(n7, 17);
+		n4.ajouterDestination(n8, 4);
+		//		n4.ajouterDestination(n9, 11);
+		//		n4.ajouterDestination(n10, 10);
+		//		n5.ajouterDestination(n6, 7);
+		//		n5.ajouterDestination(n7, 18);
+		//		n5.ajouterDestination(n8, 1);
+		//		n5.ajouterDestination(n9, 4);
+		//		n5.ajouterDestination(n10, 9);
+		n6.ajouterDestination(n7, 13);
+		//		n6.ajouterDestination(n8, 8);
+		//		n6.ajouterDestination(n9, 7);
+		//		n6.ajouterDestination(n10, 7);
+		//		n7.ajouterDestination(n8, 14);
+		n7.ajouterDestination(n9, 9);
+		//		n7.ajouterDestination(n10, 19);
+		//		n8.ajouterDestination(n9, 13);
+		n8.ajouterDestination(n10, 3);
+		//		n9.ajouterDestination(n10, 20);
 
 		graphe.ajouterNoeud(n1);
 		graphe.ajouterNoeud(n2);
@@ -231,21 +230,21 @@ public class Interface extends JFrame implements ActionListener
 		NoeudList n5 = new NoeudList(5);
 		NoeudList n6 = new NoeudList(6);
 		
-		n1.addDestination(n2, 4);
-		n1.addDestination(n3, 5);
-		n1.addDestination(n4, 3);
-		n1.addDestination(n5, 1);
-		n1.addDestination(n6, 8);
-		n2.addDestination(n4, 1);
-		n2.addDestination(n5, 1);
-		n2.addDestination(n3, 3);
-		n2.addDestination(n6, 2);
-		n3.addDestination(n5, 1);
-		n3.addDestination(n6, 1);
-		n3.addDestination(n4, 5);
-		n4.addDestination(n5, 2);
-		n4.addDestination(n6, 1);
-		n6.addDestination(n5, 4);
+		//n1.ajouterDestination(n2, 4);
+		//n1.ajouterDestination(n3, 5);
+		//n1.ajouterDestination(n4, 3);
+		//		n1.ajouterDestination(n5, 1);
+		n1.ajouterDestination(n6, 8);
+		n2.ajouterDestination(n4, 1);
+		n2.ajouterDestination(n5, 1);
+		n2.ajouterDestination(n3, 3);
+		//n2.ajouterDestination(n6, 2);
+		n3.ajouterDestination(n5, 1);
+		n3.ajouterDestination(n6, 1);
+		n3.ajouterDestination(n4, 5);
+		n4.ajouterDestination(n5, 2);
+		n4.ajouterDestination(n6, 1);
+		n6.ajouteryDestination(n5, 4);
 		
 		graphe.ajouterNoeud(n1);
 		graphe.ajouterNoeud(n2);

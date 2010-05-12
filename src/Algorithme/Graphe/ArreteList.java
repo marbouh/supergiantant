@@ -17,7 +17,7 @@ public class ArreteList implements Cloneable
 		this.poids = poids;
 	}
 	
-	public boolean checkTrajet(NoeudList depart, NoeudList arrivee) {
+	public boolean verifierTrajet(NoeudList depart, NoeudList arrivee) {
 		if (this.depart.compareTo(depart) && this.arrivee.compareTo(arrivee))
 			return true;
 		else if(this.depart.compareTo(arrivee) && this.arrivee.compareTo(depart))
@@ -25,28 +25,27 @@ public class ArreteList implements Cloneable
 		return false;
 	}
 	
-	/*Getters et Setters des attributs de la classe */
-	public void setPoids(double poids) {
+	public void modifierPoids(double poids) {
 		this.poids = poids;
 	}
 
-	public double getPoids() {
+	public double obtenirPoids() {
 		return poids;
 	}
 
-	public void setDepart(NoeudList depart) {
+	public void modifierDepart(NoeudList depart) {
 		this.depart = depart;
 	}
 
-	public NoeudList getDepart() {
+	public NoeudList obtenirDepart() {
 		return depart;
 	}
 
-	public void setArrivee(NoeudList arrivee) {
+	public void modifierArrivee(NoeudList arrivee) {
 		this.arrivee = arrivee;
 	}
 
-	public NoeudList getArrivee() {
+	public NoeudList obtenirArrivee() {
 		return arrivee;
 	}
 }

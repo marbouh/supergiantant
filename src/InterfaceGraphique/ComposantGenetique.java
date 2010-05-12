@@ -50,7 +50,7 @@ public class ComposantGenetique {
 		int indiv = Integer.parseInt(nbreIndividus.getText());
 		int mute = Integer.parseInt(tauxMutation.getText());
 		ag = new AlgoGenetique(indiv, it, mute, graphe);
-		ag.setDepart(graphe.getNoeuds().get(0));
+		ag.modifierDepart(graphe.obtenirNoeuds().get(0));
 		ag.resoudre();
 	}
 
@@ -70,10 +70,10 @@ public class ComposantGenetique {
 	}
 
 	public String obtenirParcours() {
-		ArrayList<NoeudList> noeuds = ag.obtenirSolution().getNoeuds();
+		ArrayList<NoeudList> noeuds = ag.obtenirSolution().obtenirNoeuds();
 		String parcours = "";
 		for (int i = 0; i < noeuds.size(); i++) {
-			parcours = parcours + noeuds.get(i).getId();
+			parcours = parcours + noeuds.get(i).obtenirId();
 			if (i < (noeuds.size() - 1))
 				parcours = parcours + ", ";
 		}
