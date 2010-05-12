@@ -54,11 +54,6 @@ public class ComposantGenetique {
 		ag.resoudre();
 	}
 
-	public void vider() {
-		ag = null;
-		System.gc();
-	}
-	
 	public double obtenirDistance() {
 		if (ag == null) return -1;
 		return ag.obtenirDistance();
