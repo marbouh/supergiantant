@@ -31,9 +31,9 @@ public class Fourmis
 	public Fourmis(AlgoFourmis algo)
 	{
 		this.distanceParcourue = 0.0;
-		this.setEtat(Etat.CherchePremierNoeud);
+		this.modifierEtat(Etat.CherchePremierNoeud);
 		this.listeNoeudsVisites = new ArrayList<NoeudList>();
-		this.setAlgo(algo);
+		this.modifierAlgo(algo);
 	}
 	
 	/*
@@ -53,7 +53,7 @@ public class Fourmis
 		
 		/* Le noeud où se situe la fourmis est le dernier noeud qui a été visité */
 		NoeudList noeudCourant = listeNoeudsVisites.get(listeNoeudsVisites.size()-1);
-		ArrayList<NoeudList> listeNoeudSuivant = algo.getProbleme().getSuivants(noeudCourant);
+		ArrayList<NoeudList> listeNoeudSuivant = algo.obtenirProbleme().obtenirSuivants(noeudCourant);
 		
 		for(int i = 0; i < listeNoeudSuivant.size();i++)
 		{//On parcours la liste des chemins possibles depuis le noeud courant où est la fourmi
@@ -61,15 +61,15 @@ public class Fourmis
 						
 			if(!aDejaEteVisite(noeudPossible))//si le noeud n'a pas déjà été visité
 			{
-				double poids = algo.getProbleme().getPoids(noeudCourant, noeudPossible);
-				double pheromone = algo.obtenirSolution().getPoids(noeudCourant, noeudPossible);
+				double poids = algo.obtenirProbleme().obtenirPoids(noeudCourant, noeudPossible);
+				double pheromone = algo.obtenirSolution().obtenirPoids(noeudCourant, noeudPossible);
 				
 				for(int j =0;j < listeNoeudSuivant.size() ;j++)
 				{
 					if(!noeudPossible.compareTo(listeNoeudSuivant.get(j)))
 					{
-						pheroCoeff = Math.pow(algo.obtenirSolution().getPoids(noeudCourant, listeNoeudSuivant.get(j)),ALPHA);
-						poidsCoeff = Math.pow(1/algo.getProbleme().getPoids(noeudCourant, listeNoeudSuivant.get(j)),BETA);
+						pheroCoeff = Math.pow(algo.obtenirSolution().obtenirPoids(noeudCourant, listeNoeudSuivant.get(j)),ALPHA);
+						poidsCoeff = Math.pow(1/algo.obtenirProbleme().obtenirPoids(noeudCourant, listeNoeudSuivant.get(j)),BETA);
 						somme += (pheroCoeff*poidsCoeff);	
 					}
 				}
@@ -86,10 +86,10 @@ public class Fourmis
 		if(noeudSuivant != null)
 		{
 			ajouterNoeudVisite(noeudSuivant);
-			distanceParcourue += distance;
+			distanceParcourue += algo.obtenirProbleme().obtenirPoids(noeudCourant, noeudSuivant);
 		}
 		else//on n'a pas trouvé d'autre noeud donc la fourmis doit rentrer
-			setEtat(Etat.Rentre);
+			modifierEtat(Etat.Rentre);
 	}
 	
 	
@@ -108,7 +108,7 @@ public class Fourmis
 		
 		// Le noeud où se situe la fourmis est le dernier noeud qui a été visité
 		NoeudList noeudCourant = listeNoeudsVisites.get(listeNoeudsVisites.size()-1);
-		ArrayList<NoeudList> listeNoeudSuivant = algo.getProbleme().getSuivants(noeudCourant);
+		ArrayList<NoeudList> listeNoeudSuivant = algo.obtenirProbleme().obtenirSuivants(noeudCourant);
 		
 		for(int i = 0; i < listeNoeudSuivant.size();i++)
 		{//On parcours la liste des chemins possibles depuis le noeud courant où est la fourmi
@@ -116,19 +116,19 @@ public class Fourmis
 						
 			if(!aDejaEteVisite(noeudPossible))//si le noeud n'a pas déjà été visité
 			{
-				double poids = algo.getProbleme().getPoids(noeudCourant, noeudPossible);
-				double pheromone = algo.obtenirSolution().getPoids(noeudCourant, noeudPossible);
+				double poids = algo.obtenirProbleme().obtenirPoids(noeudCourant, noeudPossible);
+				double pheromone = algo.obtenirSolution().obtenirPoids(noeudCourant, noeudPossible);
 				
 				for(int j =0;j < listeNoeudSuivant.size() ;j++)
 				{
 					if(!noeudPossible.compareTo(listeNoeudSuivant.get(j)))
 					{
-						double pheroCoeff = Math.pow(algo.obtenirSolution().getPoids(noeudCourant, listeNoeudSuivant.get(j)),ALPHA);
+						double pheroCoeff = Math.pow(algo.obtenirSolution().obtenirPoids(noeudCourant, listeNoeudSuivant.get(j)),ALPHA);
 						if(pheroCoeff == 0)
 							aDejaEteParcouru = aDejaEteParcouru && true;
 						else
 							aDejaEteParcouru = aDejaEteParcouru && false;
-						double poidsCoeff = Math.pow(algo.getProbleme().getPoids(noeudCourant, listeNoeudSuivant.get(j)),BETA);
+						double poidsCoeff = Math.pow(algo.getProbleme().obtenirPoids(noeudCourant, listeNoeudSuivant.get(j)),BETA);
 						//if(pheroCoeff != 0)
 							somme += (pheroCoeff/poidsCoeff);
 						//else
@@ -152,10 +152,10 @@ public class Fourmis
 		if(noeudSuivant != null)
 		{
 			ajouterNoeudVisite(noeudSuivant);
-			distanceParcourue += algo.getProbleme().getPoids(noeudCourant, noeudSuivant);
+			distanceParcourue += algo.obtenirProbleme().obtenirPoids(noeudCourant, noeudSuivant);
 		}
 		else//on n'a pas trouvé d'autre noeud donc la fourmis doit rentrer
-			setEtat(Etat.Rentre);
+			modifierEtat(Etat.Rentre);
 	}*/
 	
 	/*
@@ -167,20 +167,32 @@ public class Fourmis
 		NoeudList noeudArrivee = null;
 		NoeudList noeudPossible = null;
 		double nbrePheromoneADeposer = 0.0;
-		
-		int dernierElement = listeNoeudsVisites.size()-1;
-		if(dernierElement > 0)
-		{	
-			for(int j = 0;j < algo.obtenirSolution().getNbreNoeuds() ;j++)
-			{
-				noeudPossible = algo.obtenirSolution().getNoeuds().get(j);
-				if(noeudPossible.compareTo(listeNoeudsVisites.get(dernierElement)))
+		if(etat == Etat.Rentre)
+		{
+			int dernierElement = listeNoeudsVisites.size()-1;
+			if(dernierElement > 0)
+			{	
+				for(int j = 0;j < algo.obtenirSolution().obtenirNbreNoeuds() ;j++)
 				{
-					noeudDepart = noeudPossible;
+					if(algo.obtenirSolution().obtenirNoeuds().get(j).compareTo(listeNoeudsVisites.get(dernierElement)))
+					{
+						noeudDepart = algo.obtenirSolution().obtenirNoeuds().get(j);
+					}
+					if(algo.obtenirSolution().obtenirNoeuds().get(j).compareTo(listeNoeudsVisites.get(dernierElement-1)))
+					{
+						noeudArrivee = algo.obtenirSolution().obtenirNoeuds().get(j);
+					}
 				}
 				if(noeudPossible.compareTo(listeNoeudsVisites.get(dernierElement-1)))
 				{
-					noeudArrivee = noeudPossible;
+					if(this.listeNoeudsVisites.size() == this.obtenirAlgo().obtenirNbreNoeuds())
+						nbrePheromoneADeposer = CONSTANTE - this.distanceParcourue;
+					else
+						nbrePheromoneADeposer = CONSTANTE - (this.distanceParcourue + 0.5 * this.distanceParcourue);
+					if(nbrePheromoneADeposer <= 0)
+						nbrePheromoneADeposer = 1;
+					algo.deposerPheromone(noeudDepart,noeudArrivee, nbrePheromoneADeposer);
+					listeNoeudsVisites.remove(dernierElement);
 				}
 			}
 			if(noeudDepart != null && noeudArrivee != null)
@@ -194,6 +206,25 @@ public class Fourmis
 				algo.deposerPheromone(noeudDepart,noeudArrivee, nbrePheromoneADeposer);
 				listeNoeudsVisites.remove(dernierElement);
 			}
+			/*for(int i = listeNoeudsVisites.size()-1;i > 0;i--)
+			{
+				for(int j = 0;j < algo.obtenirResultant().obtenirNbreNoeuds() ;j++)
+				{
+					if(algo.obtenirResultant().obtenirNoeuds().get(j).compareTo(listeNoeudsVisites.get(i)))
+					{
+						noeudDepart = algo.obtenirResultant().obtenirNoeuds().get(j);
+					}
+					if(algo.obtenirResultant().obtenirNoeuds().get(j).compareTo(listeNoeudsVisites.get(i-1)))
+					{
+						noeudArrivee = algo.obtenirResultant().obtenirNoeuds().get(j);
+					}
+				}
+				if(noeudDepart != null && noeudArrivee != null)
+				{
+					algo.deposerPheromone(noeudDepart,noeudArrivee, this.nbrePheromonesADeposer);
+				}
+			}
+			this.reinitialiserFourmis();*/
 		}
 		else if(dernierElement == 0)
 		{
@@ -237,31 +268,31 @@ public class Fourmis
 	}
 	
 	/* Getters et setters des attributs de la classe */
-	public double getDistanceParcourue() {
+	public double obtenirDistanceParcourue() {
 		return distanceParcourue;
 	}
 
-	public void setDistanceParcourue(double distanceParcourue) {
+	public void modifierDistanceParcourue(double distanceParcourue) {
 		this.distanceParcourue = distanceParcourue;
 	}
 	
-	public void setListeNoeudsVisites(ArrayList<NoeudList> listeNoeudsVisites) {
+	public void modifierListeNoeudsVisites(ArrayList<NoeudList> listeNoeudsVisites) {
 		this.listeNoeudsVisites = listeNoeudsVisites;
 	}
 	
-	public ArrayList<NoeudList> getListeNoeudsVisites() {
+	public ArrayList<NoeudList> obtenirListeNoeudsVisites() {
 		return listeNoeudsVisites;
 	}
-	public void setAlgo(AlgoFourmis algo) {
+	public void modifierAlgo(AlgoFourmis algo) {
 		this.algo = algo;
 	}
-	public AlgoFourmis getAlgo() {
+	public AlgoFourmis obtenirAlgo() {
 		return algo;
 	}
-	public void setEtat(Etat etat) {
+	public void modifierEtat(Etat etat) {
 		this.etat = etat;
 	}
-	public Etat getEtat() {
+	public Etat obtenirEtat() {
 		return etat;
 	}
 

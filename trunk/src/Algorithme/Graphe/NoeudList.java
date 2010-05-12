@@ -20,18 +20,18 @@ public class NoeudList extends Noeud
 	/*
 	 * Fonction copiant un noeud (avec toutes ses arrêtes) et retournant la copie de ce noeud
 	 */
-	public NoeudList copierNoeud(ArrayList<NoeudList> noeuds)
+	public NoeudList copierNoeud(ArrayList<NoeudList> arrivees)
 	{
-		NoeudList copieNoeud = new NoeudList(this.getId());
+		NoeudList copieNoeud = new NoeudList(this.obtenirId());
 		
-		for(int i = 0; i < this.getDestinations().size();i++)
+		for(int i = 0; i < this.obtenirDestinations().size();i++)
 		{
-			ArreteList arrete = this.getDestinations().get(i);
-			for(int j = 0; j < noeuds.size();j++)
+			ArreteList arrete = this.obtenirDestinations().get(i);
+			for(int j = 0; j < arrivees.size();j++)
 			{
-				if(arrete.getArrivee().getId() == noeuds.get(j).getId())
+				if(arrete.obtenirArrivee().obtenirId() == arrivees.get(j).obtenirId())
 				{
-					copieNoeud.addDestination(noeuds.get(j), arrete.getPoids());
+					copieNoeud.ajouterDestination(arrivees.get(j), arrete.obtenirPoids());
 				}
 
 			}			
@@ -42,12 +42,12 @@ public class NoeudList extends Noeud
 	/*
 	 * Procédure ajoutant une arrete entre deux noeuds (celui passé en paramètre et le noeud courant)
 	 */
-	public void addDestination(NoeudList arrivee, double poids) {
+	public void ajouterDestination(NoeudList arrivee, double poids) {
 		ArreteList aller = new ArreteList(this, arrivee, poids);
 		destinations.add(aller);
 		/*Ajout automatique de l'arrete de retour pour le noeud arrivee*/
 		ArreteList retour= new ArreteList(arrivee, this, poids);
-		arrivee.getDestinations().add(retour);
+		arrivee.obtenirDestinations().add(retour);
 	}
 
 	/*
@@ -58,14 +58,13 @@ public class NoeudList extends Noeud
 	{
 		for(int i = 0; i < listeNoeuds.size() ;i++)
 		{
-			if(listeNoeuds.get(i).getId() == id)
+			if(listeNoeuds.get(i).obtenirId() == id)
 				return listeNoeuds.get(i);
 		}
 		return null;
 	}
 	
-	/* Getter de l'attribut de la classe*/
-	public ArrayList<ArreteList> getDestinations() {
+	public ArrayList<ArreteList> obtenirDestinations() {
 		return destinations;
 	}
 

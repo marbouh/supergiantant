@@ -57,7 +57,7 @@ public class ComposantFourmis {
 		int evap = Integer.parseInt(vitesseEvapPheromone.getText());
 		double phero = Double.parseDouble(nbrePheromone.getText());
 		af = new AlgoFourmis(fourmis, it, evap, phero, graphe);
-		af.setNoeudDeDepart(graphe.getNoeuds().get(0));
+		af.modifierNoeudDeDepart(graphe.obtenirNoeuds().get(0));
 		af.traiterProbleme();
 	}
 
@@ -74,7 +74,7 @@ public class ComposantFourmis {
 	public String obtenirParcours()
 	{
 		ArrayList<NoeudList> listeNoeuds = new ArrayList<NoeudList>();
-		String chemin = af.afficherSolution(af.getNoeudDeDepart(), af.getNbreNoeuds(), listeNoeuds);
+		String chemin = af.afficherSolution(af.obtenirNoeudDeDepart(), af.obtenirNbreNoeuds(), listeNoeuds);
 		
 		
 		return chemin;

@@ -7,44 +7,45 @@ import Algorithme.Graphe.Graphe;
  */
 public abstract class Algorithme
 {
-	private double timeStart;
-	private double timeStop;
-	private boolean isRunning;
+	private double tempsDebut;
+	private double tempsFin;
+	private boolean enFonctionnement;
 
 	public Algorithme() {
-		timeStart = 0;
-		timeStop = 0;
-		isRunning = false;
+		tempsDebut = 0;
+		tempsFin = 0;
+		enFonctionnement = false;
 	}
 
-	public void start() {
-		if (isRunning)
+	protected void debuter() {
+		if (enFonctionnement)
 			throw new IllegalStateException("L'algorithme est déjà en fonctionement");
 
-		timeStop = 0;
-		isRunning = true;
-		timeStart = System.nanoTime();
+		tempsFin = 0;
+		enFonctionnement = true;
+		tempsDebut = System.nanoTime();
 	}
 
-	public void stop() {
-		if (!isRunning)
+	protected void arreter() {
+		if (!enFonctionnement)
 			throw new IllegalStateException("L'algorightme n'est pas en court de fonctionement");
 
-		timeStop = System.nanoTime();
+		tempsFin = System.nanoTime();
 		
-		isRunning = false;
+		enFonctionnement = false;
 	}
-	public boolean getState() {
-		return isRunning;
+
+	public boolean obtenirEtat() {
+		return enFonctionnement;
 	}
 
 	public double obtenirTemps() {
-		double time;
-		if (isRunning)
-			time = System.nanoTime() - timeStart;
+		double temps;
+		if (enFonctionnement)
+			temps = System.nanoTime() - tempsDebut;
 		else
-			time = timeStop - timeStart;
-		return time;
+			temps = tempsFin - tempsDebut;
+		return temps;
 	}
 
 	public abstract double obtenirDistance();

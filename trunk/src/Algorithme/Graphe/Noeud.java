@@ -2,19 +2,19 @@ package Algorithme.Graphe;
 
 public class Noeud {
 	private int id;
-	private String nom; // à voir
+	private String nom;
 		
 	public Noeud(int id) {
 		this.id = id;
 	}
 
-	public int getId() { 
+	public int obtenirId() { 
 		return id;
 	}
 
-	public boolean compareTo(Noeud noeudArrivee) {
+	public boolean compareTo(Noeud noeud) {
 		
-		if(this.nom == noeudArrivee.nom && this.getId() == noeudArrivee.getId())
+		if(this.nom == noeud.nom && this.obtenirId() == noeud.obtenirId())
 			return true;
 		return false;
 	}
@@ -24,11 +24,11 @@ public class Noeud {
 		return null;
 	}*/
 
-	public void setNom(String nom) {
+	public void modifierNom(String nom) {
 		this.nom = nom;
 	}
 
-	public String getNom() {
+	public String obtenirNom() {
 		return nom;
 	}
 

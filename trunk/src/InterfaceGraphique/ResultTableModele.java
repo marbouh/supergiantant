@@ -68,7 +68,11 @@ public class ResultTableModele extends AbstractTableModel {
 		nouvelleLigne.add(fdistance);
 		nouvelleLigne.add(ftemps);
 		donnees.add(nouvelleLigne);
+		int ligne = getRowCount();
+		fireTableRowsInserted(ligne - 1, ligne);
+		fireTableRowsUpdated(ligne - 1, ligne);
 		fireTableStructureChanged();
+		fireTableDataChanged();
 	}
 
 	public void ajoutMoyenne() {

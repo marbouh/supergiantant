@@ -12,16 +12,16 @@ public class Individu implements Comparable {
 	GrapheList base;
 
 	public Individu(GrapheList graphe) {
-		genes = new GrapheList("Individu", graphe.getNbreNoeuds());
+		genes = new GrapheList("Individu", graphe.obtenirNbreNoeuds());
 		base = graphe;
 	}
 
 	public void generer(NoeudList depart) {
 		Random rnd = new Random();
-		ArrayList<NoeudList> noeuds = base.getNoeuds();
-		int nbreNoeuds = base.getNbreNoeuds();
+		ArrayList<NoeudList> noeuds = base.obtenirNoeuds();
+		int nbreNoeuds = base.obtenirNbreNoeuds();
 		Integer tab[] = new Integer[nbreNoeuds];
-		int tab_long = 0;
+		int tabLong = 0;
 
 		for (int i = 0; i < nbreNoeuds; i++) {
 			NoeudList n1;
@@ -30,8 +30,8 @@ public class Individu implements Comparable {
 			} else {
 				n1 = noeuds.get(rnd.nextInt(nbreNoeuds));
 				boolean nouveau = true;
-				for (int j = 0; j < tab_long; j++) {
-					if (tab[j] == n1.getId())
+				for (int j = 0; j < tabLong; j++) {
+					if (tab[j] == n1.obtenirId())
 						nouveau = false;
 				}
 
@@ -41,24 +41,24 @@ public class Individu implements Comparable {
 				}
 			}
 
-			NoeudList n2 = new NoeudList(n1.getId());
+			NoeudList n2 = new NoeudList(n1.obtenirId());
 
-			tab[tab_long] = n1.getId();
-			tab_long++;
+			tab[tabLong] = n1.obtenirId();
+			tabLong++;
 			genes.ajouterNoeud(n2);
 		}
 	}
 
 	public double obtenirDistance() {
-		ArrayList<NoeudList> noeuds = genes.getNoeuds();
+		ArrayList<NoeudList> noeuds = genes.obtenirNoeuds();
 		double distance = 0.;
-		for (int i = 1; i < genes.getNbreNoeuds(); i++) {
-			distance += base.getPoids(noeuds.get(i - 1), noeuds.get(i));
+		for (int i = 1; i < genes.obtenirNbreNoeuds(); i++) {
+			distance += base.obtenirPoids(noeuds.get(i - 1), noeuds.get(i));
 		}
 		return distance;
 	}
 	
-	public Graphe getGenes() {
+	public Graphe obtenirGenes() {
 		return genes;
 	}
 
@@ -75,8 +75,8 @@ public class Individu implements Comparable {
 
 	public boolean estPareil(Individu individu) {
 		boolean pareil = true;
-		ArrayList<NoeudList> noeuds = genes.getNoeuds();
-		ArrayList<NoeudList> noeuds2 = individu.genes.getNoeuds();
+		ArrayList<NoeudList> noeuds = genes.obtenirNoeuds();
+		ArrayList<NoeudList> noeuds2 = individu.genes.obtenirNoeuds();
 		for (int i = 0; i < noeuds.size(); i++) {
 			if (!noeuds.get(i).compareTo(noeuds2.get(i)))
 				pareil = false;
@@ -85,7 +85,7 @@ public class Individu implements Comparable {
 	}
 
 	public boolean possede(NoeudList noeud) {
-		ArrayList<NoeudList> noeuds = genes.getNoeuds();
+		ArrayList<NoeudList> noeuds = genes.obtenirNoeuds();
 		if (noeuds.size() == 0)
 			return false;
 		for (int i = 0; i < noeuds.size(); i++) {
@@ -95,41 +95,41 @@ public class Individu implements Comparable {
 		return false;
 	}
 
-	public NoeudList get(int i) {
-		ArrayList<NoeudList> noeuds = genes.getNoeuds();
+	public NoeudList obtenir(int i) {
+		ArrayList<NoeudList> noeuds = genes.obtenirNoeuds();
 		return noeuds.get(i);
 	}
 
-	public void inverse(int i, int j) {
-		ArrayList<NoeudList> noeuds = genes.getNoeuds();
+	public void inverser(int i, int j) {
+		ArrayList<NoeudList> noeuds = genes.obtenirNoeuds();
 		NoeudList noeud = noeuds.get(i);
 		noeuds.set(i, noeuds.get(j));
 		noeuds.set(j, noeud);
 	}
 
-	public void append(NoeudList noeud) {
-		NoeudList n = new NoeudList(noeud.getId());
+	public void ajouter(NoeudList noeud) {
+		NoeudList n = new NoeudList(noeud.obtenirId());
 		genes.ajouterNoeud(n);
 	}
 
 	public void afficherIndividu() {
-		ArrayList<NoeudList> noeuds = genes.getNoeuds();
-		for (int i = 0; i < genes.getNbreNoeuds(); i++) {
+		ArrayList<NoeudList> noeuds = genes.obtenirNoeuds();
+		for (int i = 0; i < genes.obtenirNbreNoeuds(); i++) {
 			if (i != 0)
-				System.out.print(" -( " + base.getPoids(noeuds.get(i - 1), noeuds.get(i)) + " )--> ");
-			System.out.print("" + noeuds.get(i).getId());
+				System.out.print(" -( " + base.obtenirPoids(noeuds.get(i - 1), noeuds.get(i)) + " )--> ");
+			System.out.print("" + noeuds.get(i).obtenirId());
 		}
 		System.out.print("\tDistance : " + obtenirDistance() + "\n");
 	}
 
 	public GrapheList obtenirGraphe() {
-		GrapheList graphe = new GrapheList(base.getNom(), genes.getNbreNoeuds());
-		ArrayList<NoeudList> noeuds = genes.getNoeuds();
+		GrapheList graphe = new GrapheList(base.obtenirNom(), genes.obtenirNbreNoeuds());
+		ArrayList<NoeudList> noeuds = genes.obtenirNoeuds();
 		NoeudList noeud = null;
-		for (int i = 0; i < genes.getNbreNoeuds(); i++) {
+		for (int i = 0; i < genes.obtenirNbreNoeuds(); i++) {
 			graphe.ajouterNoeud(noeuds.get(i));
 			if (i != 0) {
-				noeud.addDestination(noeuds.get(i), base.getPoids(noeud, noeuds.get(i)));
+				noeud.ajouterDestination(noeuds.get(i), base.obtenirPoids(noeud, noeuds.get(i)));
 			}
 			noeud = noeuds.get(i);
 		}

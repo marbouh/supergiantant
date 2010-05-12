@@ -32,7 +32,7 @@ public class AlgoFourmis extends Algorithme{
 
 		this.nbreFourmis = nbreFourmis;
 		this.nbreIterations = nbreIterations;
-		this.setProbleme(probleme);
+		this.modifierProbleme(probleme);
 		this.vitesseEvapPheromone = vitesseEvaporationPheromone;
 		this.nbrePheromoneAEvap = nbrePheromoneAEvap;
 		
@@ -59,7 +59,7 @@ public class AlgoFourmis extends Algorithme{
 	public void affecterPremierNoeud()
 	{
 		
-		ArrayList<ArreteList> listeDestinations = noeudDeDepart.getDestinations();
+		ArrayList<ArreteList> listeDestinations = noeudDeDepart.obtenirDestinations();
 		int tailleListeDest = listeDestinations.size();
 		int random = -1;//permet de définir aléatoirement le chemin qui doit être pris
 		ArrayList<Integer> cheminDejaPris = new ArrayList<Integer>();
@@ -73,8 +73,17 @@ public class AlgoFourmis extends Algorithme{
 			
 				if(!cheminDejaPris.contains(random))
 				{
+					ArreteList chemin = listeDestinations.get(random);
+					listeFourmis.get(j).ajouterNoeudVisite(chemin.obtenirArrivee());
+					listeFourmis.get(j).modifierEtat(Etat.ParcoursGraphe);
 					cheminTrouve = true;
 					cheminDejaPris.add(random);
+				}else if(cheminDejaPris.size() >= tailleListeDest)
+				{
+					ArreteList chemin = listeDestinations.get(random);
+					listeFourmis.get(j).ajouterNoeudVisite(chemin.obtenirArrivee());
+					listeFourmis.get(j).modifierEtat(Etat.ParcoursGraphe);
+					cheminTrouve = true;
 				}			
 			}
 			ArreteList chemin = listeDestinations.get(random);
@@ -89,7 +98,7 @@ public class AlgoFourmis extends Algorithme{
 	 */
 	public void traiterProbleme()
 	{
-		this.start();
+		this.debuter();
 		this.creerFourmis();
 		this.affecterPremierNoeud();
 		
@@ -97,9 +106,9 @@ public class AlgoFourmis extends Algorithme{
 		{
 			for(int j=0; j < listeFourmis.size();j++)
 			{
-				if(listeFourmis.get(j).getEtat()== Etat.ParcoursGraphe)
+				if(listeFourmis.get(j).obtenirEtat()== Etat.ParcoursGraphe)
 					listeFourmis.get(j).trouverChemin();
-				else if(listeFourmis.get(j).getEtat()== Etat.Rentre)
+				else if(listeFourmis.get(j).obtenirEtat()== Etat.Rentre)
 				{
 					//System.out.println("La fourmis rentre !");
 					listeFourmis.get(j).rentrer();
@@ -110,7 +119,7 @@ public class AlgoFourmis extends Algorithme{
 			//System.out.println("Affichage des pheromones :"+i);
 			//resultant.afficherGraphe();
 		}
-		this.stop();
+		this.arreter();
 		
 	}
 	
@@ -119,8 +128,8 @@ public class AlgoFourmis extends Algorithme{
 	 */
 	public void deposerPheromone(NoeudList noeudDepart, NoeudList noeudArrivee, double nbrePheromones)
 	{
-		solution.setPoids(noeudDepart, noeudArrivee, solution.getPoids(noeudDepart, noeudArrivee)+ nbrePheromones);
-		solution.setPoids(noeudArrivee, noeudDepart, solution.getPoids(noeudDepart, noeudArrivee));//mis à jour de l'arrête dont les noeuds sont inversés par rapport à la première arrête
+		solution.modifierPoids(noeudDepart, noeudArrivee, solution.obtenirPoids(noeudDepart, noeudArrivee)+ nbrePheromones);
+		solution.modifierPoids(noeudArrivee, noeudDepart, solution.obtenirPoids(noeudDepart, noeudArrivee));//mis à jour de l'arrête dont les noeuds sont inversés par rapport à la première arrête
 	}
 	
 	/*
@@ -130,17 +139,17 @@ public class AlgoFourmis extends Algorithme{
 	{
 		double nouveauPheromone = 0.0;
 		double pheromoneEnCours =0.0;
-		for(int i =0; i < solution.getNoeuds().size();i++)
+		for(int i =0; i < solution.obtenirNoeuds().size();i++)
 		{
-			ArrayList<ArreteList> listeArretes = solution.getNoeuds().get(i).getDestinations();
+			ArrayList<ArreteList> listeArretes = solution.obtenirNoeuds().get(i).obtenirDestinations();
 			for(int j =0; j < listeArretes.size() ;j++)
 			{
-				pheromoneEnCours = listeArretes.get(j).getPoids();
+				pheromoneEnCours = listeArretes.get(j).obtenirPoids();
 				nouveauPheromone = pheromoneEnCours - pheromoneEnCours*this.nbrePheromoneAEvap; 
 				if(nouveauPheromone < 0)
-					listeArretes.get(j).setPoids(0);
+					listeArretes.get(j).modifierPoids(0);
 				else
-					listeArretes.get(j).setPoids(nouveauPheromone);
+					listeArretes.get(j).modifierPoids(nouveauPheromone);
 			}
 		}
 		//System.out.println("Mis à jour des pheromones");
@@ -161,21 +170,21 @@ public class AlgoFourmis extends Algorithme{
 			if(noeud!=null)
 			{	
 				noeudsVisites.add(noeud);
-				chemin = ""+noeud.getId();
+				chemin = ""+noeud.obtenirId();
 				
-				noeudDepS = NoeudList.trouverNoeud(this.solution.getNoeuds(), noeud.getId());
+				noeudDepS = NoeudList.trouverNoeud(this.solution.obtenirNoeuds(), noeud.obtenirId());
 									
 				if(noeudDepS != null)
 				{
-					ArrayList<ArreteList> listeArretes = noeudDepS.getDestinations();
+					ArrayList<ArreteList> listeArretes = noeudDepS.obtenirDestinations();
 					for(int i=0; i < listeArretes.size();i++)
 					{
-						if(NoeudList.trouverNoeud(noeudsVisites, listeArretes.get(i).getArrivee().getId()) == null)//le noeud n'a pas encore été visité
+						if(NoeudList.trouverNoeud(noeudsVisites, listeArretes.get(i).obtenirArrivee().obtenirId()) == null)//le noeud n'a pas encore été visité
 						{
-							if(precPheromone < listeArretes.get(i).getPoids())
+							if(precPheromone < listeArretes.get(i).obtenirPoids())
 							{
-								noeudSuivant = listeArretes.get(i).getArrivee();
-								precPheromone = listeArretes.get(i).getPoids();
+								noeudSuivant = listeArretes.get(i).obtenirArrivee();
+								precPheromone = listeArretes.get(i).obtenirPoids();
 							}
 						}
 					}
@@ -197,9 +206,9 @@ public class AlgoFourmis extends Algorithme{
 	{
 		for(int i=0; i<listeArretes.size();i++)
 		{
-			if(listeArretes.get(i).getArrivee().compareTo(a.getDepart()))
+			if(listeArretes.get(i).obtenirArrivee().compareTo(a.obtenirDepart()))
 			{
-				if(listeArretes.get(i).getDepart().compareTo(a.getArrivee()))
+				if(listeArretes.get(i).obtenirDepart().compareTo(a.obtenirArrivee()))
 					return true;
 				else
 					return false;
@@ -213,7 +222,7 @@ public class AlgoFourmis extends Algorithme{
 	public double obtenirDistance() 
 	{
 		ArrayList<NoeudList> listeNoeuds = new ArrayList<NoeudList>();
-		double distance = calculDistance(getNoeudDeDepart(), getNbreNoeuds(),listeNoeuds);
+		double distance = calculDistance(obtenirNoeudDeDepart(), obtenirNbreNoeuds(),listeNoeuds);
 		
 		return distance;
 	}
@@ -233,21 +242,21 @@ public class AlgoFourmis extends Algorithme{
 			if(noeud!=null)
 			{	
 				noeudsVisites.add(noeud);
-				noeudDepS = NoeudList.trouverNoeud(this.solution.getNoeuds(), noeud.getId());
-				noeudDepP = NoeudList.trouverNoeud(this.probleme.getNoeuds(), noeud.getId());
+				noeudDepS = NoeudList.trouverNoeud(this.solution.obtenirNoeuds(), noeud.obtenirId());
+				noeudDepP = NoeudList.trouverNoeud(this.probleme.obtenirNoeuds(), noeud.obtenirId());
 					
 				if(noeudDepS != null && noeudDepP != null)
 				{
-					ArrayList<ArreteList> listeArretes = noeudDepS.getDestinations();
+					ArrayList<ArreteList> listeArretes = noeudDepS.obtenirDestinations();
 					for(int i=0; i < listeArretes.size();i++)
 					{
-						if(NoeudList.trouverNoeud(noeudsVisites, listeArretes.get(i).getArrivee().getId()) == null)//le noeud n'a pas encore été visité
+						if(NoeudList.trouverNoeud(noeudsVisites, listeArretes.get(i).obtenirArrivee().obtenirId()) == null)//le noeud n'a pas encore été visité
 						{
-							if(precPheromone < listeArretes.get(i).getPoids())
+							if(precPheromone < listeArretes.get(i).obtenirPoids())
 							{
-								poids = noeudDepP.getDestinations().get(i).getPoids();
-								noeudSuivant = listeArretes.get(i).getArrivee();
-								precPheromone = listeArretes.get(i).getPoids();
+								poids = noeudDepP.obtenirDestinations().get(i).obtenirPoids();
+								noeudSuivant = listeArretes.get(i).obtenirArrivee();
+								precPheromone = listeArretes.get(i).obtenirPoids();
 							}
 						}
 					}
@@ -263,64 +272,64 @@ public class AlgoFourmis extends Algorithme{
 	}
 	
 	/* Getters et setters des attributs de la classe */
-	public int getNbreFourmis() {
+	public int obtenirNbreFourmis() {
 		return nbreFourmis;
 	}
-	public void setNbreFourmis(int nbreFourmis) {
+	public void modifierNbreFourmis(int nbreFourmis) {
 		this.nbreFourmis = nbreFourmis;
 	}
-	public void setNbreIterations(int nbreIterations) {
+	public void modifierNbreIterations(int nbreIterations) {
 		this.nbreIterations = nbreIterations;
 	}
-	public int getNbreIterations() {
+	public int obtenirNbreIterations() {
 		return nbreIterations;
 	}
-	public void setProbleme(Graphe probleme) {
+	public void modifierProbleme(Graphe probleme) {
 		this.probleme = probleme;
 	}
-	public Graphe getProbleme() {
+	public Graphe obtenirProbleme() {
 		return probleme;
 	}
-	public int getNbreNoeuds()
+	public int obtenirNbreNoeuds()
 	{
-		return probleme.getNbreNoeuds();
+		return probleme.obtenirNbreNoeuds();
 	}
-	public void setSolution(Graphe solution) {
+	public void modifierSolution(Graphe solution) {
 		this.solution = solution;
 	}
 	public GrapheList obtenirSolution() {
 		return (GrapheList)solution;
 	}
 
-	public void setListeFourmis(ArrayList<Fourmis> listeFourmis) {
+	public void modifierListeFourmis(ArrayList<Fourmis> listeFourmis) {
 		this.listeFourmis = listeFourmis;
 	}
 
-	public ArrayList<Fourmis> getListeFourmis() {
+	public ArrayList<Fourmis> obtenirListeFourmis() {
 		return listeFourmis;
 	}
 
-	public int getVitesseEvapPheromone() {
+	public int obtenirVitesseEvapPheromone() {
 		return vitesseEvapPheromone;
 	}
 
-	public void setVitesseEvapPheromone(int vitesseEvapPheromone) {
+	public void modifierVitesseEvapPheromone(int vitesseEvapPheromone) {
 		this.vitesseEvapPheromone = vitesseEvapPheromone;
 	}
 
-	public void setNbrePheromoneAEvap(double nbrePheromoneAEvap) {
+	public void modifierNbrePheromoneAEvap(double nbrePheromoneAEvap) {
 		this.nbrePheromoneAEvap = nbrePheromoneAEvap;
 	}
 
-	public double getNbrePheromoneAEvap() {
+	public double obtenirNbrePheromoneAEvap() {
 		return nbrePheromoneAEvap;
 	}
 
-	public NoeudList getNoeudDeDepart() {
+	public NoeudList obtenirNoeudDeDepart() {
 		return noeudDeDepart;
 	}
 
-	public void setNoeudDeDepart(NoeudList noeudDeDepart) {
+	public void modifierNoeudDeDepart(NoeudList noeudDeDepart) {
 		this.noeudDeDepart = noeudDeDepart;
 	}
 	
