@@ -39,7 +39,6 @@ public class Interface extends JFrame implements ActionListener
 	ComposantGenetique genetique;
 	JTextField nbreTests;
 	JTable resultat;
-	JLabel resultats;
 	GrapheList graphe;
 
 	public Interface()
