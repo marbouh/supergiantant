@@ -77,6 +77,8 @@ public class AlgoFourmis extends Algorithme{
 					cheminDejaPris.add(random);
 				}		
 			}
+			if(cheminTrouve == false)
+				random = (int)(Math.random() * tailleListeDest);
 			ArreteList chemin = listeDestinations.get(random);
 			listeFourmis.get(j).ajouterNoeudVisite(chemin.obtenirArrivee());
 			listeFourmis.get(j).modifierEtat(Etat.ParcoursGraphe);
