@@ -12,6 +12,10 @@ import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
@@ -40,20 +44,34 @@ public class Interface extends JFrame implements ActionListener
 	JTextField nbreTests;
 	JTable resultat;
 	GrapheList graphe;
-
+	ListenableGraph g;
+	JGraphModelAdapter adapt;
+	
 	public Interface()
 	{
 		recupGraphe();
 		/* Onglet du graphe */
 		JPanel contenuGraphe = new JPanel();
 		contenuGraphe.setLayout(new GridLayout(1, 1));
-		ListenableGraph g = new ListenableUndirectedGraph(DefaultEdge.class);
-		JGraphModelAdapter adapt = new JGraphModelAdapter(g);
+		
+		//on associe le menu à la fenetre
+		JMenuBar menuBar = new JMenuBar();
+		this.setJMenuBar(menuBar);
+		JMenu menu = new JMenu("Menu");
+		JMenuItem chargerGraphe = new JMenuItem("Charger un graphe");
+		chargerGraphe.setActionCommand("ChargerGraphe");
+		chargerGraphe.addActionListener(this);
+		menu.add(chargerGraphe);
+		menuBar.add(menu);
+		
+		
+		g = new ListenableUndirectedGraph(DefaultEdge.class);
+		adapt = new JGraphModelAdapter(g);
 		JGraph jgraph = new JGraph(adapt);
 		JScrollPane scrollpane = new JScrollPane(jgraph);
 		contenuGraphe.add(scrollpane);
-
-		for (int i = 0; i < graphe.obtenirNbreNoeuds(); i++) {
+		
+		/*for (int i = 0; i < graphe.obtenirNbreNoeuds(); i++) {
 			g.addVertex("" + graphe.obtenirNoeuds().get(i).obtenirId());
 			positionNoeud("" + graphe.obtenirNoeuds().get(i).obtenirId(), adapt, i, 600, 600);
 		}
@@ -64,7 +82,7 @@ public class Interface extends JFrame implements ActionListener
 				ArreteList a = n.obtenirDestinations().get(j);
 				g.addEdge("" + n.obtenirId(), "" + a.obtenirArrivee().obtenirId(), a.obtenirPoids());
 			}
-		}
+		}*/
 
 		/* Onglet des paramètres */
 		fourmis = new ComposantFourmis();
@@ -86,6 +104,7 @@ public class Interface extends JFrame implements ActionListener
 		nbreTests.setText("100");
 		contenuTestLancement.add(nbreTests);
 		JButton lancement = new JButton("Lancement");
+		lancement.setActionCommand("LancerTests");
 		contenuTestLancement.add(lancement);
 		lancement.addActionListener(this);
 		/***********************************************************************************/
@@ -132,21 +151,52 @@ public class Interface extends JFrame implements ActionListener
 	}
 
 	public void actionPerformed(ActionEvent evenement) {
-		ResultTableModele refModele = (ResultTableModele)resultat.getModel();
-		refModele.vider();
-		int nbreTests = Integer.parseInt(this.nbreTests.getText());
-		for (int i = 0; i < nbreTests; i++) {
-		   	genetique.lancement(graphe);
-			fourmis.lancement(graphe);
-			refModele.ajoutLigne(i + 1, 
-								 genetique.obtenirParcours(), 
-								 genetique.obtenirDistance(), 
-								 genetique.obtenirTemps() / 1000000,
-								 fourmis.obtenirParcours(), 
-								 fourmis.obtenirDistance(), 
-								 fourmis.obtenirTemps() / 1000000);
+		if(evenement.getActionCommand().compareTo("LancerTests")==0)
+		{
+			ResultTableModele refModele = (ResultTableModele)resultat.getModel();
+			refModele.vider();
+			int nbreTests = Integer.parseInt(this.nbreTests.getText());
+			for (int i = 0; i < nbreTests; i++) {
+			   	genetique.lancement(graphe);
+				fourmis.lancement(graphe);
+				refModele.ajoutLigne(i + 1, 
+									 genetique.obtenirParcours(), 
+									 genetique.obtenirDistance(), 
+									 genetique.obtenirTemps() / 1000000,
+									 fourmis.obtenirParcours(), 
+									 fourmis.obtenirDistance(), 
+									 fourmis.obtenirTemps() / 1000000);
+			}
+			refModele.ajoutMoyenne();
 		}
-		refModele.ajoutMoyenne();
+		else if(evenement.getActionCommand().compareTo("ChargerGraphe")==0)
+		{
+			String nomFichier = null;
+			nomFichier = JOptionPane.showInputDialog(this,"Entrer le chemin complet jusqu'à votre fichier","Chargement d'un graphe",JOptionPane.INFORMATION_MESSAGE);
+			if(nomFichier != null)
+			{
+				graphe = (GrapheList)ParserGraphe.chargerFichier(nomFichier);
+				//recupGraphe();
+				
+				if(graphe != null)
+				{
+					for (int i = 0; i < graphe.obtenirNbreNoeuds(); i++) {
+						g.addVertex("" + graphe.obtenirNoeuds().get(i).obtenirId());
+						positionNoeud("" + graphe.obtenirNoeuds().get(i).obtenirId(), adapt, i, 600, 600);
+					}
+	
+					for (int i = 0; i < graphe.obtenirNbreNoeuds(); i++) {
+						NoeudList n = graphe.obtenirNoeuds().get(i);
+						for (int j = 0; j < n.obtenirDestinations().size(); j++) {
+							ArreteList a = n.obtenirDestinations().get(j);
+							g.addEdge("" + n.obtenirId(), "" + a.obtenirArrivee().obtenirId(), a.obtenirPoids());
+						}
+					}
+				}
+			}else
+				System.out.println("Erreur");
+			
+		}
 	}
 	
 	public void recupGraphe() {
